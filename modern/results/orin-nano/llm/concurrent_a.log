@@ -1,0 +1,32 @@
+period 2916.0 ms (1.30 x max-config wall 2243.1 ms), 72 configs, 9 stages of Uncertainty
+job 0: wall 2406.0 ms (met), 17820.4 mJ, approx 1/1, cfg 17..17, prio 1
+job 1: wall 1921.4 ms (met), 13482.4 mJ, approx 1/1, cfg 0..71, prio -1793
+job 2: wall 1257.9 ms (met), 9359.4 mJ, approx 1/1, cfg 17..71, prio -1.878e+04
+job 3: wall 1177.2 ms (met), 13835.9 mJ, approx 1/1, cfg 17..71, prio -3.782e+04
+job 4: wall 1180.1 ms (met), 14141.9 mJ, approx 1/1, cfg 17..71, prio -5.627e+04
+job 5: wall 1180.3 ms (met), 14157.6 mJ, approx 1/1, cfg 17..71, prio -7.448e+04
+job 6: wall 1175.3 ms (met), 14097.9 mJ, approx 1/1, cfg 17..71, prio -1.106e+05
+job 7: wall 1175.4 ms (met), 14112.5 mJ, approx 1/1, cfg 17..71, prio -1.469e+05
+job 8: wall 1174.4 ms (met), 14094.3 mJ, approx 1/1, cfg 17..71, prio -1.826e+05
+job 9: wall 1173.5 ms (met), 14086.0 mJ, approx 1/1, cfg 17..71, prio -2.184e+05
+job 10: wall 1176.7 ms (met), 14123.0 mJ, approx 1/1, cfg 17..71, prio -2.543e+05
+job 11: wall 1176.3 ms (met), 14095.5 mJ, approx 1/1, cfg 17..71, prio -2.901e+05
+job 12: wall 1177.0 ms (met), 14115.7 mJ, approx 1/1, cfg 17..71, prio -3.26e+05
+job 13: wall 1176.0 ms (met), 14119.7 mJ, approx 1/1, cfg 17..71, prio -3.618e+05
+job 14: wall 1173.5 ms (met), 14107.8 mJ, approx 1/1, cfg 17..71, prio -3.977e+05
+job 15: wall 1175.2 ms (met), 14124.4 mJ, approx 1/1, cfg 17..71, prio -4.335e+05
+job 16: wall 1174.7 ms (met), 14124.2 mJ, approx 1/1, cfg 17..71, prio -4.694e+05
+job 17: wall 1174.8 ms (met), 14095.7 mJ, approx 1/1, cfg 17..71, prio -5.052e+05
+job 18: wall 1174.9 ms (met), 14100.5 mJ, approx 1/1, cfg 17..71, prio -5.41e+05
+job 19: wall 1174.6 ms (met), 14103.9 mJ, approx 1/1, cfg 17..71, prio -5.769e+05
+job 20: wall 1174.3 ms (met), 14129.2 mJ, approx 1/1, cfg 17..71, prio -6.127e+05
+job 21: wall 1173.4 ms (met), 14109.0 mJ, approx 1/1, cfg 17..71, prio -6.485e+05
+job 22: wall 1173.9 ms (met), 14104.0 mJ, approx 1/1, cfg 17..71, prio -6.844e+05
+job 23: wall 1172.3 ms (met), 14087.3 mJ, approx 1/1, cfg 17..71, prio -7.202e+05
+job 24: wall 1173.0 ms (met), 14072.9 mJ, approx 1/1, cfg 17..71, prio -7.561e+05
+job 25: wall 1174.7 ms (met), 14100.9 mJ, approx 1/1, cfg 17..71, prio -7.92e+05
+job 26: wall 1172.0 ms (met), 14103.3 mJ, approx 1/1, cfg 17..71, prio -8.279e+05
+job 27: wall 1172.5 ms (met), 14080.4 mJ, approx 1/1, cfg 17..71, prio -8.638e+05
+job 28: wall 1173.5 ms (met), 14097.3 mJ, approx 1/1, cfg 17..71, prio -8.997e+05
+job 29: wall 1152.4 ms (met), 13825.1 mJ, approx 1/1, cfg 17..71, prio -9.356e+05
+[after restore] dvfs state: {"policies": {"policy0": {"governor": "schedutil", "min": 729600, "max": 1497600}, "policy4": {"governor": "schedutil", "min": 729600, "max": 1497600}}, "online": {"0": 1, "1": 1, "2": 1, "3": 1, "4": 1, "5": 1}, "gpu": {"min": 306000000, "max": 612000000}, "emc": {"rate": 2133000000, "locked": 1}}

@@ -3,7 +3,8 @@ from pathlib import Path
 from neuos_modern.config import (Config, format_uncertainty, load_configs, load_uncertainty,
                                  parse_config_line, save_configs, sort_configs)
 
-AGX = Path(__file__).resolve().parents[2] / "examples" / "triangle" / "all-AGX.config"
+# first lines of examples/triangle/all-AGX.config, shipped inside modern/
+AGX = Path(__file__).resolve().parent / "data" / "all-AGX.head.config"
 
 
 def test_parse_original_agx_lines():

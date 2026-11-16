@@ -18,9 +18,9 @@ adapters that need them.
 | `Net::setup_DVFS`, `myCompare` | `NeuOSController(...)`, `config.sort_configs` (mem, CPU, GPU freq, #cores) |
 | `Net::warmup` | first job: random config (`seed`), deadlines = measured stage latencies |
 | `schedule()` overloads, `hist_ent` | `schedule.schedule`, `schedule.schedule_basic`, `HistEnt` |
-| low-rank twin of a Convolution layer | next lower model tier (`tiers.TierLadder`), or a `twins` module in `adapters/torch_layers.py` |
+| low-rank twin of a Convolution layer (`models/lowrank`) | next lower model tier (`tiers.TierLadder`), or `torch_layers.lowrank_twins` (SVD Kx1 + 1xK) |
 | TX2 / AGX `setconfig.h` sysfs | `dvfs.OrinSysfsBackend` (Orin, L4T R36) / `dvfs.DryRunBackend` |
-| energymon | `energy.EnergyMeter` (INA3221 hwmon, VDD_IN) |
+| energymon | `energy.EnergyMeter` (INA3221 hwmon: VDD_IN, else sum of rails) |
 | SysV shm + `ftok("/home/nvidia/...")` | `cohort.SharedCohort` (POSIX shared memory + `flock`) / `cohort.LocalCohort` |
 | `generate_hashtable.py` | `profile.py` (`python -m neuos_modern.profile`) |
 | `#define MAX_ACC` / `MIN_ENG` | `mode="MAX_ACC"` / `"MIN_ENG"` / `"DEFAULT"` |
@@ -101,9 +101,64 @@ sudo python examples/run_llm.py --configs orin.config --uncertainty Uncertainty.
     --mode DEFAULT --variant original --out neuos_llm.jsonl     # add --dry-run to not touch DVFS
 ```
 
-`run_llm.py` calls `backend.restore()` in a `finally` block (all cores online, full CPU/GPU
-ranges, EMC unlocked). Shared cohort blocks persist like SysV shm; remove them with
-`SharedCohort.unlink("neuos")`.
+**Restore semantics.** `OrinSysfsBackend()` snapshots the knob state at construction
+(`snapshot()`: per cpufreq policy governor / `scaling_min_freq` / `scaling_max_freq`, the
+`cpuN/online` flags, GPU devfreq `min_freq` / `max_freq`, EMC `clk/emc/rate` and
+`mrq_rate_locked`). `restore()` writes exactly that state back (cpus online first, then
+offline; min/max written in an order that keeps min <= max; EMC rate before the lock), so the
+power mode's own caps (e.g. Orin Nano 15W: CPU max 1497.6 MHz, GPU max 612 MHz, EMC locked at
+2133 MHz) come back, not the full hardware range. A process that starts while another one is
+already actuating should pass a saved snapshot: `OrinSysfsBackend(baseline=json.load(...))`.
+`run_llm.py` and `orin_eval.py` call `restore()` in `finally`; `orin_eval.py` also turns
+SIGTERM / SIGINT into a clean exit through that `finally`. Shared cohort blocks persist like
+SysV shm; remove them with `SharedCohort.unlink("neuos")`.
+
+**Config space and power-mode caps.** `enumerate_states()` (default `capped=True`) keeps only
+CPU frequencies <= the baseline `scaling_max_freq` and GPU frequencies <= the baseline devfreq
+`max_freq` (cpufreq and devfreq both accept writes above the nvpmodel caps, checked on the
+Nano). EMC rates are the debugfs `possible_rates`, filtered by `probe_emc_rates()`, which
+writes each rate and keeps it only if `clk/emc/rate` reads back the same value (on the AGX
+Orin in MAXN every EMC write is silently ignored and the rate stays at 3199 MHz, so only 3199
+MHz remains). `subsample(values, n)` picks n evenly spaced levels including min and max.
+
+**Energy.** `EnergyMeter` integrates `VDD_IN` when the board has it (Orin Nano: module input),
+otherwise the sum of every INA3221 rail except the "sum of shunt voltages" channel (AGX Orin:
+`VDD_GPU_SOC + VDD_CPU_CV + VIN_SYS_5V0 + VDDQ_VDD2_1V8AO`, ~8.5 W idle; Nano VDD_IN ~5 W idle).
+`mark()` does not read the rails (an I2C transfer per rail); it extends the background
+integral with the last sampled power, so per-layer stages stay cheap. DVFS writes to a
+cpufreq policy / cpu `online` file that fail (e.g. `EBUSY` while a concurrent client
+hot-plugs the same cpus) warn and increment `backend.write_errors` instead of raising.
+
+### Orin Nano / AGX Orin driver: `examples/orin_eval.py`
+
+```sh
+PY=/path/to/venv/bin/python        # must run as root: sudo -n $PY ...
+sudo -n $PY examples/orin_eval.py baseline --out base.json          # print + save the snapshot
+# LLM: two llama-server tiers (full 1.5B on :18081, approx 0.5B on :18082)
+sudo -n $PY examples/orin_eval.py profile --workload llm --out-dir R/llm --repeats 3
+sudo -n $PY examples/orin_eval.py run --workload llm --profile-dir R/llm --jobs 30 \
+    --mode DEFAULT --variant original --period-factor 1.3 --out R/llm/default_original.jsonl
+# torch: resnet18 (random weights, 1x3x224x224, CUDA), SVD low-rank twins of every KxK conv
+sudo -n $PY examples/orin_eval.py profile --workload torch --out-dir R/torch --cpu-levels 2 --cores all
+sudo -n $PY examples/orin_eval.py run --workload torch --profile-dir R/torch --mode MAX_ACC --out ...
+$PY examples/orin_eval.py summary R/llm/*.jsonl                    # markdown table rows
+```
+
+`profile` builds the grid (default: CPU 3 levels incl. max, cores {all, half}, GPU 4 levels
+incl. max, EMC {665.6, 2133, 3199} MHz minus rates that do not read back), writes
+`configs.txt`, `profile.csv`, `Uncertainty.txt` and `grid.json` (grid, caps, rails, and the
+median wall latency of warm jobs at the fastest config). `run` loads them, sets
+`period = --period-factor x that latency` (or `--period-ms`), and appends one JSON line per job
+(wall / stage-sum latency, deadline met, energy, approximation rate, per-stage configs and
+approximation flags, slack, priority, the cohort slots). Concurrent clients share a cohort via
+the same `--cohort-prefix`; give them the same `--baseline` file. Measured results are in
+`results/` (see `results/README.md`).
+
+The torch adapter's twins come from `adapters.torch_layers.lowrank_twins(model, rank)`: like
+`models/lowrank` in the original (Jaderberg et al. scheme 2), every KxK conv becomes a vertical
+Kx1 conv to `r` channels and a horizontal 1xK conv, from the SVD of the weight reshaped to
+`(Cin*K, Cout*K)`; `rank` is an int, a ratio of the full rank, or `{layer: r}` like
+`models/lowrank/config.json`.
 
 ### Tests
 

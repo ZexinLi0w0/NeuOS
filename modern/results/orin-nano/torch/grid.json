@@ -1,0 +1,137 @@
+{
+ "board": "orin-nano",
+ "workload": "torch",
+ "cpu_khz": [
+  115200,
+  1497600
+ ],
+ "gpu_hz": [
+  306000000,
+  408000000,
+  510000000,
+  612000000
+ ],
+ "emc_khz": [
+  665600,
+  2133000,
+  3199000
+ ],
+ "emc_requested_khz": [
+  665600,
+  2133000,
+  3199000
+ ],
+ "cores": [
+  6
+ ],
+ "n_cpus": 6,
+ "n_configs": 24,
+ "repeats": 3,
+ "states": {
+  "cpu_freqs_khz": [
+   115200,
+   192000,
+   268800,
+   345600,
+   422400,
+   499200,
+   576000,
+   652800,
+   729600,
+   806400,
+   883200,
+   960000,
+   1036800,
+   1113600,
+   1190400,
+   1267200,
+   1344000,
+   1420800,
+   1497600
+  ],
+  "gpu_freqs_hz": [
+   306000000,
+   408000000,
+   510000000,
+   612000000
+  ],
+  "emc_freqs_khz": [
+   204000,
+   665600,
+   2133000,
+   3199000
+  ],
+  "n_cpus": 6
+ },
+ "baseline": {
+  "policies": {
+   "policy0": {
+    "governor": "schedutil",
+    "min": 729600,
+    "max": 1497600
+   },
+   "policy4": {
+    "governor": "schedutil",
+    "min": 729600,
+    "max": 1497600
+   }
+  },
+  "online": {
+   "0": 1,
+   "1": 1,
+   "2": 1,
+   "3": 1,
+   "4": 1,
+   "5": 1
+  },
+  "gpu": {
+   "min": 306000000,
+   "max": 612000000
+  },
+  "emc": {
+   "rate": 2133000000,
+   "locked": 1
+  }
+ },
+ "rails": [
+  "VDD_IN"
+ ],
+ "workload_info": {
+  "model": "resnet18 (random weights)",
+  "input": [
+   1,
+   3,
+   224,
+   224
+  ],
+  "rank_ratio": 0.25,
+  "twins": {
+   "conv1": 6,
+   "layer1.0.conv1": 48,
+   "layer1.0.conv2": 48,
+   "layer1.1.conv1": 48,
+   "layer1.1.conv2": 48,
+   "layer2.0.conv1": 48,
+   "layer2.0.conv2": 96,
+   "layer2.1.conv1": 96,
+   "layer2.1.conv2": 96,
+   "layer3.0.conv1": 96,
+   "layer3.0.conv2": 192,
+   "layer3.1.conv1": 192,
+   "layer3.1.conv2": 192,
+   "layer4.0.conv1": 192,
+   "layer4.0.conv2": 384,
+   "layer4.1.conv1": 384,
+   "layer4.1.conv2": 384
+  },
+  "n_stages": 60,
+  "all_twins_rel_output_error": 0.9006696939468384
+ },
+ "max_config_wall_ms": 19.99033591710031,
+ "max_config_wall_ms_all": [
+  20.888127852231264,
+  19.99033591710031,
+  19.811744103208184
+ ],
+ "profile_seconds": 7.177480459213257
+}

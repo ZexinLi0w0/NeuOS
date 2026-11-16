@@ -100,3 +100,47 @@ def test_torch_layers():
     assert neu.last_log["n_stages"] == 3 and neu.last_log["stages"][0]["approximated"]
     neu.detach()
     assert "forward" not in model[0].__dict__
+
+
+@pytest.mark.parametrize("stride,pad,k", [(1, 1, 3), (2, 3, 7), (2, 1, 3)])
+def test_lowrank_conv_full_rank_is_exact(stride, pad, k):
+    torch = pytest.importorskip("torch")
+    from neuos_modern.adapters.torch_layers import lowrank_conv
+    torch.manual_seed(0)
+    conv = torch.nn.Conv2d(5, 7, k, stride=stride, padding=pad, bias=True).double()
+    x = torch.randn(2, 5, 15, 13, dtype=torch.double)
+    twin = lowrank_conv(conv, 10 ** 6)
+    assert [c.kernel_size for c in twin] == [(k, 1), (1, k)]
+    assert torch.allclose(twin(x), conv(x), atol=1e-9)
+    low = lowrank_conv(conv, 2)
+    assert low[0].out_channels == 2 and low(x).shape == conv(x).shape
+    assert (low(x) - conv(x)).norm() > 1e-6
+
+
+def test_lowrank_twins_selection_and_attach():
+    torch = pytest.importorskip("torch")
+    from neuos_modern.adapters.torch_layers import attach, ctl_job, lowrank_twins
+    model = torch.nn.Sequential(torch.nn.Conv2d(3, 8, 3, padding=1), torch.nn.ReLU(),
+                                torch.nn.Conv2d(8, 8, 1), torch.nn.Conv2d(8, 4, 3, groups=2))
+    twins = lowrank_twins(model, 0.5)
+    assert sorted(twins) == ["0"] and twins["0"][0].out_channels == 5    # ceil(0.5 * 3*3)
+    assert sorted(lowrank_twins(model, {"0": 2})) == ["0"] and lowrank_twins(model, {}) == {}
+    neu = attach(model, _ctl(), twins=twins)
+    with ctl_job(model):
+        model(torch.zeros(1, 3, 8, 8))
+    assert neu.last_log["stages"][0]["approximated"]
+
+
+def test_torch_job_interrupted_mid_stage_reraises():
+    torch = pytest.importorskip("torch")
+    from neuos_modern.adapters.torch_layers import attach, ctl_job
+
+    class Boom(torch.nn.Module):
+        def forward(self, x):
+            raise SystemExit(143)
+    model = torch.nn.Sequential(torch.nn.Linear(4, 4), Boom())
+    neu = attach(model, _ctl())
+    with pytest.raises(SystemExit):
+        with ctl_job(model):
+            model(torch.zeros(1, 4))
+    assert neu.active is None

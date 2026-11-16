@@ -9,6 +9,10 @@ model itself (they would be wrapped as stages too).
     with ctl_job(model):
         y = model(x)
     print(neu.last_log)
+
+``lowrank_twins(model, rank)`` builds the twins the original NeuOS used
+(models/lowrank, Jaderberg et al. 2014 scheme 2): each KxK Conv2d becomes a
+vertical Kx1 conv to ``rank`` channels followed by a horizontal 1xK conv.
 """
 import contextlib
 
@@ -55,10 +59,12 @@ class LayerNeuOS:
         self.active, self._k = self.ctl.begin_job(self.n_stages), 0
         try:
             yield self
-        finally:
-            job, self.active = self.active, None
-            self.last_log = job.end()
-            self.n_stages = self._k or self.n_stages
+        except BaseException:
+            self.active = None      # interrupted mid-stage (e.g. SIGTERM): no end() on a partial job
+            raise
+        job, self.active = self.active, None
+        self.last_log = job.end()
+        self.n_stages = self._k or self.n_stages
 
     def detach(self):
         for m, fwd in self._saved:
@@ -67,6 +73,61 @@ class LayerNeuOS:
             else:
                 m.forward = fwd
         self._saved = []
+
+
+def lowrank_conv(conv, rank):
+    """SVD factorisation of a KxK ``nn.Conv2d`` (groups=1, dilation=1) into
+    Sequential(Conv2d(Cin, r, (K,1)), Conv2d(r, Cout, (1,K))).
+
+    With W[o,c,y,x], M[(c,y),(o,x)] = W[o,c,y,x] = U S V^T; the vertical filter k is
+    U[:,k]*sqrt(S_k) reshaped to (c,y), the horizontal one V[:,k]*sqrt(S_k) as (o,x).
+    rank >= min(Cin*K, Cout*K) is exact."""
+    import torch
+    from torch import nn
+    w = conv.weight.detach()
+    cout, cin, kh, kw = w.shape
+    r = max(1, min(int(rank), cin * kh, cout * kw))
+    # SVD on the CPU: the Jetson torch wheels' CUDA linalg can fail to load (cusolver mismatch)
+    m = w.permute(1, 2, 0, 3).reshape(cin * kh, cout * kw).double().cpu()
+    u, sv, vh = torch.linalg.svd(m, full_matrices=False)
+    root = sv[:r].sqrt()
+    vert = (u[:, :r] * root).T.reshape(r, cin, kh, 1)
+    horiz = (vh[:r].T * root).reshape(cout, kw, r).permute(0, 2, 1).reshape(cout, r, 1, kw)
+    (sh, sw), (ph, pw) = conv.stride, conv.padding
+    v = nn.Conv2d(cin, r, (kh, 1), stride=(sh, 1), padding=(ph, 0), bias=False,
+                  device=w.device, dtype=w.dtype)
+    h = nn.Conv2d(r, cout, (1, kw), stride=(1, sw), padding=(0, pw), bias=conv.bias is not None,
+                  device=w.device, dtype=w.dtype)
+    with torch.no_grad():
+        v.weight.copy_(vert)
+        h.weight.copy_(horiz)
+        if conv.bias is not None:
+            h.bias.copy_(conv.bias)
+    return nn.Sequential(v, h).eval()
+
+
+def lowrank_twins(model, rank=0.25):
+    """``{name: low-rank twin}`` for every factorisable conv (KxK with K > 1, groups=1,
+    dilation=1, numeric padding). ``rank``: an int, a float ratio of the full rank
+    min(Cin*K, Cout*K), or a dict ``{name: int}`` like models/lowrank/config.json
+    (convs missing from the dict are skipped)."""
+    import math
+    from torch import nn
+    twins = {}
+    for name, m in model.named_modules():
+        if not (isinstance(m, nn.Conv2d) and m.groups == 1 and m.dilation == (1, 1)
+                and m.kernel_size[0] > 1 and m.kernel_size[0] == m.kernel_size[1]
+                and isinstance(m.padding, tuple)):
+            continue
+        k, full = m.kernel_size[0], min(m.in_channels, m.out_channels) * m.kernel_size[0]
+        if isinstance(rank, dict):
+            if name not in rank:
+                continue
+            r = rank[name]
+        else:
+            r = rank if isinstance(rank, int) else math.ceil(rank * full)
+        twins[name] = lowrank_conv(m, r)
+    return twins
 
 
 def attach(model, ctl, twins=None, n_stages=None):

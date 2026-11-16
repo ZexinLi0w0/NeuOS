@@ -1,0 +1,34 @@
+period 2916.0 ms (1.30 x max-config wall 2243.1 ms), 72 configs, 9 stages of Uncertainty
+job 0: wall 2372.5 ms (met), 17572.9 mJ, approx 1/1, cfg 7..7, prio 1
+job 1: wall 1943.9 ms (met), 14456.1 mJ, approx 1/1, cfg 7..71, prio -1281
+job 2: wall 1164.6 ms (met), 12474.9 mJ, approx 1/1, cfg 7..71, prio -1.757e+04
+/experiment/zexin/neuos/modern/neuos_modern/dvfs.py:111: UserWarning: DVFS write failed (skipped): [Errno 16] Device or resource busy
+  warnings.warn("DVFS write failed (skipped): %s" % e)
+job 3: wall 1186.2 ms (met), 13602.6 mJ, approx 1/1, cfg 7..71, prio -3.702e+04
+job 4: wall 1180.7 ms (met), 14130.6 mJ, approx 1/1, cfg 7..71, prio -5.567e+04
+job 5: wall 1178.8 ms (met), 14145.4 mJ, approx 1/1, cfg 7..71, prio -7.4e+04
+job 6: wall 1177.1 ms (met), 14109.4 mJ, approx 1/1, cfg 7..71, prio -1.102e+05
+job 7: wall 1176.0 ms (met), 14101.3 mJ, approx 1/1, cfg 7..71, prio -1.464e+05
+job 8: wall 1174.9 ms (met), 14105.4 mJ, approx 1/1, cfg 7..71, prio -1.822e+05
+job 9: wall 1173.8 ms (met), 14083.7 mJ, approx 1/1, cfg 7..71, prio -2.18e+05
+job 10: wall 1175.5 ms (met), 14094.9 mJ, approx 1/1, cfg 7..71, prio -2.538e+05
+job 11: wall 1176.4 ms (met), 14097.0 mJ, approx 1/1, cfg 7..71, prio -2.896e+05
+job 12: wall 1177.0 ms (met), 14109.1 mJ, approx 1/1, cfg 7..71, prio -3.255e+05
+job 13: wall 1175.9 ms (met), 14105.4 mJ, approx 1/1, cfg 7..71, prio -3.614e+05
+job 14: wall 1173.6 ms (met), 14104.1 mJ, approx 1/1, cfg 7..71, prio -3.972e+05
+job 15: wall 1175.1 ms (met), 14124.1 mJ, approx 1/1, cfg 7..71, prio -4.331e+05
+job 16: wall 1174.5 ms (met), 14126.3 mJ, approx 1/1, cfg 7..71, prio -4.689e+05
+job 17: wall 1175.5 ms (met), 14101.6 mJ, approx 1/1, cfg 7..71, prio -5.047e+05
+job 18: wall 1174.8 ms (met), 14108.4 mJ, approx 1/1, cfg 7..71, prio -5.406e+05
+job 19: wall 1174.7 ms (met), 14099.6 mJ, approx 1/1, cfg 7..71, prio -5.764e+05
+job 20: wall 1174.0 ms (met), 14108.7 mJ, approx 1/1, cfg 7..71, prio -6.122e+05
+job 21: wall 1174.3 ms (met), 14119.7 mJ, approx 1/1, cfg 7..71, prio -6.48e+05
+job 22: wall 1172.5 ms (met), 14083.9 mJ, approx 1/1, cfg 7..71, prio -6.839e+05
+job 23: wall 1173.5 ms (met), 14086.8 mJ, approx 1/1, cfg 7..71, prio -7.197e+05
+job 24: wall 1172.7 ms (met), 14064.9 mJ, approx 1/1, cfg 7..71, prio -7.556e+05
+job 25: wall 1173.4 ms (met), 14058.8 mJ, approx 1/1, cfg 7..71, prio -7.915e+05
+job 26: wall 1174.6 ms (met), 14123.6 mJ, approx 1/1, cfg 7..71, prio -8.274e+05
+job 27: wall 1172.3 ms (met), 14054.1 mJ, approx 1/1, cfg 7..71, prio -8.633e+05
+job 28: wall 1172.1 ms (met), 14086.2 mJ, approx 1/1, cfg 7..71, prio -8.993e+05
+job 29: wall 1175.6 ms (met), 14116.1 mJ, approx 1/1, cfg 7..71, prio -9.352e+05
+[after restore] dvfs state: {"policies": {"policy0": {"governor": "schedutil", "min": 729600, "max": 1497600}, "policy4": {"governor": "schedutil", "min": 729600, "max": 1497600}}, "online": {"0": 1, "1": 1, "2": 1, "3": 1, "4": 1, "5": 1}, "gpu": {"min": 306000000, "max": 612000000}, "emc": {"rate": 2133000000, "locked": 1}}
