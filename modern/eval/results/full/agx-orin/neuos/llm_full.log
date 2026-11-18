@@ -1,0 +1,18 @@
+0.00.167.701 I srv  llama_server: initializing ...
+0.00.167.726 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.168.871 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.172.027 I srv    load_model: loading model '/experiment/zexin/hf/hub/models--Qwen--Qwen2.5-7B-Instruct-GGUF/snapshots/bb5d59e06d9551d752d08b292a50eb208b07ab1f/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf'
+0.00.734.549 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.32.337.110 I cmn          init: llama threadpool init, n_threads = 12
+0.32.568.100 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 1024, kv_unified = 'false'
+0.32.579.484 I srv  server_run_i: model loaded
+0.32.579.500 I srv  server_on_li: listening on http://127.0.0.1:18101
+0.57.999.866 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.57.999.918 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.58.741.089 I slot print_timing: id  0 | task 0 | prompt eval time =     170.39 ms /    46 tokens (    3.70 ms per token,   269.96 tokens per second)
+0.58.741.102 I slot print_timing: id  0 | task 0 |        eval time =     570.71 ms /    14 tokens (   43.90 ms per token,    22.78 tokens per second)
+0.58.741.105 I slot print_timing: id  0 | task 0 |       total time =     741.11 ms /    60 tokens
+0.58.741.107 I slot print_timing: id  0 | task 0 |    graphs reused =         13
+0.58.741.109 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.58.741.146 I slot      release: id  0 | task 0 | stop processing: n_tokens = 59, truncated = 0
+21.06.108.258 I srv    operator(): operator(): cleaning up before exit...

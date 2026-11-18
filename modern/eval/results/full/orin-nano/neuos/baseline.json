@@ -1,0 +1,1 @@
+{"policies": {"policy0": {"governor": "schedutil", "min": 729600, "max": 1497600}, "policy4": {"governor": "schedutil", "min": 729600, "max": 1497600}}, "online": {"0": 1, "1": 1, "2": 1, "3": 1, "4": 1, "5": 1}, "gpu": {"min": 306000000, "max": 612000000}, "emc": {"rate": 2133000000, "locked": 1}}

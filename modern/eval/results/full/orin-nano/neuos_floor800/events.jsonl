@@ -1,0 +1,18 @@
+{"ev": "start", "policy": "neuos", "minutes": 20.0, "t": 1792520658.8517153}
+{"ev": "preflight", "component": "llm_full", "avail_mb": 5773, "estimate_mb": 700, "ok": true, "t": 1792520658.8931494}
+{"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-0.5b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 5773, "avail_mb": 5589, "t": 1792520660.6688714}
+{"ev": "preflight", "component": "perception", "avail_mb": 5589, "estimate_mb": 2100, "ok": true, "t": 1792520660.6692133}
+{"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 5589, "avail_mb": 3501, "t": 1792520673.7093773}
+{"ev": "preflight", "component": "asr", "avail_mb": 3501, "estimate_mb": 1000, "ok": true, "t": 1792520673.7099342}
+{"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 3501, "avail_mb": 2459, "t": 1792520688.7537115}
+{"ev": "preflight", "component": "turn", "avail_mb": 2459, "estimate_mb": 1050, "ok": true, "t": 1792520688.7546585}
+{"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 2459, "avail_mb": 951, "t": 1792520699.037425}
+{"ev": "measure_start", "t_start": 1792520705.8104546, "t_end": 1792521905.8104546, "avail_mb": 896, "t": 1792520703.8112063}
+{"ev": "abort", "reason": "task_failed", "tasks": [["asr", 3]], "t": 1792520955.585612}
+{"ev": "measure_end", "avail_mb": 2716, "t": 1792520955.5859554}
+{"ev": "exit", "component": "perception", "rc": 3, "t": 1792520955.700233}
+{"ev": "exit", "component": "asr", "rc": 3, "t": 1792520955.7008393}
+{"ev": "exit", "component": "turn", "rc": 143, "t": 1792520956.8177032}
+{"ev": "exit", "component": "llm_full", "rc": 0, "t": 1792520957.1326895}
+{"ev": "exit", "component": "sampler", "rc": 0, "t": 1792520957.3340378}
+{"ev": "final_restore", "t": 1792520957.3558426}

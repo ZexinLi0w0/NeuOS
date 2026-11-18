@@ -1,0 +1,52 @@
+{
+ "board": "agx-orin",
+ "policy": "neuos",
+ "minutes": 3.0,
+ "neuos": {
+  "mode": "DEFAULT",
+  "variant": "original",
+  "seed": 0,
+  "cohort_prefix": "neuos_eval",
+  "energy_period_s": 0.05
+ },
+ "turn_deadline_ms": 2000,
+ "oom_dmesg_before": 0,
+ "avail_mb_start": 23678,
+ "state_start": {
+  "nvpmodel": "MAXN",
+  "nvpmodel_id": "0",
+  "nvfancontrol": "active",
+  "cpus_online": "0-11",
+  "policies": {
+   "policy0": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy4": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy8": [
+    "schedutil",
+    729600,
+    2201600
+   ]
+  },
+  "gpu": [
+   306000000,
+   1300500000
+  ],
+  "emc": [
+   3199000000,
+   0
+  ]
+ },
+ "t_start": 1794394706.929499,
+ "t_end": 1794394886.929499,
+ "abort": null,
+ "min_avail_mb_launcher": 14381,
+ "oom_dmesg_after": 0,
+ "t_finish": 1794394890.2991874
+}

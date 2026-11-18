@@ -1,0 +1,47 @@
+{
+ "board": "orin-nano",
+ "policy": "default",
+ "minutes": 20.0,
+ "neuos": {
+  "mode": "DEFAULT",
+  "variant": "original",
+  "seed": 0,
+  "cohort_prefix": "neuos_eval",
+  "energy_period_s": 0.05
+ },
+ "turn_deadline_ms": 2100,
+ "oom_dmesg_before": 0,
+ "avail_mb_start": 5711,
+ "state_start": {
+  "nvpmodel": "15W",
+  "nvpmodel_id": "0",
+  "nvfancontrol": "active",
+  "cpus_online": "0-5",
+  "policies": {
+   "policy0": [
+    "schedutil",
+    729600,
+    1497600
+   ],
+   "policy4": [
+    "schedutil",
+    729600,
+    1497600
+   ]
+  },
+  "gpu": [
+   306000000,
+   612000000
+  ],
+  "emc": [
+   2133000000,
+   1
+  ]
+ },
+ "t_start": 1792520996.8815475,
+ "t_end": 1792522196.8815475,
+ "abort": null,
+ "min_avail_mb_launcher": 1173,
+ "oom_dmesg_after": 0,
+ "t_finish": 1792522200.22069
+}

@@ -1,0 +1,116 @@
+{
+ "run": "neuos",
+ "board": "orin-nano",
+ "policy": "neuos",
+ "minutes": 20.0,
+ "abort": null,
+ "turn_deadline_ms": 2100,
+ "tasks": {
+  "asr": {
+   "released": 759,
+   "executed": 759,
+   "met": 759,
+   "late": 0,
+   "dropped": 0,
+   "miss_ratio": 0.0,
+   "approx_frac": 1.0,
+   "energy_mj_per_job": 2093.111559168104,
+   "errors": [],
+   "end": [
+    "done"
+   ],
+   "audio_source": "librispeech",
+   "load_avail_delta_mb": 1151,
+   "latency_p50_ms": 296.46944999694824,
+   "latency_p99_ms": 636.6908550262451,
+   "latency_max_ms": 665.1678085327148,
+   "tiers": {
+    "whisper-tiny": 759
+   },
+   "cfg_last_hist": {
+    "11": 759
+   }
+  },
+  "perception": {
+   "released": 6000,
+   "executed": 2535,
+   "met": 0,
+   "late": 2535,
+   "dropped": 3465,
+   "miss_ratio": 1.0,
+   "approx_frac": 1.0,
+   "energy_mj_per_job": 1814.2286702208264,
+   "errors": [],
+   "end": [
+    "done"
+   ],
+   "audio_source": null,
+   "load_avail_delta_mb": 1931,
+   "latency_p50_ms": 290.555477142334,
+   "latency_p99_ms": 1454.75172996521,
+   "latency_max_ms": 1837.7938270568848,
+   "tiers": {
+    "twins": 2535
+   },
+   "cfg_last_hist": {
+    "11": 2535
+   }
+  },
+  "turn": {
+   "released": 76,
+   "executed": 76,
+   "met": 76,
+   "late": 0,
+   "dropped": 0,
+   "miss_ratio": 0.0,
+   "approx_frac": 0.0,
+   "energy_mj_per_job": 16467.892870565764,
+   "errors": [],
+   "end": [
+    "done"
+   ],
+   "audio_source": null,
+   "load_avail_delta_mb": 1450,
+   "latency_p50_ms": 1470.646858215332,
+   "latency_p99_ms": 2896.1713314056396,
+   "latency_max_ms": 2896.1713314056396,
+   "tiers": {
+    "qwen2.5-0.5b-q4_k_m": 76
+   },
+   "cfg_last_hist": {
+    "11": 76
+   },
+   "turn_latency_p50_ms": 1102.6802062988281,
+   "turn_latency_p99_ms": 1983.5882186889648,
+   "turn_latency_max_ms": 1983.5882186889648,
+   "ttft_p50_ms": 57.326316833496094,
+   "tps_server_mean": 36.50732421663813,
+   "tps_client_mean": 172.9495463454627,
+   "n_tok_mean": 39.26315789473684,
+   "tps_mean": 36.50732421663813,
+   "tts_rtf_p50": 0.06995193563915532,
+   "tts_rtf_p99": 0.14916265142216747,
+   "tts_rtf_max": 0.15627057150205864,
+   "tts_rtf_lt1_frac": 1.0,
+   "tts_calls": 111
+  }
+ },
+ "miss_ratio_all": 0.8778346744696416,
+ "system": {
+  "samples": 1199,
+  "throttled_frac": 0.0,
+  "cdev_frac": 0.0,
+  "gpu_clock_capped_frac": 0.0,
+  "peak_tj_c": 52.718,
+  "mean_tj_c": 51.81421267723135,
+  "gpu_actual_mhz_mean": 612.0,
+  "emc_mhz_mean": 2133.0,
+  "energy_j": 8760.9362,
+  "mean_power_w": 7.305699336635979,
+  "window_s": 1199.1920001506805,
+  "oom_events": 0,
+  "oom_dmesg": 0,
+  "oom_cuda": 0,
+  "min_avail_mb": 831
+ }
+}

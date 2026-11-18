@@ -1,0 +1,176 @@
+{
+ "seed": 0,
+ "minutes": 3.0,
+ "listen_s": [
+  5,
+  15
+ ],
+ "idle_s": [
+  2,
+  6
+ ],
+ "phases": [
+  {
+   "listen_s": 13.44,
+   "idle_s": 5.03,
+   "prompt": 6,
+   "clip": 5
+  },
+  {
+   "listen_s": 7.59,
+   "idle_s": 4.05,
+   "prompt": 6,
+   "clip": 38
+  },
+  {
+   "listen_s": 14.68,
+   "idle_s": 3.43,
+   "prompt": 3,
+   "clip": 64
+  },
+  {
+   "listen_s": 6.39,
+   "idle_s": 2.56,
+   "prompt": 1,
+   "clip": 32
+  },
+  {
+   "listen_s": 14.87,
+   "idle_s": 4.13,
+   "prompt": 11,
+   "clip": 18
+  },
+  {
+   "listen_s": 8.1,
+   "idle_s": 4.92,
+   "prompt": 10,
+   "clip": 42
+  },
+  {
+   "listen_s": 9.72,
+   "idle_s": 2.4,
+   "prompt": 6,
+   "clip": 40
+  },
+  {
+   "listen_s": 11.11,
+   "idle_s": 5.65,
+   "prompt": 8,
+   "clip": 61
+  },
+  {
+   "listen_s": 9.43,
+   "idle_s": 4.09,
+   "prompt": 0,
+   "clip": 70
+  },
+  {
+   "listen_s": 14.16,
+   "idle_s": 2.37,
+   "prompt": 6,
+   "clip": 0
+  },
+  {
+   "listen_s": 11.12,
+   "idle_s": 5.31,
+   "prompt": 5,
+   "clip": 31
+  },
+  {
+   "listen_s": 12.3,
+   "idle_s": 4.81,
+   "prompt": 1,
+   "clip": 24
+  },
+  {
+   "listen_s": 14.17,
+   "idle_s": 2.89,
+   "prompt": 2,
+   "clip": 69
+  },
+  {
+   "listen_s": 9.48,
+   "idle_s": 2.32,
+   "prompt": 5,
+   "clip": 65
+  },
+  {
+   "listen_s": 14.98,
+   "idle_s": 3.96,
+   "prompt": 4,
+   "clip": 70
+  },
+  {
+   "listen_s": 7.91,
+   "idle_s": 2.5,
+   "prompt": 5,
+   "clip": 69
+  },
+  {
+   "listen_s": 7.03,
+   "idle_s": 5.2,
+   "prompt": 8,
+   "clip": 36
+  },
+  {
+   "listen_s": 9.45,
+   "idle_s": 4.39,
+   "prompt": 6,
+   "clip": 40
+  },
+  {
+   "listen_s": 10.76,
+   "idle_s": 3.16,
+   "prompt": 3,
+   "clip": 23
+  },
+  {
+   "listen_s": 5.33,
+   "idle_s": 5.93,
+   "prompt": 4,
+   "clip": 60
+  },
+  {
+   "listen_s": 5.69,
+   "idle_s": 4.71,
+   "prompt": 2,
+   "clip": 19
+  },
+  {
+   "listen_s": 14.23,
+   "idle_s": 5.37,
+   "prompt": 11,
+   "clip": 69
+  },
+  {
+   "listen_s": 11.83,
+   "idle_s": 5.35,
+   "prompt": 8,
+   "clip": 35
+  },
+  {
+   "listen_s": 10.22,
+   "idle_s": 2.94,
+   "prompt": 3,
+   "clip": 53
+  },
+  {
+   "listen_s": 10.8,
+   "idle_s": 3.8,
+   "prompt": 10,
+   "clip": 45
+  },
+  {
+   "listen_s": 5.82,
+   "idle_s": 4.45,
+   "prompt": 7,
+   "clip": 42
+  },
+  {
+   "listen_s": 13.45,
+   "idle_s": 2.97,
+   "prompt": 11,
+   "clip": 34
+  }
+ ]
+}

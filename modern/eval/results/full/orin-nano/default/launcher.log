@@ -1,0 +1,29 @@
+11:29:17 event {"ev": "start", "policy": "default", "minutes": 20.0, "t": 1792520957.699524}
+11:29:17 event {"ev": "preflight", "component": "llm_full", "avail_mb": 5709, "estimate_mb": 700, "ok": true, "t": 1792520957.7397885}
+11:29:19 event {"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-0.5b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 5709, "avail_mb": 5528, "t": 1792520959.5145874}
+11:29:19 event {"ev": "preflight", "component": "perception", "avail_mb": 5528, "estimate_mb": 2100, "ok": true, "t": 1792520959.514872}
+11:29:30 event {"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 5528, "avail_mb": 3804, "t": 1792520970.2981048}
+11:29:30 event {"ev": "preflight", "component": "asr", "avail_mb": 3804, "estimate_mb": 1000, "ok": true, "t": 1792520970.2986612}
+11:29:44 event {"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 3804, "avail_mb": 2796, "t": 1792520984.0947905}
+11:29:44 event {"ev": "preflight", "component": "turn", "avail_mb": 2796, "estimate_mb": 1050, "ok": true, "t": 1792520984.0955307}
+11:29:52 event {"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 2796, "avail_mb": 1365, "t": 1792520992.12049}
+11:29:54 event {"ev": "measure_start", "t_start": 1792520996.8815475, "t_end": 1792522196.8815475, "avail_mb": 1237, "t": 1792520994.8827329}
+11:49:58 event {"ev": "measure_end", "avail_mb": 5006, "t": 1792522198.815189}
+11:49:58 event {"ev": "exit", "component": "perception", "rc": 0, "t": 1792522198.81552}
+11:49:58 event {"ev": "exit", "component": "asr", "rc": 0, "t": 1792522198.8156323}
+11:49:58 event {"ev": "exit", "component": "turn", "rc": 0, "t": 1792522198.8157182}
+11:49:59 event {"ev": "exit", "component": "llm_full", "rc": 0, "t": 1792522199.0802078}
+11:50:00 event {"ev": "exit", "component": "sampler", "rc": 0, "t": 1792522200.1827102}
+== verify orin-nano ==
+nvpmodel: 15W (id 0)  nvfancontrol: active  cpus online: 0-5
+  policy0: governor schedutil min 729600 max 1497600
+  policy4: governor schedutil min 729600 max 1497600
+  GPU devfreq min 306000000 max 612000000
+  EMC rate 2133000000 mrq_rate_locked 1
+mismatches vs baseline: none
+leftover processes: none
+/dev/shm neuos blocks: none
+VERIFY OK
+| board | policy | min | miss ASR | miss perc | miss turn | miss all | turn p50 ms | turn p99 ms | tok/s | TTS RTF p50/p99 | OOM | min avail MB | throttled % | peak Tj C | energy J | mean W | abort |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| orin-nano | default | 20.0 | 0.024 | 0.298 | 0.162 | 0.267 | 1438 | 2618 | 29.2 | 0.087/0.214 | 0 | 1173 | 0.0 | 54.2 | 10347 | 8.64 | - |

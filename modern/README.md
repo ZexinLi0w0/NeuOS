@@ -160,6 +160,13 @@ Kx1 conv to `r` channels and a horizontal 1xK conv, from the SVD of the weight r
 `(Cin*K, Cout*K)`; `rank` is an int, a ratio of the full rank, or `{layer: r}` like
 `models/lowrank/config.json`.
 
+### Paper workload: `eval/`
+
+`eval/` holds the harness that runs this port on the Simmer paper's voice-assistant workload
+(Whisper ASR, Qwen2.5 via llama-server, MMS-TTS, an SD x4-upscaler UNet perception stream) on
+the Orin Nano and AGX Orin, with a `default` policy for comparison, plus the profiles and the
+3-minute smoke and 20-minute results (`eval/results/`). See `eval/README.md`.
+
 ### Tests
 
 ```sh

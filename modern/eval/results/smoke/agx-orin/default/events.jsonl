@@ -1,0 +1,16 @@
+{"ev": "start", "policy": "default", "minutes": 3.0, "t": 1794394092.1207275}
+{"ev": "preflight", "component": "llm_full", "avail_mb": 23706, "estimate_mb": 5200, "ok": true, "t": 1794394092.1744874}
+{"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-7b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 23706, "avail_mb": 22337, "t": 1794394094.7059295}
+{"ev": "preflight", "component": "perception", "avail_mb": 22337, "estimate_mb": 1800, "ok": true, "t": 1794394094.7061496}
+{"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 22337, "avail_mb": 20385, "t": 1794394101.9756742}
+{"ev": "preflight", "component": "asr", "avail_mb": 20385, "estimate_mb": 1000, "ok": true, "t": 1794394101.9769485}
+{"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 20385, "avail_mb": 18883, "t": 1794394112.5076952}
+{"ev": "preflight", "component": "turn", "avail_mb": 18883, "estimate_mb": 700, "ok": true, "t": 1794394112.5082104}
+{"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 18883, "avail_mb": 17654, "t": 1794394117.7757182}
+{"ev": "measure_start", "t_start": 1794394121.0308986, "t_end": 1794394301.0308986, "avail_mb": 17654, "t": 1794394119.0312338}
+{"ev": "measure_end", "avail_mb": 20018, "t": 1794394302.248359}
+{"ev": "exit", "component": "perception", "rc": 0, "t": 1794394302.2485707}
+{"ev": "exit", "component": "asr", "rc": 0, "t": 1794394302.248612}
+{"ev": "exit", "component": "turn", "rc": 0, "t": 1794394302.2486413}
+{"ev": "exit", "component": "llm_full", "rc": 0, "t": 1794394302.6647437}
+{"ev": "exit", "component": "sampler", "rc": -15, "t": 1794394302.6690695}

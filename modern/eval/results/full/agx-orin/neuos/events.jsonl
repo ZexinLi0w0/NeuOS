@@ -1,0 +1,20 @@
+{"ev": "start", "policy": "neuos", "minutes": 20.0, "t": 1794426825.6761687}
+{"ev": "preflight", "component": "llm_full", "avail_mb": 23762, "estimate_mb": 5200, "ok": true, "t": 1794426825.7325757}
+{"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-7b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 23762, "avail_mb": 22269, "t": 1794426858.5513198}
+{"ev": "preflight", "component": "llm_approx", "avail_mb": 22269, "estimate_mb": 2300, "ok": true, "t": 1794426858.552162}
+{"ev": "loaded", "component": "llm_approx", "tier": "qwen2.5-3b-q4_k_m", "port": 18102, "ok": true, "avail_before_mb": 22269, "avail_mb": 19840, "t": 1794426860.5751114}
+{"ev": "preflight", "component": "perception", "avail_mb": 19840, "estimate_mb": 2300, "ok": true, "t": 1794426860.5753312}
+{"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 19840, "avail_mb": 17517, "t": 1794426868.8527777}
+{"ev": "preflight", "component": "asr", "avail_mb": 17517, "estimate_mb": 1800, "ok": true, "t": 1794426868.8533096}
+{"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 17517, "avail_mb": 15785, "t": 1794426880.3887875}
+{"ev": "preflight", "component": "turn", "avail_mb": 15785, "estimate_mb": 1400, "ok": true, "t": 1794426880.3890545}
+{"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 15785, "avail_mb": 14571, "t": 1794426886.4105396}
+{"ev": "measure_start", "t_start": 1794426890.4220116, "t_end": 1794428090.4220116, "avail_mb": 14517, "t": 1794426888.4226928}
+{"ev": "measure_end", "avail_mb": 17261, "t": 1794428091.8974605}
+{"ev": "exit", "component": "perception", "rc": 0, "t": 1794428091.8984823}
+{"ev": "exit", "component": "asr", "rc": 0, "t": 1794428091.898539}
+{"ev": "exit", "component": "turn", "rc": 0, "t": 1794428091.8985686}
+{"ev": "exit", "component": "llm_full", "rc": 0, "t": 1794428092.313862}
+{"ev": "exit", "component": "llm_approx", "rc": 0, "t": 1794428092.3142867}
+{"ev": "exit", "component": "sampler", "rc": 0, "t": 1794428093.1174417}
+{"ev": "final_restore", "t": 1794428093.3352666}

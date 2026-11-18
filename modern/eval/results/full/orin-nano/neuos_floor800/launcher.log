@@ -1,0 +1,31 @@
+11:24:18 event {"ev": "start", "policy": "neuos", "minutes": 20.0, "t": 1792520658.8517153}
+11:24:18 event {"ev": "preflight", "component": "llm_full", "avail_mb": 5773, "estimate_mb": 700, "ok": true, "t": 1792520658.8931494}
+11:24:20 event {"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-0.5b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 5773, "avail_mb": 5589, "t": 1792520660.6688714}
+11:24:20 event {"ev": "preflight", "component": "perception", "avail_mb": 5589, "estimate_mb": 2100, "ok": true, "t": 1792520660.6692133}
+11:24:33 event {"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 5589, "avail_mb": 3501, "t": 1792520673.7093773}
+11:24:33 event {"ev": "preflight", "component": "asr", "avail_mb": 3501, "estimate_mb": 1000, "ok": true, "t": 1792520673.7099342}
+11:24:48 event {"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 3501, "avail_mb": 2459, "t": 1792520688.7537115}
+11:24:48 event {"ev": "preflight", "component": "turn", "avail_mb": 2459, "estimate_mb": 1050, "ok": true, "t": 1792520688.7546585}
+11:24:59 event {"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 2459, "avail_mb": 951, "t": 1792520699.037425}
+11:25:03 event {"ev": "measure_start", "t_start": 1792520705.8104546, "t_end": 1792521905.8104546, "avail_mb": 896, "t": 1792520703.8112063}
+11:29:15 event {"ev": "abort", "reason": "task_failed", "tasks": [["asr", 3]], "t": 1792520955.585612}
+11:29:15 event {"ev": "measure_end", "avail_mb": 2716, "t": 1792520955.5859554}
+11:29:15 event {"ev": "exit", "component": "perception", "rc": 3, "t": 1792520955.700233}
+11:29:15 event {"ev": "exit", "component": "asr", "rc": 3, "t": 1792520955.7008393}
+11:29:16 event {"ev": "exit", "component": "turn", "rc": 143, "t": 1792520956.8177032}
+11:29:17 event {"ev": "exit", "component": "llm_full", "rc": 0, "t": 1792520957.1326895}
+11:29:17 event {"ev": "exit", "component": "sampler", "rc": 0, "t": 1792520957.3340378}
+11:29:17 event {"ev": "final_restore", "t": 1792520957.3558426}
+== verify orin-nano ==
+nvpmodel: 15W (id 0)  nvfancontrol: active  cpus online: 0-5
+  policy0: governor schedutil min 729600 max 1497600
+  policy4: governor schedutil min 729600 max 1497600
+  GPU devfreq min 306000000 max 612000000
+  EMC rate 2133000000 mrq_rate_locked 1
+mismatches vs baseline: none
+leftover processes: none
+/dev/shm neuos blocks: none
+VERIFY OK
+| board | policy | min | miss ASR | miss perc | miss turn | miss all | turn p50 ms | turn p99 ms | tok/s | TTS RTF p50/p99 | OOM | min avail MB | throttled % | peak Tj C | energy J | mean W | abort |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| orin-nano | neuos | 20.0 | 0.000 | 1.000 | 0.000 | 0.873 | 1164 | 1979 | 36.0 | 0.074/0.151 | 0 | 799 | 0.0 | 51.8 | 1822 | 7.28 | task_failed |

@@ -1,0 +1,110 @@
+{
+ "run": "neuos",
+ "board": "orin-nano",
+ "policy": "neuos",
+ "minutes": 3.0,
+ "abort": {
+  "reason": "mem_floor",
+  "where": "run",
+  "avail_mb": 799,
+  "floor_mb": 800
+ },
+ "turn_deadline_ms": 2100,
+ "tasks": {
+  "asr": {
+   "released": 13,
+   "executed": 13,
+   "met": 13,
+   "late": 0,
+   "dropped": 0,
+   "miss_ratio": 0.0,
+   "approx_frac": 1.0,
+   "energy_mj_per_job": 2155.504104238852,
+   "errors": [],
+   "end": [],
+   "audio_source": "librispeech",
+   "load_avail_delta_mb": 1028,
+   "latency_p50_ms": 328.1683921813965,
+   "latency_p99_ms": 530.5323600769043,
+   "latency_max_ms": 530.5323600769043,
+   "tiers": {
+    "whisper-tiny": 13
+   },
+   "cfg_last_hist": {
+    "11": 13
+   }
+  },
+  "perception": {
+   "released": 69,
+   "executed": 29,
+   "met": 0,
+   "late": 29,
+   "dropped": 40,
+   "miss_ratio": 1.0,
+   "approx_frac": 1.0,
+   "energy_mj_per_job": 1706.0734579403763,
+   "errors": [],
+   "end": [],
+   "audio_source": null,
+   "load_avail_delta_mb": 2069,
+   "latency_p50_ms": 297.4262237548828,
+   "latency_p99_ms": 738.3389472961426,
+   "latency_max_ms": 738.3389472961426,
+   "tiers": {
+    "twins": 29
+   },
+   "cfg_last_hist": {
+    "11": 29
+   }
+  },
+  "turn": {
+   "released": 0,
+   "executed": 0,
+   "met": 0,
+   "late": 0,
+   "dropped": 0,
+   "miss_ratio": null,
+   "approx_frac": null,
+   "energy_mj_per_job": null,
+   "errors": [],
+   "end": [],
+   "audio_source": null,
+   "load_avail_delta_mb": 1553,
+   "latency_p50_ms": null,
+   "latency_p99_ms": null,
+   "latency_max_ms": null,
+   "tiers": {},
+   "turn_latency_p50_ms": null,
+   "turn_latency_p99_ms": null,
+   "turn_latency_max_ms": null,
+   "ttft_p50_ms": null,
+   "tps_server_mean": null,
+   "tps_client_mean": null,
+   "n_tok_mean": null,
+   "tps_mean": null,
+   "tts_rtf_p50": null,
+   "tts_rtf_p99": null,
+   "tts_rtf_max": null,
+   "tts_rtf_lt1_frac": null,
+   "tts_calls": 0
+  }
+ },
+ "miss_ratio_all": 0.8414634146341463,
+ "system": {
+  "samples": 16,
+  "throttled_frac": 0.0,
+  "cdev_frac": 0.0,
+  "gpu_clock_capped_frac": 0.0,
+  "peak_tj_c": 51.406,
+  "mean_tj_c": 51.2515,
+  "gpu_actual_mhz_mean": 612.0,
+  "emc_mhz_mean": 2133.0,
+  "energy_j": 109.635,
+  "mean_power_w": 7.301698366625502,
+  "window_s": 15.014999866485596,
+  "oom_events": 0,
+  "oom_dmesg": 0,
+  "oom_cuda": 0,
+  "min_avail_mb": 799
+ }
+}
