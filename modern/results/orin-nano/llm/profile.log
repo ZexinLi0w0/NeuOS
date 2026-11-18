@@ -1,0 +1,4 @@
+grid: 72 configs  cpu=[115200, 806400, 1497600] cores=[3, 6] gpu=[306000000, 408000000, 510000000, 612000000] emc=[665600, 2133000, 3199000] (requested [665600, 2133000, 3199000])
+max-config wall latency (ms): ['2256.5', '2243.1', '2241.9']
+[after restore] dvfs state: {"policies": {"policy0": {"governor": "schedutil", "min": 729600, "max": 1497600}, "policy4": {"governor": "schedutil", "min": 729600, "max": 1497600}}, "online": {"0": 1, "1": 1, "2": 1, "3": 1, "4": 1, "5": 1}, "gpu": {"min": 306000000, "max": 612000000}, "emc": {"rate": 2133000000, "locked": 1}}
+Uncertainty (9 stages): 1.4758	1.6727	1.6739	1.7015	1.7077	1.7079	1.7221	1.7182	1.7167	

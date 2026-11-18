@@ -1,0 +1,30 @@
+12:14:54 event {"ev": "start", "policy": "default", "minutes": 20.0, "t": 1794428094.343976}
+12:14:54 event {"ev": "preflight", "component": "llm_full", "avail_mb": 23759, "estimate_mb": 5200, "ok": true, "t": 1794428094.393456}
+12:14:56 event {"ev": "loaded", "component": "llm_full", "tier": "qwen2.5-7b-q4_k_m", "port": 18101, "ok": true, "avail_before_mb": 23759, "avail_mb": 22273, "t": 1794428096.9257495}
+12:14:56 event {"ev": "preflight", "component": "perception", "avail_mb": 22273, "estimate_mb": 2300, "ok": true, "t": 1794428096.926024}
+12:15:03 event {"ev": "loaded", "component": "perception", "ok": true, "avail_before_mb": 22273, "avail_mb": 20187, "t": 1794428103.9488578}
+12:15:03 event {"ev": "preflight", "component": "asr", "avail_mb": 20187, "estimate_mb": 1800, "ok": true, "t": 1794428103.9494154}
+12:15:14 event {"ev": "loaded", "component": "asr", "ok": true, "avail_before_mb": 20187, "avail_mb": 18649, "t": 1794428114.2315946}
+12:15:14 event {"ev": "preflight", "component": "turn", "avail_mb": 18649, "estimate_mb": 1400, "ok": true, "t": 1794428114.2321603}
+12:15:19 event {"ev": "loaded", "component": "turn", "ok": true, "avail_before_mb": 18649, "avail_mb": 17445, "t": 1794428119.50377}
+12:15:20 event {"ev": "measure_start", "t_start": 1794428122.7596474, "t_end": 1794429322.7596474, "avail_mb": 17297, "t": 1794428120.7603166}
+12:35:24 event {"ev": "measure_end", "avail_mb": 19706, "t": 1794429324.077503}
+12:35:24 event {"ev": "exit", "component": "perception", "rc": 0, "t": 1794429324.0776982}
+12:35:24 event {"ev": "exit", "component": "asr", "rc": 0, "t": 1794429324.0777411}
+12:35:24 event {"ev": "exit", "component": "turn", "rc": 0, "t": 1794429324.0777705}
+12:35:24 event {"ev": "exit", "component": "llm_full", "rc": 0, "t": 1794429324.4926023}
+12:35:24 event {"ev": "exit", "component": "sampler", "rc": 0, "t": 1794429324.794173}
+== verify agx-orin ==
+nvpmodel: MAXN (id 0)  nvfancontrol: active  cpus online: 0-11
+  policy0: governor schedutil min 729600 max 2201600
+  policy4: governor schedutil min 729600 max 2201600
+  policy8: governor schedutil min 729600 max 2201600
+  GPU devfreq min 306000000 max 1300500000
+  EMC rate 3199000000 mrq_rate_locked 0
+mismatches vs baseline: none
+leftover processes: none
+/dev/shm neuos blocks: none
+VERIFY OK
+| board | policy | min | miss ASR | miss perc | miss turn | miss all | turn p50 ms | turn p99 ms | tok/s | TTS RTF p50/p99 | OOM | min avail MB | throttled % | peak Tj C | energy J | mean W | abort |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| agx-orin | default | 20.0 | 0.028 | 0.000 | 0.221 | 0.006 | 1600 | 2427 | 19.3 | 0.035/0.091 | 0 | 16851 | 0.0 | 56.2 | 24090 | 20.09 | - |

@@ -1,0 +1,38 @@
+{
+ "board": "agx-orin",
+ "state": {
+  "nvpmodel": "MAXN",
+  "nvpmodel_id": "0",
+  "nvfancontrol": "active",
+  "cpus_online": "0-11",
+  "policies": {
+   "policy0": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy4": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy8": [
+    "schedutil",
+    729600,
+    2201600
+   ]
+  },
+  "gpu": [
+   306000000,
+   1300500000
+  ],
+  "emc": [
+   3199000000,
+   0
+  ]
+ },
+ "mismatches": [],
+ "leftover_processes": [],
+ "neuos_shm_blocks": [],
+ "ok": true
+}

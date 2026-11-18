@@ -1,0 +1,146 @@
+{
+ "board": "orin-nano",
+ "ssh_port": 8010,
+ "workdir": "/experiment/zexin/neuos_eval",
+ "python": "/experiment/zexin/venvs/r3/bin/python",
+ "pythonpath_extra": [
+  "/experiment/zexin/audios_e0/pylib"
+ ],
+ "neuos_modern_dir": "/experiment/zexin/neuos/modern",
+ "hf_home": "/experiment/zexin/hf",
+ "llama_server": "/experiment/zexin/audios_e0/llama/llama-server",
+ "clips_npz": "/experiment/zexin/neuos_eval/data/librispeech_dummy.npz",
+ "mem_floor_mb": 800,
+ "mem_margin_mb": 150,
+ "expected_baseline": {
+  "nvpmodel": "15W",
+  "cpus_online": "0-5",
+  "policies": {
+   "policy0": [
+    "schedutil",
+    729600,
+    1497600
+   ],
+   "policy4": [
+    "schedutil",
+    729600,
+    1497600
+   ]
+  },
+  "gpu": [
+   306000000,
+   612000000
+  ],
+  "emc": [
+   2133000000,
+   1
+  ]
+ },
+ "neuos": {
+  "mode": "DEFAULT",
+  "variant": "original",
+  "seed": 0,
+  "cohort_prefix": "neuos_eval",
+  "energy_period_s": 0.05
+ },
+ "grid": {
+  "cpu_levels": 2,
+  "cpu_min_khz": 729600,
+  "cores": [
+   "all"
+  ],
+  "gpu_levels": 3,
+  "emc_khz": [
+   665600,
+   2133000
+  ]
+ },
+ "profile": {
+  "repeats": 2
+ },
+ "asr": {
+  "period_ms": 1000,
+  "deadline_ms": 1000,
+  "tiers": [
+   "openai/whisper-small",
+   "openai/whisper-base",
+   "openai/whisper-tiny"
+  ],
+  "full": 1,
+  "max_new_tokens": 32,
+  "chunk_tokens": 8,
+  "window_max_s": 30
+ },
+ "perception": {
+  "period_ms": 200,
+  "deadline_ms": 200,
+  "model": "stabilityai/stable-diffusion-x4-upscaler",
+  "latent_hw": 32,
+  "twin_rank_ratio": 0.25
+ },
+ "llm": {
+  "tiers": [
+   {
+    "name": "qwen2.5-7b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-7B-Instruct-GGUF/snapshots/*/qwen2.5-7b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-3b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-3B-Instruct-GGUF/snapshots/*/qwen2.5-3b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-1.5b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-1.5B-Instruct-GGUF/snapshots/*/qwen2.5-1.5b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-0.5b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-0.5B-Instruct-GGUF/snapshots/*/qwen2.5-0.5b-instruct-q4_k_m*.gguf"
+   }
+  ],
+  "full": 3,
+  "ports": [
+   18101,
+   18102
+  ],
+  "ctx": 1024,
+  "ngl": 99,
+  "max_tokens": 64,
+  "chunk_tokens": 8,
+  "server_args": [
+   "-b",
+   "128",
+   "-ub",
+   "128"
+  ],
+  "temperature": 0,
+  "ignore_eos": false
+ },
+ "tts": {
+  "model": "facebook/mms-tts-eng",
+  "device": "cpu"
+ },
+ "turn": {
+  "deadline_ms": 2100
+ },
+ "decisions": "Nano 8GB cannot hold 3 torch processes + two llama-server tiers above the 800 MB floor (measured: perception 1.9-2.1 GB, ASR(small) 1.1 GB, turn/TTS ~1.0 GB, 1.5B server ~1.0 GB). Reduced: ASR full whisper-base / approx whisper-tiny; LLM full Qwen2.5-0.5B, no lower tier (not approximable).",
+ "trace": {
+  "listen_s": [
+   5,
+   15
+  ],
+  "idle_s": [
+   2,
+   6
+  ],
+  "seed": 0
+ },
+ "mem_estimate_mb": {
+  "llm_full": 700,
+  "llm_approx": 700,
+  "asr": 1000,
+  "perception": 2100,
+  "turn": 1050
+ },
+ "policy": "neuos",
+ "profile_dir": "/experiment/zexin/neuos_eval/profiles/orin-nano"
+}

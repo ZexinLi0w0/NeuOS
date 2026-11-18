@@ -1,0 +1,7 @@
+{
+ "task": "asr",
+ "avail_mb_loaded": 4920,
+ "max_config_wall_ms": 585.6731520034373,
+ "profile_s": 48.61065864562988,
+ "n_stages": 5
+}

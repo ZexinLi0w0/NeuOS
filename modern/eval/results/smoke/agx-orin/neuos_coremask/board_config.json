@@ -1,0 +1,145 @@
+{
+ "board": "agx-orin",
+ "ssh_port": 8002,
+ "workdir": "/experiment/zexin/neuos_eval",
+ "python": "/experiment/zexin/venvs/r3/bin/python",
+ "pythonpath_extra": [
+  "/experiment/zexin/neuos_eval/pylib"
+ ],
+ "neuos_modern_dir": "/experiment/zexin/neuos/modern",
+ "hf_home": "/experiment/zexin/hf",
+ "llama_server": "/experiment/zexin/neuos/llama/llama-server",
+ "clips_npz": "/experiment/zexin/neuos_eval/data/librispeech_dummy.npz",
+ "mem_floor_mb": 2000,
+ "mem_margin_mb": 500,
+ "expected_baseline": {
+  "nvpmodel": "MAXN",
+  "cpus_online": "0-11",
+  "policies": {
+   "policy0": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy4": [
+    "schedutil",
+    729600,
+    2201600
+   ],
+   "policy8": [
+    "schedutil",
+    729600,
+    2201600
+   ]
+  },
+  "gpu": [
+   306000000,
+   1300500000
+  ],
+  "emc": [
+   3199000000,
+   0
+  ]
+ },
+ "neuos": {
+  "mode": "DEFAULT",
+  "variant": "original",
+  "seed": 0,
+  "cohort_prefix": "neuos_eval",
+  "energy_period_s": 0.05
+ },
+ "grid": {
+  "cpu_levels": 2,
+  "cpu_min_khz": 729600,
+  "cores": [
+   "all",
+   "half"
+  ],
+  "gpu_levels": 3,
+  "emc_khz": [
+   665600,
+   2133000,
+   3199000
+  ]
+ },
+ "profile": {
+  "repeats": 2
+ },
+ "asr": {
+  "period_ms": 1000,
+  "deadline_ms": 1000,
+  "tiers": [
+   "openai/whisper-small",
+   "openai/whisper-base",
+   "openai/whisper-tiny"
+  ],
+  "full": 0,
+  "max_new_tokens": 32,
+  "chunk_tokens": 8,
+  "window_max_s": 30
+ },
+ "perception": {
+  "period_ms": 200,
+  "deadline_ms": 200,
+  "model": "stabilityai/stable-diffusion-x4-upscaler",
+  "latent_hw": 32,
+  "twin_rank_ratio": 0.25
+ },
+ "llm": {
+  "tiers": [
+   {
+    "name": "qwen2.5-7b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-7B-Instruct-GGUF/snapshots/*/qwen2.5-7b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-3b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-3B-Instruct-GGUF/snapshots/*/qwen2.5-3b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-1.5b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-1.5B-Instruct-GGUF/snapshots/*/qwen2.5-1.5b-instruct-q4_k_m*.gguf"
+   },
+   {
+    "name": "qwen2.5-0.5b-q4_k_m",
+    "gguf_glob": "models--Qwen--Qwen2.5-0.5B-Instruct-GGUF/snapshots/*/qwen2.5-0.5b-instruct-q4_k_m*.gguf"
+   }
+  ],
+  "full": 0,
+  "ports": [
+   18101,
+   18102
+  ],
+  "ctx": 1024,
+  "ngl": 99,
+  "max_tokens": 64,
+  "chunk_tokens": 8,
+  "temperature": 0,
+  "ignore_eos": false
+ },
+ "tts": {
+  "model": "facebook/mms-tts-eng"
+ },
+ "turn": {
+  "deadline_ms": 2000
+ },
+ "trace": {
+  "listen_s": [
+   5,
+   15
+  ],
+  "idle_s": [
+   2,
+   6
+  ],
+  "seed": 0
+ },
+ "mem_estimate_mb": {
+  "llm_full": 5200,
+  "llm_approx": 2300,
+  "asr": 1800,
+  "perception": 2300,
+  "turn": 1400
+ },
+ "policy": "neuos",
+ "profile_dir": "/experiment/zexin/neuos_eval/profiles/agx-orin"
+}

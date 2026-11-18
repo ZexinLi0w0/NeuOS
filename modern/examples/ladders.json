@@ -1,0 +1,27 @@
+{
+  "llm": {
+    "default": 0,
+    "tiers": [
+      {"name": "qwen2.5-7b-q4_k_m",   "url": "http://127.0.0.1:8080", "model": "qwen2.5-7b-instruct-q4_k_m.gguf"},
+      {"name": "qwen2.5-3b-q4_k_m",   "url": "http://127.0.0.1:8081", "model": "qwen2.5-3b-instruct-q4_k_m.gguf"},
+      {"name": "qwen2.5-1.5b-q4_k_m", "url": "http://127.0.0.1:8082", "model": "qwen2.5-1.5b-instruct-q4_k_m.gguf"},
+      {"name": "qwen2.5-0.5b-q4_k_m", "url": "http://127.0.0.1:8083", "model": "qwen2.5-0.5b-instruct-q4_k_m.gguf"}
+    ]
+  },
+  "whisper": {
+    "default": 0,
+    "tiers": [
+      {"name": "whisper-small",  "model": "small"},
+      {"name": "whisper-base",   "model": "base"},
+      {"name": "whisper-tiny",   "model": "tiny"}
+    ]
+  },
+  "vision": {
+    "default": 0,
+    "tiers": [
+      {"name": "30fps", "fps": 30},
+      {"name": "15fps", "fps": 15},
+      {"name": "5fps",  "fps": 5}
+    ]
+  }
+}
