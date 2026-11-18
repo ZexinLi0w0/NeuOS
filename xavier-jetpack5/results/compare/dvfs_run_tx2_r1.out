@@ -1,0 +1,9 @@
+Storing system configuration in /mnt/ssd/neuos/out/l4t_dfs_before_tx2_r1.conf
+classify rc=0
+Restoring system configuration from /mnt/ssd/neuos/out/l4t_dfs_before_tx2_r1.conf
+clocks restored
+cpu0:  Online=1 Governor=schedutil MinFreq=2265600 MaxFreq=2265600 CurrentFreq=2265600 IdleStates: C1=0 c6=0 
+GPU MinFreq=1377000000 MaxFreq=1377000000 CurrentFreq=1377000000
+EMC MinFreq=204000000 MaxFreq=2133000000 CurrentFreq=2133000000 FreqOverride=1
+FAN Dynamic Speed control=inactive hwmon3_pwm1=229
+modes restored

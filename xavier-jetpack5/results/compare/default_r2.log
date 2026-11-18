@@ -1,0 +1,2188 @@
+---------- Prediction for /mnt/ssd/neuos/src/examples/images/cat.jpg ----------
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I20261118 00:35:16.787505 1422366 net.cpp:78] Initializing net from parameters: 
+name: "CaffeNet"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 10
+      dim: 3
+      dim: 227
+      dim: 227
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 96
+    kernel_size: 11
+    stride: 4
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  convolution_param {
+    num_output: 256
+    pad: 2
+    kernel_size: 5
+    group: 2
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "conv5"
+  type: "Convolution"
+  bottom: "conv4"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
+}
+I20261118 00:35:16.788177 1422366 layer_factory.hpp:77] Creating layer data
+I20261118 00:35:16.788241 1422366 net.cpp:111] Creating Layer data
+I20261118 00:35:16.788272 1422366 net.cpp:407] data -> data
+I20261118 00:35:16.804118 1422366 net.cpp:149] Setting up data
+I20261118 00:35:16.804198 1422366 net.cpp:156] Top shape: 10 3 227 227 (1545870)
+I20261118 00:35:16.804267 1422366 net.cpp:164] Memory required for data: 6183480
+I20261118 00:35:16.804459 1422366 layer_factory.hpp:77] Creating layer conv1
+I20261118 00:35:16.804519 1422366 net.cpp:111] Creating Layer conv1
+I20261118 00:35:16.804548 1422366 net.cpp:433] conv1 <- data
+I20261118 00:35:16.804579 1422366 net.cpp:407] conv1 -> conv1
+I20261118 00:35:17.536773 1422366 net.cpp:149] Setting up conv1
+I20261118 00:35:17.536891 1422366 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261118 00:35:17.536949 1422366 net.cpp:164] Memory required for data: 17799480
+I20261118 00:35:17.537026 1422366 layer_factory.hpp:77] Creating layer relu1
+I20261118 00:35:17.537128 1422366 net.cpp:111] Creating Layer relu1
+I20261118 00:35:17.537151 1422366 net.cpp:433] relu1 <- conv1
+I20261118 00:35:17.537185 1422366 net.cpp:394] relu1 -> conv1 (in-place)
+I20261118 00:35:17.540927 1422366 net.cpp:149] Setting up relu1
+I20261118 00:35:17.541033 1422366 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261118 00:35:17.541065 1422366 net.cpp:164] Memory required for data: 29415480
+I20261118 00:35:17.541086 1422366 layer_factory.hpp:77] Creating layer pool1
+I20261118 00:35:17.541119 1422366 net.cpp:111] Creating Layer pool1
+I20261118 00:35:17.541139 1422366 net.cpp:433] pool1 <- conv1
+I20261118 00:35:17.541164 1422366 net.cpp:407] pool1 -> pool1
+I20261118 00:35:17.541284 1422366 net.cpp:149] Setting up pool1
+I20261118 00:35:17.541307 1422366 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261118 00:35:17.541330 1422366 net.cpp:164] Memory required for data: 32214840
+I20261118 00:35:17.541348 1422366 layer_factory.hpp:77] Creating layer norm1
+I20261118 00:35:17.541379 1422366 net.cpp:111] Creating Layer norm1
+I20261118 00:35:17.541399 1422366 net.cpp:433] norm1 <- pool1
+I20261118 00:35:17.541419 1422366 net.cpp:407] norm1 -> norm1
+I20261118 00:35:17.544899 1422366 net.cpp:149] Setting up norm1
+I20261118 00:35:17.544989 1422366 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261118 00:35:17.545020 1422366 net.cpp:164] Memory required for data: 35014200
+I20261118 00:35:17.545042 1422366 layer_factory.hpp:77] Creating layer conv2
+I20261118 00:35:17.545077 1422366 net.cpp:111] Creating Layer conv2
+I20261118 00:35:17.545099 1422366 net.cpp:433] conv2 <- norm1
+I20261118 00:35:17.545123 1422366 net.cpp:407] conv2 -> conv2
+I20261118 00:35:17.570719 1422366 net.cpp:149] Setting up conv2
+I20261118 00:35:17.570808 1422366 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261118 00:35:17.570839 1422366 net.cpp:164] Memory required for data: 42479160
+I20261118 00:35:17.570875 1422366 layer_factory.hpp:77] Creating layer relu2
+I20261118 00:35:17.570906 1422366 net.cpp:111] Creating Layer relu2
+I20261118 00:35:17.570927 1422366 net.cpp:433] relu2 <- conv2
+I20261118 00:35:17.570951 1422366 net.cpp:394] relu2 -> conv2 (in-place)
+I20261118 00:35:17.574879 1422366 net.cpp:149] Setting up relu2
+I20261118 00:35:17.574967 1422366 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261118 00:35:17.574999 1422366 net.cpp:164] Memory required for data: 49944120
+I20261118 00:35:17.575023 1422366 layer_factory.hpp:77] Creating layer pool2
+I20261118 00:35:17.575054 1422366 net.cpp:111] Creating Layer pool2
+I20261118 00:35:17.575074 1422366 net.cpp:433] pool2 <- conv2
+I20261118 00:35:17.575099 1422366 net.cpp:407] pool2 -> pool2
+I20261118 00:35:17.575210 1422366 net.cpp:149] Setting up pool2
+I20261118 00:35:17.575233 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:17.575254 1422366 net.cpp:164] Memory required for data: 51674680
+I20261118 00:35:17.575271 1422366 layer_factory.hpp:77] Creating layer norm2
+I20261118 00:35:17.575312 1422366 net.cpp:111] Creating Layer norm2
+I20261118 00:35:17.575332 1422366 net.cpp:433] norm2 <- pool2
+I20261118 00:35:17.575352 1422366 net.cpp:407] norm2 -> norm2
+I20261118 00:35:17.578586 1422366 net.cpp:149] Setting up norm2
+I20261118 00:35:17.578675 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:17.578706 1422366 net.cpp:164] Memory required for data: 53405240
+I20261118 00:35:17.578725 1422366 layer_factory.hpp:77] Creating layer conv3
+I20261118 00:35:17.578759 1422366 net.cpp:111] Creating Layer conv3
+I20261118 00:35:17.578779 1422366 net.cpp:433] conv3 <- norm2
+I20261118 00:35:17.578805 1422366 net.cpp:407] conv3 -> conv3
+I20261118 00:35:17.600956 1422366 net.cpp:149] Setting up conv3
+I20261118 00:35:17.601050 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:17.601089 1422366 net.cpp:164] Memory required for data: 56001080
+I20261118 00:35:17.601128 1422366 layer_factory.hpp:77] Creating layer relu3
+I20261118 00:35:17.601161 1422366 net.cpp:111] Creating Layer relu3
+I20261118 00:35:17.601235 1422366 net.cpp:433] relu3 <- conv3
+I20261118 00:35:17.601262 1422366 net.cpp:394] relu3 -> conv3 (in-place)
+I20261118 00:35:17.604585 1422366 net.cpp:149] Setting up relu3
+I20261118 00:35:17.604647 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:17.604678 1422366 net.cpp:164] Memory required for data: 58596920
+I20261118 00:35:17.604698 1422366 layer_factory.hpp:77] Creating layer conv4
+I20261118 00:35:17.604732 1422366 net.cpp:111] Creating Layer conv4
+I20261118 00:35:17.604751 1422366 net.cpp:433] conv4 <- conv3
+I20261118 00:35:17.604775 1422366 net.cpp:407] conv4 -> conv4
+I20261118 00:35:17.639362 1422366 net.cpp:149] Setting up conv4
+I20261118 00:35:17.639463 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:17.639503 1422366 net.cpp:164] Memory required for data: 61192760
+I20261118 00:35:17.639536 1422366 layer_factory.hpp:77] Creating layer relu4
+I20261118 00:35:17.639568 1422366 net.cpp:111] Creating Layer relu4
+I20261118 00:35:17.639590 1422366 net.cpp:433] relu4 <- conv4
+I20261118 00:35:17.639616 1422366 net.cpp:394] relu4 -> conv4 (in-place)
+I20261118 00:35:17.642931 1422366 net.cpp:149] Setting up relu4
+I20261118 00:35:17.642990 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:17.643024 1422366 net.cpp:164] Memory required for data: 63788600
+I20261118 00:35:17.643045 1422366 layer_factory.hpp:77] Creating layer conv5
+I20261118 00:35:17.643078 1422366 net.cpp:111] Creating Layer conv5
+I20261118 00:35:17.643100 1422366 net.cpp:433] conv5 <- conv4
+I20261118 00:35:17.643126 1422366 net.cpp:407] conv5 -> conv5
+I20261118 00:35:17.675202 1422366 net.cpp:149] Setting up conv5
+I20261118 00:35:17.675294 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:17.675333 1422366 net.cpp:164] Memory required for data: 65519160
+I20261118 00:35:17.675372 1422366 layer_factory.hpp:77] Creating layer relu5
+I20261118 00:35:17.675405 1422366 net.cpp:111] Creating Layer relu5
+I20261118 00:35:17.675426 1422366 net.cpp:433] relu5 <- conv5
+I20261118 00:35:17.675450 1422366 net.cpp:394] relu5 -> conv5 (in-place)
+I20261118 00:35:17.680076 1422366 net.cpp:149] Setting up relu5
+I20261118 00:35:17.680146 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:17.680178 1422366 net.cpp:164] Memory required for data: 67249720
+I20261118 00:35:17.680200 1422366 layer_factory.hpp:77] Creating layer pool5
+I20261118 00:35:17.680241 1422366 net.cpp:111] Creating Layer pool5
+I20261118 00:35:17.680264 1422366 net.cpp:433] pool5 <- conv5
+I20261118 00:35:17.680290 1422366 net.cpp:407] pool5 -> pool5
+I20261118 00:35:17.680408 1422366 net.cpp:149] Setting up pool5
+I20261118 00:35:17.680431 1422366 net.cpp:156] Top shape: 10 256 6 6 (92160)
+I20261118 00:35:17.680454 1422366 net.cpp:164] Memory required for data: 67618360
+I20261118 00:35:17.680471 1422366 layer_factory.hpp:77] Creating layer fc6
+I20261118 00:35:17.680503 1422366 net.cpp:111] Creating Layer fc6
+I20261118 00:35:17.680522 1422366 net.cpp:433] fc6 <- pool5
+I20261118 00:35:17.680543 1422366 net.cpp:407] fc6 -> fc6
+I20261118 00:35:17.906680 1422366 net.cpp:149] Setting up fc6
+I20261118 00:35:17.906778 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:17.906811 1422366 net.cpp:164] Memory required for data: 67782200
+I20261118 00:35:17.906843 1422366 layer_factory.hpp:77] Creating layer relu6
+I20261118 00:35:17.906874 1422366 net.cpp:111] Creating Layer relu6
+I20261118 00:35:17.906898 1422366 net.cpp:433] relu6 <- fc6
+I20261118 00:35:17.906939 1422366 net.cpp:394] relu6 -> fc6 (in-place)
+I20261118 00:35:17.910561 1422366 net.cpp:149] Setting up relu6
+I20261118 00:35:17.910637 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:17.910665 1422366 net.cpp:164] Memory required for data: 67946040
+I20261118 00:35:17.910684 1422366 layer_factory.hpp:77] Creating layer drop6
+I20261118 00:35:17.910746 1422366 net.cpp:111] Creating Layer drop6
+I20261118 00:35:17.910768 1422366 net.cpp:433] drop6 <- fc6
+I20261118 00:35:17.910791 1422366 net.cpp:394] drop6 -> fc6 (in-place)
+I20261118 00:35:17.910919 1422366 net.cpp:149] Setting up drop6
+I20261118 00:35:17.910943 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:17.910962 1422366 net.cpp:164] Memory required for data: 68109880
+I20261118 00:35:17.910980 1422366 layer_factory.hpp:77] Creating layer fc7
+I20261118 00:35:17.911003 1422366 net.cpp:111] Creating Layer fc7
+I20261118 00:35:17.911021 1422366 net.cpp:433] fc7 <- fc6
+I20261118 00:35:17.911041 1422366 net.cpp:407] fc7 -> fc7
+I20261118 00:35:18.011147 1422366 net.cpp:149] Setting up fc7
+I20261118 00:35:18.011240 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.011273 1422366 net.cpp:164] Memory required for data: 68273720
+I20261118 00:35:18.011305 1422366 layer_factory.hpp:77] Creating layer relu7
+I20261118 00:35:18.011336 1422366 net.cpp:111] Creating Layer relu7
+I20261118 00:35:18.011359 1422366 net.cpp:433] relu7 <- fc7
+I20261118 00:35:18.011384 1422366 net.cpp:394] relu7 -> fc7 (in-place)
+I20261118 00:35:18.014911 1422366 net.cpp:149] Setting up relu7
+I20261118 00:35:18.014972 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.015021 1422366 net.cpp:164] Memory required for data: 68437560
+I20261118 00:35:18.015043 1422366 layer_factory.hpp:77] Creating layer drop7
+I20261118 00:35:18.015069 1422366 net.cpp:111] Creating Layer drop7
+I20261118 00:35:18.015089 1422366 net.cpp:433] drop7 <- fc7
+I20261118 00:35:18.015113 1422366 net.cpp:394] drop7 -> fc7 (in-place)
+I20261118 00:35:18.015203 1422366 net.cpp:149] Setting up drop7
+I20261118 00:35:18.015225 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.015245 1422366 net.cpp:164] Memory required for data: 68601400
+I20261118 00:35:18.015264 1422366 layer_factory.hpp:77] Creating layer fc8
+I20261118 00:35:18.015287 1422366 net.cpp:111] Creating Layer fc8
+I20261118 00:35:18.015305 1422366 net.cpp:433] fc8 <- fc7
+I20261118 00:35:18.015326 1422366 net.cpp:407] fc8 -> fc8
+I20261118 00:35:18.040062 1422366 net.cpp:149] Setting up fc8
+I20261118 00:35:18.040160 1422366 net.cpp:156] Top shape: 10 1000 (10000)
+I20261118 00:35:18.040191 1422366 net.cpp:164] Memory required for data: 68641400
+I20261118 00:35:18.040221 1422366 layer_factory.hpp:77] Creating layer prob
+I20261118 00:35:18.040251 1422366 net.cpp:111] Creating Layer prob
+I20261118 00:35:18.040273 1422366 net.cpp:433] prob <- fc8
+I20261118 00:35:18.040311 1422366 net.cpp:407] prob -> prob
+I20261118 00:35:18.043916 1422366 net.cpp:149] Setting up prob
+I20261118 00:35:18.043977 1422366 net.cpp:156] Top shape: 10 1000 (10000)
+I20261118 00:35:18.044003 1422366 net.cpp:164] Memory required for data: 68681400
+I20261118 00:35:18.044024 1422366 net.cpp:227] prob does not need backward computation.
+I20261118 00:35:18.044045 1422366 net.cpp:227] fc8 does not need backward computation.
+I20261118 00:35:18.044067 1422366 net.cpp:227] drop7 does not need backward computation.
+I20261118 00:35:18.044086 1422366 net.cpp:227] relu7 does not need backward computation.
+I20261118 00:35:18.044103 1422366 net.cpp:227] fc7 does not need backward computation.
+I20261118 00:35:18.044122 1422366 net.cpp:227] drop6 does not need backward computation.
+I20261118 00:35:18.044139 1422366 net.cpp:227] relu6 does not need backward computation.
+I20261118 00:35:18.044157 1422366 net.cpp:227] fc6 does not need backward computation.
+I20261118 00:35:18.044175 1422366 net.cpp:227] pool5 does not need backward computation.
+I20261118 00:35:18.044194 1422366 net.cpp:227] relu5 does not need backward computation.
+I20261118 00:35:18.044212 1422366 net.cpp:227] conv5 does not need backward computation.
+I20261118 00:35:18.044230 1422366 net.cpp:227] relu4 does not need backward computation.
+I20261118 00:35:18.044248 1422366 net.cpp:227] conv4 does not need backward computation.
+I20261118 00:35:18.044266 1422366 net.cpp:227] relu3 does not need backward computation.
+I20261118 00:35:18.044291 1422366 net.cpp:227] conv3 does not need backward computation.
+I20261118 00:35:18.044313 1422366 net.cpp:227] norm2 does not need backward computation.
+I20261118 00:35:18.044514 1422366 net.cpp:227] pool2 does not need backward computation.
+I20261118 00:35:18.044535 1422366 net.cpp:227] relu2 does not need backward computation.
+I20261118 00:35:18.044553 1422366 net.cpp:227] conv2 does not need backward computation.
+I20261118 00:35:18.044571 1422366 net.cpp:227] norm1 does not need backward computation.
+I20261118 00:35:18.044589 1422366 net.cpp:227] pool1 does not need backward computation.
+I20261118 00:35:18.044608 1422366 net.cpp:227] relu1 does not need backward computation.
+I20261118 00:35:18.044625 1422366 net.cpp:227] conv1 does not need backward computation.
+I20261118 00:35:18.044644 1422366 net.cpp:227] data does not need backward computation.
+I20261118 00:35:18.044660 1422366 net.cpp:269] This network produces output prob
+I20261118 00:35:18.044719 1422366 net.cpp:282] Network initialization done.
+I20261118 00:35:18.045931 1422366 net.cpp:78] Initializing net from parameters: 
+name: "CaffeNet"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 10
+      dim: 3
+      dim: 227
+      dim: 227
+    }
+  }
+}
+layer {
+  name: "conv1_v"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_v"
+  convolution_param {
+    num_output: 8
+    pad_h: 0
+    pad_w: 0
+    kernel_h: 11
+    kernel_w: 1
+    stride_h: 4
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv1_h"
+  type: "Convolution"
+  bottom: "conv1_v"
+  top: "conv1"
+  convolution_param {
+    num_output: 96
+    pad_h: 0
+    pad_w: 0
+    kernel_h: 1
+    kernel_w: 11
+    stride_h: 1
+    stride_w: 4
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv2_v"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2_v"
+  convolution_param {
+    num_output: 40
+    group: 2
+    pad_h: 2
+    pad_w: 0
+    kernel_h: 5
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv2_h"
+  type: "Convolution"
+  bottom: "conv2_v"
+  top: "conv2"
+  convolution_param {
+    num_output: 256
+    group: 2
+    pad_h: 0
+    pad_w: 2
+    kernel_h: 1
+    kernel_w: 5
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv3_v"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3_v"
+  convolution_param {
+    num_output: 60
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv3_h"
+  type: "Convolution"
+  bottom: "conv3_v"
+  top: "conv3"
+  convolution_param {
+    num_output: 384
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4_v"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4_v"
+  convolution_param {
+    num_output: 100
+    group: 2
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv4_h"
+  type: "Convolution"
+  bottom: "conv4_v"
+  top: "conv4"
+  convolution_param {
+    num_output: 384
+    group: 2
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "conv5_v"
+  type: "Convolution"
+  bottom: "conv4"
+  top: "conv5_v"
+  convolution_param {
+    num_output: 200
+    group: 2
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv5_h"
+  type: "Convolution"
+  bottom: "conv5_v"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    group: 2
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
+}
+I20261118 00:35:18.046659 1422366 layer_factory.hpp:77] Creating layer data
+I20261118 00:35:18.046692 1422366 net.cpp:111] Creating Layer data
+I20261118 00:35:18.046720 1422366 net.cpp:407] data -> data
+I20261118 00:35:18.046779 1422366 net.cpp:149] Setting up data
+I20261118 00:35:18.046823 1422366 net.cpp:156] Top shape: 10 3 227 227 (1545870)
+I20261118 00:35:18.046847 1422366 net.cpp:164] Memory required for data: 6183480
+I20261118 00:35:18.046866 1422366 layer_factory.hpp:77] Creating layer conv1_v
+I20261118 00:35:18.046892 1422366 net.cpp:111] Creating Layer conv1_v
+I20261118 00:35:18.046911 1422366 net.cpp:433] conv1_v <- data
+I20261118 00:35:18.046933 1422366 net.cpp:407] conv1_v -> conv1_v
+I20261118 00:35:18.059377 1422366 net.cpp:149] Setting up conv1_v
+I20261118 00:35:18.059468 1422366 net.cpp:156] Top shape: 10 8 55 227 (998800)
+I20261118 00:35:18.059528 1422366 net.cpp:164] Memory required for data: 10178680
+I20261118 00:35:18.059568 1422366 layer_factory.hpp:77] Creating layer conv1_h
+I20261118 00:35:18.059602 1422366 net.cpp:111] Creating Layer conv1_h
+I20261118 00:35:18.059625 1422366 net.cpp:433] conv1_h <- conv1_v
+I20261118 00:35:18.059649 1422366 net.cpp:407] conv1_h -> conv1
+I20261118 00:35:18.072974 1422366 net.cpp:149] Setting up conv1_h
+I20261118 00:35:18.073060 1422366 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261118 00:35:18.073096 1422366 net.cpp:164] Memory required for data: 21794680
+I20261118 00:35:18.073131 1422366 layer_factory.hpp:77] Creating layer relu1
+I20261118 00:35:18.073163 1422366 net.cpp:111] Creating Layer relu1
+I20261118 00:35:18.073184 1422366 net.cpp:433] relu1 <- conv1
+I20261118 00:35:18.073208 1422366 net.cpp:394] relu1 -> conv1 (in-place)
+I20261118 00:35:18.076315 1422366 net.cpp:149] Setting up relu1
+I20261118 00:35:18.076372 1422366 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261118 00:35:18.076402 1422366 net.cpp:164] Memory required for data: 33410680
+I20261118 00:35:18.076423 1422366 layer_factory.hpp:77] Creating layer pool1
+I20261118 00:35:18.076452 1422366 net.cpp:111] Creating Layer pool1
+I20261118 00:35:18.076472 1422366 net.cpp:433] pool1 <- conv1
+I20261118 00:35:18.076496 1422366 net.cpp:407] pool1 -> pool1
+I20261118 00:35:18.076620 1422366 net.cpp:149] Setting up pool1
+I20261118 00:35:18.076645 1422366 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261118 00:35:18.076668 1422366 net.cpp:164] Memory required for data: 36210040
+I20261118 00:35:18.076686 1422366 layer_factory.hpp:77] Creating layer norm1
+I20261118 00:35:18.076711 1422366 net.cpp:111] Creating Layer norm1
+I20261118 00:35:18.076728 1422366 net.cpp:433] norm1 <- pool1
+I20261118 00:35:18.076761 1422366 net.cpp:407] norm1 -> norm1
+I20261118 00:35:18.080067 1422366 net.cpp:149] Setting up norm1
+I20261118 00:35:18.080132 1422366 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261118 00:35:18.080205 1422366 net.cpp:164] Memory required for data: 39009400
+I20261118 00:35:18.080228 1422366 layer_factory.hpp:77] Creating layer conv2_v
+I20261118 00:35:18.080258 1422366 net.cpp:111] Creating Layer conv2_v
+I20261118 00:35:18.080279 1422366 net.cpp:433] conv2_v <- norm1
+I20261118 00:35:18.080303 1422366 net.cpp:407] conv2_v -> conv2_v
+I20261118 00:35:18.107137 1422366 net.cpp:149] Setting up conv2_v
+I20261118 00:35:18.107227 1422366 net.cpp:156] Top shape: 10 40 27 27 (291600)
+I20261118 00:35:18.107266 1422366 net.cpp:164] Memory required for data: 40175800
+I20261118 00:35:18.107306 1422366 layer_factory.hpp:77] Creating layer conv2_h
+I20261118 00:35:18.107347 1422366 net.cpp:111] Creating Layer conv2_h
+I20261118 00:35:18.107370 1422366 net.cpp:433] conv2_h <- conv2_v
+I20261118 00:35:18.107398 1422366 net.cpp:407] conv2_h -> conv2
+I20261118 00:35:18.137219 1422366 net.cpp:149] Setting up conv2_h
+I20261118 00:35:18.137307 1422366 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261118 00:35:18.137370 1422366 net.cpp:164] Memory required for data: 47640760
+I20261118 00:35:18.137405 1422366 layer_factory.hpp:77] Creating layer relu2
+I20261118 00:35:18.137440 1422366 net.cpp:111] Creating Layer relu2
+I20261118 00:35:18.137466 1422366 net.cpp:433] relu2 <- conv2
+I20261118 00:35:18.137496 1422366 net.cpp:394] relu2 -> conv2 (in-place)
+I20261118 00:35:18.141182 1422366 net.cpp:149] Setting up relu2
+I20261118 00:35:18.141242 1422366 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261118 00:35:18.141271 1422366 net.cpp:164] Memory required for data: 55105720
+I20261118 00:35:18.141292 1422366 layer_factory.hpp:77] Creating layer pool2
+I20261118 00:35:18.141321 1422366 net.cpp:111] Creating Layer pool2
+I20261118 00:35:18.141340 1422366 net.cpp:433] pool2 <- conv2
+I20261118 00:35:18.141364 1422366 net.cpp:407] pool2 -> pool2
+I20261118 00:35:18.141466 1422366 net.cpp:149] Setting up pool2
+I20261118 00:35:18.141489 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:18.141512 1422366 net.cpp:164] Memory required for data: 56836280
+I20261118 00:35:18.141530 1422366 layer_factory.hpp:77] Creating layer norm2
+I20261118 00:35:18.141556 1422366 net.cpp:111] Creating Layer norm2
+I20261118 00:35:18.141573 1422366 net.cpp:433] norm2 <- pool2
+I20261118 00:35:18.141593 1422366 net.cpp:407] norm2 -> norm2
+I20261118 00:35:18.144717 1422366 net.cpp:149] Setting up norm2
+I20261118 00:35:18.144770 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:18.144798 1422366 net.cpp:164] Memory required for data: 58566840
+I20261118 00:35:18.144819 1422366 layer_factory.hpp:77] Creating layer conv3_v
+I20261118 00:35:18.144847 1422366 net.cpp:111] Creating Layer conv3_v
+I20261118 00:35:18.144867 1422366 net.cpp:433] conv3_v <- norm2
+I20261118 00:35:18.144891 1422366 net.cpp:407] conv3_v -> conv3_v
+I20261118 00:35:18.156677 1422366 net.cpp:149] Setting up conv3_v
+I20261118 00:35:18.156766 1422366 net.cpp:156] Top shape: 10 60 13 13 (101400)
+I20261118 00:35:18.156805 1422366 net.cpp:164] Memory required for data: 58972440
+I20261118 00:35:18.156842 1422366 layer_factory.hpp:77] Creating layer conv3_h
+I20261118 00:35:18.156874 1422366 net.cpp:111] Creating Layer conv3_h
+I20261118 00:35:18.156898 1422366 net.cpp:433] conv3_h <- conv3_v
+I20261118 00:35:18.156922 1422366 net.cpp:407] conv3_h -> conv3
+I20261118 00:35:18.172236 1422366 net.cpp:149] Setting up conv3_h
+I20261118 00:35:18.172310 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:18.172344 1422366 net.cpp:164] Memory required for data: 61568280
+I20261118 00:35:18.172375 1422366 layer_factory.hpp:77] Creating layer relu3
+I20261118 00:35:18.172405 1422366 net.cpp:111] Creating Layer relu3
+I20261118 00:35:18.172430 1422366 net.cpp:433] relu3 <- conv3
+I20261118 00:35:18.172456 1422366 net.cpp:394] relu3 -> conv3 (in-place)
+I20261118 00:35:18.175446 1422366 net.cpp:149] Setting up relu3
+I20261118 00:35:18.175493 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:18.175521 1422366 net.cpp:164] Memory required for data: 64164120
+I20261118 00:35:18.175587 1422366 layer_factory.hpp:77] Creating layer conv4_v
+I20261118 00:35:18.175617 1422366 net.cpp:111] Creating Layer conv4_v
+I20261118 00:35:18.175637 1422366 net.cpp:433] conv4_v <- conv3
+I20261118 00:35:18.175659 1422366 net.cpp:407] conv4_v -> conv4_v
+I20261118 00:35:18.198724 1422366 net.cpp:149] Setting up conv4_v
+I20261118 00:35:18.198828 1422366 net.cpp:156] Top shape: 10 100 13 13 (169000)
+I20261118 00:35:18.198864 1422366 net.cpp:164] Memory required for data: 64840120
+I20261118 00:35:18.198894 1422366 layer_factory.hpp:77] Creating layer conv4_h
+I20261118 00:35:18.198927 1422366 net.cpp:111] Creating Layer conv4_h
+I20261118 00:35:18.198951 1422366 net.cpp:433] conv4_h <- conv4_v
+I20261118 00:35:18.198977 1422366 net.cpp:407] conv4_h -> conv4
+I20261118 00:35:18.226382 1422366 net.cpp:149] Setting up conv4_h
+I20261118 00:35:18.226465 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:18.226505 1422366 net.cpp:164] Memory required for data: 67435960
+I20261118 00:35:18.226537 1422366 layer_factory.hpp:77] Creating layer relu4
+I20261118 00:35:18.226572 1422366 net.cpp:111] Creating Layer relu4
+I20261118 00:35:18.226595 1422366 net.cpp:433] relu4 <- conv4
+I20261118 00:35:18.226622 1422366 net.cpp:394] relu4 -> conv4 (in-place)
+I20261118 00:35:18.231474 1422366 net.cpp:149] Setting up relu4
+I20261118 00:35:18.231539 1422366 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261118 00:35:18.231571 1422366 net.cpp:164] Memory required for data: 70031800
+I20261118 00:35:18.231594 1422366 layer_factory.hpp:77] Creating layer conv5_v
+I20261118 00:35:18.231624 1422366 net.cpp:111] Creating Layer conv5_v
+I20261118 00:35:18.231647 1422366 net.cpp:433] conv5_v <- conv4
+I20261118 00:35:18.231673 1422366 net.cpp:407] conv5_v -> conv5_v
+I20261118 00:35:18.252122 1422366 net.cpp:149] Setting up conv5_v
+I20261118 00:35:18.252220 1422366 net.cpp:156] Top shape: 10 200 13 13 (338000)
+I20261118 00:35:18.252274 1422366 net.cpp:164] Memory required for data: 71383800
+I20261118 00:35:18.252314 1422366 layer_factory.hpp:77] Creating layer conv5_h
+I20261118 00:35:18.252349 1422366 net.cpp:111] Creating Layer conv5_h
+I20261118 00:35:18.252372 1422366 net.cpp:433] conv5_h <- conv5_v
+I20261118 00:35:18.252396 1422366 net.cpp:407] conv5_h -> conv5
+I20261118 00:35:18.280367 1422366 net.cpp:149] Setting up conv5_h
+I20261118 00:35:18.280447 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:18.280485 1422366 net.cpp:164] Memory required for data: 73114360
+I20261118 00:35:18.280519 1422366 layer_factory.hpp:77] Creating layer relu5
+I20261118 00:35:18.280550 1422366 net.cpp:111] Creating Layer relu5
+I20261118 00:35:18.280577 1422366 net.cpp:433] relu5 <- conv5
+I20261118 00:35:18.280606 1422366 net.cpp:394] relu5 -> conv5 (in-place)
+I20261118 00:35:18.283452 1422366 net.cpp:149] Setting up relu5
+I20261118 00:35:18.283505 1422366 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261118 00:35:18.283556 1422366 net.cpp:164] Memory required for data: 74844920
+I20261118 00:35:18.283576 1422366 layer_factory.hpp:77] Creating layer pool5
+I20261118 00:35:18.283603 1422366 net.cpp:111] Creating Layer pool5
+I20261118 00:35:18.283623 1422366 net.cpp:433] pool5 <- conv5
+I20261118 00:35:18.283648 1422366 net.cpp:407] pool5 -> pool5
+I20261118 00:35:18.283746 1422366 net.cpp:149] Setting up pool5
+I20261118 00:35:18.283770 1422366 net.cpp:156] Top shape: 10 256 6 6 (92160)
+I20261118 00:35:18.283793 1422366 net.cpp:164] Memory required for data: 75213560
+I20261118 00:35:18.283811 1422366 layer_factory.hpp:77] Creating layer fc6
+I20261118 00:35:18.283833 1422366 net.cpp:111] Creating Layer fc6
+I20261118 00:35:18.283851 1422366 net.cpp:433] fc6 <- pool5
+I20261118 00:35:18.283874 1422366 net.cpp:407] fc6 -> fc6
+I20261118 00:35:18.504336 1422366 net.cpp:149] Setting up fc6
+I20261118 00:35:18.504437 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.504475 1422366 net.cpp:164] Memory required for data: 75377400
+I20261118 00:35:18.504508 1422366 layer_factory.hpp:77] Creating layer relu6
+I20261118 00:35:18.504609 1422366 net.cpp:111] Creating Layer relu6
+I20261118 00:35:18.504638 1422366 net.cpp:433] relu6 <- fc6
+I20261118 00:35:18.504665 1422366 net.cpp:394] relu6 -> fc6 (in-place)
+I20261118 00:35:18.508232 1422366 net.cpp:149] Setting up relu6
+I20261118 00:35:18.508306 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.508332 1422366 net.cpp:164] Memory required for data: 75541240
+I20261118 00:35:18.508354 1422366 layer_factory.hpp:77] Creating layer drop6
+I20261118 00:35:18.508380 1422366 net.cpp:111] Creating Layer drop6
+I20261118 00:35:18.508400 1422366 net.cpp:433] drop6 <- fc6
+I20261118 00:35:18.508424 1422366 net.cpp:394] drop6 -> fc6 (in-place)
+I20261118 00:35:18.508503 1422366 net.cpp:149] Setting up drop6
+I20261118 00:35:18.508527 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.508548 1422366 net.cpp:164] Memory required for data: 75705080
+I20261118 00:35:18.508564 1422366 layer_factory.hpp:77] Creating layer fc7
+I20261118 00:35:18.508589 1422366 net.cpp:111] Creating Layer fc7
+I20261118 00:35:18.508606 1422366 net.cpp:433] fc7 <- fc6
+I20261118 00:35:18.508626 1422366 net.cpp:407] fc7 -> fc7
+I20261118 00:35:18.607039 1422366 net.cpp:149] Setting up fc7
+I20261118 00:35:18.607125 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.607162 1422366 net.cpp:164] Memory required for data: 75868920
+I20261118 00:35:18.607196 1422366 layer_factory.hpp:77] Creating layer relu7
+I20261118 00:35:18.607227 1422366 net.cpp:111] Creating Layer relu7
+I20261118 00:35:18.607251 1422366 net.cpp:433] relu7 <- fc7
+I20261118 00:35:18.607291 1422366 net.cpp:394] relu7 -> fc7 (in-place)
+I20261118 00:35:18.610695 1422366 net.cpp:149] Setting up relu7
+I20261118 00:35:18.610747 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.610771 1422366 net.cpp:164] Memory required for data: 76032760
+I20261118 00:35:18.610792 1422366 layer_factory.hpp:77] Creating layer drop7
+I20261118 00:35:18.610817 1422366 net.cpp:111] Creating Layer drop7
+I20261118 00:35:18.610837 1422366 net.cpp:433] drop7 <- fc7
+I20261118 00:35:18.610860 1422366 net.cpp:394] drop7 -> fc7 (in-place)
+I20261118 00:35:18.610947 1422366 net.cpp:149] Setting up drop7
+I20261118 00:35:18.610971 1422366 net.cpp:156] Top shape: 10 4096 (40960)
+I20261118 00:35:18.610991 1422366 net.cpp:164] Memory required for data: 76196600
+I20261118 00:35:18.611008 1422366 layer_factory.hpp:77] Creating layer fc8
+I20261118 00:35:18.611030 1422366 net.cpp:111] Creating Layer fc8
+I20261118 00:35:18.611048 1422366 net.cpp:433] fc8 <- fc7
+I20261118 00:35:18.611069 1422366 net.cpp:407] fc8 -> fc8
+I20261118 00:35:18.635435 1422366 net.cpp:149] Setting up fc8
+I20261118 00:35:18.635512 1422366 net.cpp:156] Top shape: 10 1000 (10000)
+I20261118 00:35:18.635541 1422366 net.cpp:164] Memory required for data: 76236600
+I20261118 00:35:18.635571 1422366 layer_factory.hpp:77] Creating layer prob
+I20261118 00:35:18.635601 1422366 net.cpp:111] Creating Layer prob
+I20261118 00:35:18.635623 1422366 net.cpp:433] prob <- fc8
+I20261118 00:35:18.635670 1422366 net.cpp:407] prob -> prob
+I20261118 00:35:18.641184 1422366 net.cpp:149] Setting up prob
+I20261118 00:35:18.641252 1422366 net.cpp:156] Top shape: 10 1000 (10000)
+I20261118 00:35:18.641280 1422366 net.cpp:164] Memory required for data: 76276600
+I20261118 00:35:18.641302 1422366 net.cpp:227] prob does not need backward computation.
+I20261118 00:35:18.641323 1422366 net.cpp:227] fc8 does not need backward computation.
+I20261118 00:35:18.641345 1422366 net.cpp:227] drop7 does not need backward computation.
+I20261118 00:35:18.641363 1422366 net.cpp:227] relu7 does not need backward computation.
+I20261118 00:35:18.641381 1422366 net.cpp:227] fc7 does not need backward computation.
+I20261118 00:35:18.641400 1422366 net.cpp:227] drop6 does not need backward computation.
+I20261118 00:35:18.641417 1422366 net.cpp:227] relu6 does not need backward computation.
+I20261118 00:35:18.641435 1422366 net.cpp:227] fc6 does not need backward computation.
+I20261118 00:35:18.641453 1422366 net.cpp:227] pool5 does not need backward computation.
+I20261118 00:35:18.641511 1422366 net.cpp:227] relu5 does not need backward computation.
+I20261118 00:35:18.641531 1422366 net.cpp:227] conv5_h does not need backward computation.
+I20261118 00:35:18.641551 1422366 net.cpp:227] conv5_v does not need backward computation.
+I20261118 00:35:18.641570 1422366 net.cpp:227] relu4 does not need backward computation.
+I20261118 00:35:18.641588 1422366 net.cpp:227] conv4_h does not need backward computation.
+I20261118 00:35:18.641606 1422366 net.cpp:227] conv4_v does not need backward computation.
+I20261118 00:35:18.641635 1422366 net.cpp:227] relu3 does not need backward computation.
+I20261118 00:35:18.641655 1422366 net.cpp:227] conv3_h does not need backward computation.
+I20261118 00:35:18.641674 1422366 net.cpp:227] conv3_v does not need backward computation.
+I20261118 00:35:18.641693 1422366 net.cpp:227] norm2 does not need backward computation.
+I20261118 00:35:18.641712 1422366 net.cpp:227] pool2 does not need backward computation.
+I20261118 00:35:18.641731 1422366 net.cpp:227] relu2 does not need backward computation.
+I20261118 00:35:18.641748 1422366 net.cpp:227] conv2_h does not need backward computation.
+I20261118 00:35:18.641767 1422366 net.cpp:227] conv2_v does not need backward computation.
+I20261118 00:35:18.641785 1422366 net.cpp:227] norm1 does not need backward computation.
+I20261118 00:35:18.641803 1422366 net.cpp:227] pool1 does not need backward computation.
+I20261118 00:35:18.641822 1422366 net.cpp:227] relu1 does not need backward computation.
+I20261118 00:35:18.641839 1422366 net.cpp:227] conv1_h does not need backward computation.
+I20261118 00:35:18.641857 1422366 net.cpp:227] conv1_v does not need backward computation.
+I20261118 00:35:18.641876 1422366 net.cpp:227] data does not need backward computation.
+I20261118 00:35:18.641892 1422366 net.cpp:269] This network produces output prob
+I20261118 00:35:18.641976 1422366 net.cpp:282] Network initialization done.
+I20261118 00:35:18.949183 1422366 upgrade_proto.cpp:44] Attempting to upgrade input file specified using deprecated transformation parameters: /mnt/ssd/neuos/src/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I20261118 00:35:18.949311 1422366 upgrade_proto.cpp:47] Successfully upgraded file specified using deprecated data transformation parameters.
+W20261118 00:35:18.949342 1422366 upgrade_proto.cpp:49] Note that future Caffe releases will only support transform_param messages for transformation fields.
+I20261118 00:35:18.949363 1422366 upgrade_proto.cpp:53] Attempting to upgrade input file specified using deprecated V1LayerParameter: /mnt/ssd/neuos/src/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I20261118 00:35:19.076434 1422366 upgrade_proto.cpp:61] Successfully upgraded file specified using deprecated V1LayerParameter
+I20261118 00:35:19.102963 1422366 net.cpp:1373] Ignoring source layer loss
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Progress Cohort={ 0,-65593,-65593,-65593,-65593,-65593,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+_peroid: 0
+++++ xup_exec_us/xup_energy_mj: 59259 199.088
+++++ rails_mj sys5v/gpu/cpu/vddrq: 199.088 85.8385 136.903 41.29
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ 0,-59259,-65593,-65593,-65593,-65593,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5272 18.748
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.748 23.268 11.3797 6.49961
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ 0,-59259,-59259,-65593,-65593,-65593,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4544 16.1679
+++++ rails_mj sys5v/gpu/cpu/vddrq: 16.1679 25.5325 9.51494 6.97363
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ 0,-59259,-59259,-59259,-65593,-65593,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4401 16.6545
+++++ rails_mj sys5v/gpu/cpu/vddrq: 16.6545 33.8614 9.99329 8.89855
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-65593,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4416 17.1568
+++++ rails_mj sys5v/gpu/cpu/vddrq: 17.1568 40.9638 9.95236 10.3648
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-59259,-65593,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4321 16.9942
+++++ rails_mj sys5v/gpu/cpu/vddrq: 16.9942 44.9034 9.56962 11.2261
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-59259,-59259,-65593,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4324 18.1057
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.1057 51.5307 9.96418 12.6127
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-65593,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4318 18.3744
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.3744 54.9621 9.94 13.3141
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-65593,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4301 17.7705
+++++ rails_mj sys5v/gpu/cpu/vddrq: 17.7705 55.1977 9.46286 13.3067
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ 0,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 20.5,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4312 18.849
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.849 60.3416 10.2541 14.5676
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4291 18.9071
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.9071 61.9249 10.5463 14.9439
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4285 18.2071
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.2071 60.6257 10.081 14.6233
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4316 19.2826
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.2826 65.0923 10.6034 15.613
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4287 18.3399
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.3399 62.614 10.0444 14.8808
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4275 18.4301
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.4301 63.4294 10.0537 15.2765
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4280 18.3669
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.3669 63.7656 10.0034 15.2713
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4277 18.4884
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.4884 64.5081 10.0315 15.3882
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4287 18.6093
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6093 65.2946 10.0725 15.4816
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4268 18.5477
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.5477 65.3957 10.029 15.5182
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4266 18.5698
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.5698 65.7595 10.0262 15.5837
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4286 18.7038
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7038 66.3455 10.0888 15.8203
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4268 18.5588
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.5588 66.1063 10.0145 15.776
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4311 19.5939
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.5939 69.8292 10.567 16.6717
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4268 18.7036
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7036 66.6694 10.0689 15.8942
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4264 18.6315
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6315 66.3839 10.0153 15.8396
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4249 18.6042
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6042 66.2835 9.99624 15.8078
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4269 18.7799
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7799 66.7658 10.0709 15.9269
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4246 38.3186
+++++ rails_mj sys5v/gpu/cpu/vddrq: 38.3186 136.976 20.5742 32.3151
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4275 18.675
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.675 66.3857 10.0145 15.8366
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4256 18.8032
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.8032 66.7761 10.0785 15.9752
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4262 18.7196
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7196 66.4448 10.0337 15.8663
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4271 18.6401
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6401 66.0952 9.98608 15.7914
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4276 18.7922
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7922 66.4635 10.0677 15.9199
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4258 18.6762
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6762 66.0161 10.0104 15.8309
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4485 19.7234
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7234 69.6738 10.5733 16.7131
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4271 18.7867
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7867 66.3705 10.0748 15.9364
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4252 18.7002
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7002 66.0641 10.0282 15.8576
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4257 18.6315
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.6315 65.8519 9.99122 15.7993
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4337 19.8534
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8534 70.1696 10.6382 16.8103
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.768
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.768 69.8679 10.5924 16.7379
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.6553
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6553 69.7052 10.5416 16.6932
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.8357
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8357 70.3128 10.6384 16.8477
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4450 19.7598
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7598 70.0488 10.588 16.8359
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.7187
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7187 70.0068 10.566 16.8005
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4455 19.7468
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7468 70.1052 10.5852 16.8721
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4466 19.7262
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7262 69.896 10.5679 16.846
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4438 19.7116
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7116 69.8088 10.5545 16.7889
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4449 19.7683
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7683 70.0154 10.5824 16.7921
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4475 19.7676
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7676 70.0474 10.5825 16.7937
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4337 19.7391
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7391 69.9791 10.5716 16.7801
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4539 20.8034
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.8034 73.8382 11.1388 17.697
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4461 19.7729
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7729 70.2027 10.5902 16.8038
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4456 19.7436
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7436 70.1 10.5746 16.8477
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4431 19.7591
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7591 70.1875 10.5825 16.8616
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4438 19.7882
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7882 70.2578 10.5947 16.8858
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 19.7216
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7216 70.0199 10.5599 16.8294
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4481 19.759
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.759 70.1184 10.5828 16.8264
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4498 19.7795
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7795 70.2227 10.5985 16.8172
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4441 19.6614
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6614 69.8025 10.5303 16.6751
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4481 19.7751
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7751 70.1814 10.5912 16.7716
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4464 19.7807
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7807 70.1411 10.599 16.7832
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4463 19.637
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.637 69.6917 10.5164 16.6543
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 19.7595
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7595 70.1542 10.5877 16.8382
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4419 19.6521
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6521 69.7707 10.5254 16.7387
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4420 19.7767
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7767 70.3539 10.5922 16.8765
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.7507
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7507 70.2633 10.5783 16.854
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4416 19.7805
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7805 70.3705 10.5944 16.879
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4558 20.8178
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.8178 74.063 11.147 17.7076
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4394 19.7666
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7666 70.1795 10.5868 16.7984
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4524 19.7408
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7408 70.0857 10.5779 16.8219
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4474 19.6382
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6382 69.6852 10.5228 16.769
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4430 19.7278
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7278 70.0742 10.5709 16.8467
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4462 18.7196
+++++ rails_mj sys5v/gpu/cpu/vddrq: 18.7196 66.5511 10.0337 15.9734
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.6501
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6501 69.7634 10.5243 16.7698
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4431 19.7664
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7664 70.1786 10.5867 16.8676
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4468 19.791
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.791 70.2339 10.595 16.8809
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4483 19.6845
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6845 69.8543 10.5429 16.7978
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4488 19.7752
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7752 70.0996 10.5961 16.8141
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4483 19.744
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.744 69.8185 10.5796 16.7521
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4522 19.732
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.732 69.7413 10.5731 16.7765
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4460 19.8594
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8594 70.1528 10.6463 16.8624
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4499 19.7523
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7523 69.8099 10.5889 16.7705
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4441 19.6739
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6739 69.6025 10.5419 16.6952
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4447 19.905
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.905 70.3874 10.6608 16.8127
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4414 19.7792
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7792 69.9462 10.5884 16.7673
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4322 19.7233
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7233 69.994 10.5588 16.7194
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 19.7652
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7652 70.2151 10.5764 16.7472
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4372 19.7559
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7559 70.2161 10.5714 16.774
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4538 20.7483
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.7483 73.7833 11.1049 17.606
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4518 19.7289
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7289 70.0115 10.5666 16.7317
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.7461
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7461 69.9367 10.571 16.7387
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4448 19.695
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.695 69.7213 10.5387 16.6535
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4423 19.7434
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7434 70.0324 10.5642 16.7289
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4420 19.7634
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7634 70.2102 10.5675 16.7728
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 19.7235
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7235 69.9318 10.5351 16.724
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4337 19.8046
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8046 70.3621 10.5812 16.792
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4445 19.7786
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7786 70.4388 10.5778 16.82
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4405 19.7607
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7607 70.4433 10.5663 16.8397
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4412 19.7146
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7146 70.4193 10.5435 16.8003
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4414 19.7777
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7777 70.6433 10.5769 16.8543
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4400 19.7151
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7151 70.4208 10.544 16.8356
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4452 19.6801
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6801 70.2227 10.5307 16.8484
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4415 19.7417
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7417 70.3684 10.5732 16.9158
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4409 19.7431
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7431 70.3403 10.5686 16.9441
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4311 19.6555
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6555 69.931 10.5096 16.8533
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4508 19.7383
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7383 70.2576 10.5601 16.8974
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4372 19.6616
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6616 69.984 10.5134 16.756
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4537 20.7962
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.7962 73.9218 11.1213 17.6737
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4446 19.7462
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7462 70.144 10.5666 16.8082
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4449 19.5096
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.5096 69.2777 10.4355 16.5636
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4417 19.7491
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7491 70.0868 10.5633 16.7686
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4441 19.7296
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7296 69.9512 10.548 16.7439
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.7768
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7768 70.1894 10.5733 16.7838
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.6355
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6355 69.6845 10.4976 16.63
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4435 19.7941
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7941 70.2492 10.5825 16.7987
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4433 19.8388
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8388 70.4441 10.6065 16.8017
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.7472
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7472 70.1855 10.5623 16.8011
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 19.7452
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7452 70.1449 10.562 16.7646
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4482 19.8299
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8299 70.4045 10.6202 16.8174
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4476 19.7403
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7403 70.0522 10.5727 16.7413
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4513 19.7008
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7008 69.9105 10.5564 16.6807
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4509 19.8212
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8212 70.302 10.6209 16.787
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4605 20.7825
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.7825 73.6914 11.1329 17.5878
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4346 19.6805
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6805 69.6663 10.5407 16.6953
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4517 19.7989
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7989 69.9767 10.6089 16.7674
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4424 19.7411
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7411 69.7726 10.578 16.7196
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4549 20.6153
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.6153 72.8868 11.0479 17.4147
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4406 19.7353
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7353 69.6161 10.57 16.7035
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4520 19.7508
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7508 69.706 10.5783 16.7157
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4505 19.6257
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6257 69.4663 10.5161 16.6181
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4468 19.7762
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7762 69.9342 10.5919 16.772
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4525 19.9026
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.9026 70.3765 10.6644 16.8882
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4475 19.6216
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6216 69.3851 10.514 16.6517
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.7436
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7436 69.7816 10.5793 16.7587
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4451 19.7574
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7574 69.9009 10.5868 16.7662
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4463 19.7495
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7495 69.8372 10.5823 16.8318
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4496 19.6836
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6836 69.6399 10.5468 16.7074
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4494 19.7383
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7383 69.7632 10.5765 16.7545
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4522 19.752
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.752 69.6377 10.5839 16.7315
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4498 19.61
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.61 69.1366 10.5077 16.6113
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4484 19.7387
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7387 69.5229 10.5768 16.7199
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4532 20.7822
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.7822 73.1323 11.1377 17.5959
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4487 19.723
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.723 69.3624 10.5683 16.7067
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4507 20.6595
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.6595 72.8708 11.0768 17.4994
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4456 19.765
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.765 69.5795 10.5908 16.7424
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4541 19.8252
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8252 69.8576 10.6279 16.8012
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4475 19.6233
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6233 68.9731 10.5147 16.6226
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4523 19.7514
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7514 69.5659 10.5835 16.7309
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.8264
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8264 69.8685 10.6188 16.8205
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4509 20.647
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.647 72.9645 11.0651 17.5163
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4507 19.7461
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7461 69.7209 10.5807 16.7612
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4563 20.8056
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.8056 73.4567 11.1502 17.6503
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4411 19.5926
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.5926 69.1432 10.4983 16.5949
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4482 19.7121
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7121 69.682 10.5673 16.7051
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4488 19.7557
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7557 69.8572 10.5857 16.7351
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4486 19.7505
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7505 69.8082 10.5879 16.7378
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4478 19.6533
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6533 69.4292 10.531 16.6821
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4422 19.7831
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7831 70.0296 10.5957 16.7108
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4443 19.7713
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7713 70.0576 10.5894 16.6986
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.6299
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6299 69.5536 10.5135 16.5794
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4437 19.8175
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8175 70.2969 10.6039 16.7221
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4442 19.7719
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7719 70.2735 10.5799 16.7182
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4467 19.6841
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6841 69.9608 10.5329 16.6787
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4389 19.6615
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6615 70.0187 10.5208 16.6249
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4526 19.7847
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7847 70.4575 10.5868 16.7291
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4352 19.7839
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7839 70.4522 10.5912 16.7708
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4533 20.6936
+++++ rails_mj sys5v/gpu/cpu/vddrq: 20.6936 73.723 11.0853 17.5756
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4427 19.651
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.651 69.9728 10.5296 16.7779
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4440 19.7635
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7635 70.3398 10.5897 16.8773
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4467 19.7287
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7287 70.2805 10.5808 16.9325
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4460 19.7113
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7113 70.1527 10.5619 16.864
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.7605
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7605 70.3984 10.5884 16.9062
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4464 19.5814
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.5814 69.6547 10.4923 16.7189
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4471 19.7666
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7666 70.2127 10.5917 16.8752
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4474 19.7601
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7601 70.2922 10.5881 16.8703
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4446 19.681
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.681 70.0555 10.5458 16.8024
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4478 19.7595
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7595 70.3703 10.5879 16.8347
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4464 19.7657
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7657 70.3256 10.5863 16.8325
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4487 19.8011
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.8011 70.5057 10.6053 16.8623
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4491 19.6773
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6773 70.096 10.5438 16.7714
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4462 19.759
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.759 70.2211 10.5973 16.8569
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4472 19.771
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.771 70.0541 10.5933 16.7822
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4359 19.6754
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6754 69.8165 10.5455 16.7777
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4516 19.7582
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7582 70.1471 10.5869 16.8061
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.7655
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7655 70.2079 10.5911 16.8471
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4474 19.686
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.686 69.822 10.5485 16.71
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4474 19.7755
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7755 70.1419 10.5902 16.8477
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4432 19.6975
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6975 69.908 10.5454 16.8151
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4451 19.7645
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7645 70.0702 10.5813 16.8009
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4438 19.7868
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7868 70.1888 10.5835 16.7656
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4453 19.4459
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.4459 68.9436 10.4011 16.4423
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4437 19.7088
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7088 70.0074 10.5563 16.7223
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4426 19.738
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.738 70.1463 10.5747 16.818
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4435 19.6824
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6824 70.0526 10.5414 16.7274
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4431 19.7781
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7781 70.4686 10.5832 16.8275
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4464 19.6516
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.6516 69.9132 10.5156 16.72
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4467 19.7861
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7861 70.3561 10.5924 16.8419
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4464 19.7432
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7432 70.1664 10.5743 16.8173
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4408 19.726
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.726 70.1753 10.5649 16.8048
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,-59259,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4428 19.7181
+++++ rails_mj sys5v/gpu/cpu/vddrq: 19.7181 70.2157 10.5608 16.7611

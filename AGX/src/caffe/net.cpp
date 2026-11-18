@@ -728,6 +728,8 @@ namespace caffe {
 			uint64_t exec_us=0, sched_us=0;
 			double xup_exec_us =0.0;
 			double xup_energy_mj=0.0;
+			double xup_rail_mj[4] = {0, 0, 0, 0}; // per INA3221 rail, same accounting as xup_energy_mj
+			uint64_t sched_end_nj[4];
 
 			int iteration = 20;
 
@@ -908,10 +910,12 @@ namespace caffe {
 
 
 						sched_us = energymon_gettime_us(&ts);
-						end_total = em.fread(&em, start_nj);
+						end_total = em.fread(&em, sched_end_nj);
 
 						xup_exec_us += sched_us;
 						xup_energy_mj += (double)(end_total-start_total)/1000000.0;
+						for(int ch = 0; ch < 4; ch++)
+							xup_rail_mj[ch] += (double)(sched_end_nj[ch]-start_nj[ch])/1000000.0;
 						//std::cout << "++++ sched_us/sched_energy: " << sched_us << " "<< (end_total-start_total)/1000000.0 << std::endl;
 
 
@@ -1021,6 +1025,16 @@ namespace caffe {
 				end_total = em.fread(&em, end_nj);
 				xup_exec_us += exec_us/iteration;
 				xup_energy_mj += (double)(end_total-start_total)/iteration/1000000.0;
+				for(int ch = 0; ch < 4; ch++)
+					xup_rail_mj[ch] += (double)(end_nj[ch]-start_nj[ch])/iteration/1000000.0;
+				// NEUOS_PROFILE=1: per-layer latency (us) and energy (mJ: total, GPU, CPU, mem),
+				// averaged over the repeats; the input of hashtables/generate_hashtable.py.
+				if(getenv("NEUOS_PROFILE")) {
+					std::cout << "PROFILE " << layer_names_[i] << " " << exec_us/iteration;
+					for(int ch = 0; ch < 4; ch++)
+						std::cout << " " << (double)(end_nj[ch]-start_nj[ch])/iteration/1000000.0;
+					std::cout << std::endl;
+				}
 
 				//usleep(10000);
 				//std::cout << "Latency(us)/Energy(mJ): " << exec_us/iteration << " " 
@@ -1136,6 +1150,8 @@ namespace caffe {
 			em.ffinish(&em);	
 
 			std::cout << "++++ xup_exec_us/xup_energy_mj: " << xup_exec_us << " "<< xup_energy_mj << std::endl;
+			std::cout << "++++ rails_mj sys5v/gpu/cpu/vddrq: " << xup_rail_mj[0] << " " << xup_rail_mj[1] << " "
+				<< xup_rail_mj[2] << " " << xup_rail_mj[3] << std::endl;
 			if (shmdt(data) == -1) {
 				perror("shmdt");
 				exit(1);

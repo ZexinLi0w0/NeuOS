@@ -1,0 +1,13 @@
+336 profiled configurations, 229 fit 25 ms (whole-network profile latency)
+idle power, 4 rails: Linux default 5.093 W, pinned 6.446 W
+
+| Static configuration (profile estimate) | Latency (ms) | Energy per job (mJ) | Energy per period (mJ) |
+|---|---|---|---|
+| id 20611: CPU 960 MHz, cores 11000000, GPU 420 MHz | 17.72 | 120.3 | 157.4 |
+| id 20610: CPU 960 MHz, cores 11000000, GPU 318 MHz | 21.24 | 139.0 | 158.1 |
+| id 31363: CPU 1421 MHz, cores 11000000, GPU 420 MHz | 15.21 | 108.8 | 158.6 |
+| id 30467: CPU 1421 MHz, cores 10000000, GPU 420 MHz | 17.05 | 118.3 | 158.8 |
+| id 21283: CPU 960 MHz, cores 11110000, GPU 420 MHz | 17.44 | 120.4 | 158.9 |
+
+calibration: max configuration (id 51967) profile 6.77 ms, 222.2 mJ/period; measured pinned runs 247.5 mJ/period (x1.11)
+best static configuration scaled by the same factor: 175.3 mJ/period

@@ -1,5 +1,6 @@
 #!/bin/bash
 # NeuOS DVFS-on run on AGX Xavier (L4T R35.4.1). Run with sudo.
+# usage: dvfs_run.sh N_JOBS TAG [HASH_TABLE]
 # 1) save board state, 2) enable-dvfs.sh, 3) sample clocks while classify.bin runs,
 # 4) restore governors, cores, clocks (jetson_clocks) and file modes.
 set -u
@@ -7,6 +8,7 @@ R=/mnt/ssd/neuos/src
 O=/mnt/ssd/neuos/out
 N=${1:-200}
 TAG=${2:-on}
+HASH=${3:-$R/hashtables/TX2/caffenet-cudnn-HASHTABLE.txt}   # Uncertainty table
 GPU=/sys/devices/17000000.gv11b/devfreq/17000000.gv11b
 CPUF=/sys/devices/system/cpu/cpufreq/policy0
 EMC=/sys/kernel/debug/bpmp/debug/clk/emc
@@ -45,7 +47,7 @@ date +%s%3N > $O/start_$TAG.txt
   $R/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel \
   $R/data/ilsvrc12/imagenet_mean.binaryproto $R/data/ilsvrc12/synset_words.txt \
   $R/examples/images/cat.jpg $N 25 5 all-AGX.config \
-  $R/hashtables/TX2/caffenet-cudnn-HASHTABLE.txt \
+  $HASH \
   $R/models/lowrank/caffenet_lowrank_deploy.prototxt \
   $R/models/lowrank/caffenet_lowrank.caffemodel 1 > $O/dvfs_$TAG.log 2>&1
 echo "classify rc=$?"
