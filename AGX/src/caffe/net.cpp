@@ -36,6 +36,14 @@
 //#define MIN_ENG
 
 using namespace std;
+
+// SysV shm key files (README step 7). Default /home/nvidia as in the original;
+// set NEUOS_SHM_DIR to use another directory.
+static std::string neuos_shm_path(const char* name) {
+  const char* dir = getenv("NEUOS_SHM_DIR");
+  return std::string(dir ? dir : "/home/nvidia") + "/" + name;
+}
+
 namespace caffe {
 
 	template <typename Dtype>
@@ -673,11 +681,19 @@ namespace caffe {
 	//}
 
 	template <typename Dtype>
+		void Net<Dtype>::shutdown_config()
+		{
+			is_config_on=false;
+		}
+
+	template <typename Dtype>
 		void Net<Dtype>::warmup()
 		{
 			//for(int i=0;i<24;i++){
 			//	deadlines.push_back(i*1.0);
 			//}
+			if(!is_config_on)
+				return;
 			srand (time(NULL));
 			int conf = rand()%configurations.size();
 			cout << "*********************Configuration size: " << configurations.size() << endl;
@@ -712,6 +728,8 @@ namespace caffe {
 			uint64_t exec_us=0, sched_us=0;
 			double xup_exec_us =0.0;
 			double xup_energy_mj=0.0;
+			double xup_rail_mj[4] = {0, 0, 0, 0}; // per INA3221 rail, same accounting as xup_energy_mj
+			uint64_t sched_end_nj[4];
 
 			int iteration = 20;
 
@@ -742,9 +760,9 @@ namespace caffe {
 			float priority = 1;
 			uint64_t total_running_time=0;
 			// ftok to generate unique key
-			key = ftok("/home/nvidia/datafile", 65);
-			key2 = ftok("/home/nvidia/concurrfile", 65);
-			key3 = ftok("/home/nvidia/approxfile", 65);
+			key = ftok(neuos_shm_path("datafile").c_str(), 65);
+			key2 = ftok(neuos_shm_path("concurrfile").c_str(), 65);
+			key3 = ftok(neuos_shm_path("approxfile").c_str(), 65);
 
 
 			/* Progress */
@@ -886,19 +904,23 @@ namespace caffe {
 						start_total = em.fread(&em, start_nj);
 						energymon_gettime_us(&ts);
 						//cout<< "Slack:" <<_slack <<" Deadline:" <<deadlines[i-1] << " History:[" <<  history[i-1][0].speedup << " " << rev_history[i-1][0]  << " " <<  history[i][0].speedup << " " << rev_history[i][0] << "]"<< endl;
+						if(is_config_on)
 						current_configuration[i] = schedule(priority,_slack, deadlines[i],deadlines[i-1], (float)exec_us/iteration + sched_us, _Uncertainty[i],current_configuration[i-1],current_configuration[i], history[i-1], rev_history[i-1], history[i], rev_history[i]);
 						//cout << "Done scheduling." << endl;
 
 
 						sched_us = energymon_gettime_us(&ts);
-						end_total = em.fread(&em, start_nj);
+						end_total = em.fread(&em, sched_end_nj);
 
 						xup_exec_us += sched_us;
 						xup_energy_mj += (double)(end_total-start_total)/1000000.0;
+						for(int ch = 0; ch < 4; ch++)
+							xup_rail_mj[ch] += (double)(sched_end_nj[ch]-start_nj[ch])/1000000.0;
 						//std::cout << "++++ sched_us/sched_energy: " << sched_us << " "<< (end_total-start_total)/1000000.0 << std::endl;
 
 
 
+						if(is_config_on) {
 						if(current_configuration[i] >= configurations.size()){
 							current_configuration[i] = configurations.size()-1;
 						}
@@ -947,6 +969,7 @@ namespace caffe {
 
 						if(cur.mem_freq!=last.mem_freq)
 							setEmcFreq(cur.mem_freq);
+						} // is_config_on
 
 						//cout <<"############## Configuration:" << current_configuration[i] << " Uncertainty:" << _Uncertainty[i] << endl;
 					}
@@ -1002,6 +1025,16 @@ namespace caffe {
 				end_total = em.fread(&em, end_nj);
 				xup_exec_us += exec_us/iteration;
 				xup_energy_mj += (double)(end_total-start_total)/iteration/1000000.0;
+				for(int ch = 0; ch < 4; ch++)
+					xup_rail_mj[ch] += (double)(end_nj[ch]-start_nj[ch])/iteration/1000000.0;
+				// NEUOS_PROFILE=1: per-layer latency (us) and energy (mJ: total, GPU, CPU, mem),
+				// averaged over the repeats; the input of hashtables/generate_hashtable.py.
+				if(getenv("NEUOS_PROFILE")) {
+					std::cout << "PROFILE " << layer_names_[i] << " " << exec_us/iteration;
+					for(int ch = 0; ch < 4; ch++)
+						std::cout << " " << (double)(end_nj[ch]-start_nj[ch])/iteration/1000000.0;
+					std::cout << std::endl;
+				}
 
 				//usleep(10000);
 				//std::cout << "Latency(us)/Energy(mJ): " << exec_us/iteration << " " 
@@ -1117,6 +1150,8 @@ namespace caffe {
 			em.ffinish(&em);	
 
 			std::cout << "++++ xup_exec_us/xup_energy_mj: " << xup_exec_us << " "<< xup_energy_mj << std::endl;
+			std::cout << "++++ rails_mj sys5v/gpu/cpu/vddrq: " << xup_rail_mj[0] << " " << xup_rail_mj[1] << " "
+				<< xup_rail_mj[2] << " " << xup_rail_mj[3] << std::endl;
 			if (shmdt(data) == -1) {
 				perror("shmdt");
 				exit(1);

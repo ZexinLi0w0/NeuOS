@@ -1,0 +1,26 @@
+Idle power (4 rails): pinned 6446 mW, default 5093 mW
+
+| Method | Runs x jobs | p50 latency (ms) | p99 latency (ms) | Jobs over 25 ms | Energy per job, 4 rails (mJ) | Energy per 25 ms period, 4 rails (mJ) | NeuOS' SYS5V energy per job (mJ) |
+|---|---|---|---|---|---|---|---|
+| Off, pinned max | 3 x 199 | 4.46 | 4.68 | 0 (0-0)% | 115.0 (114.4-115.6) | 247.5 (247.0-247.9) | 19.6 (19.5-19.7) |
+| Off, Linux default | 3 x 199 | 4.46 | 4.82 | 0 (0-0)% | 115.4 (114.8-116.1) | 220.0 (219.3-220.7) | 19.7 (19.6-19.8) |
+| NeuOS, TX2 table | 3 x 99 | 28.21 | 39.11 | 67 (2-100)% | 180.4 (161.8-201.4) | 184.7 (174.6-201.4) | 95.0 (75.2-114.2) |
+| NeuOS, Xavier (SYS5V) | 3 x 99 | 41.14 | 72.18 | 69 (8-100)% | 243.3 (169.7-287.1) | 246.7 (179.9-287.1) | 134.4 (78.2-167.6) |
+| NeuOS, Xavier (4 rails) | 3 x 99 | 22.55 | 33.14 | 35 (0-97)% | 158.4 (146.8-178.7) | 172.5 (162.2-178.9) | 79.3 (63.4-99.0) |
+
+Per run:
+  pinned_r1.log: p50 4.43 ms, over 25 ms 0%, 114.4 mJ/job, 247.0 mJ/period
+  pinned_r2.log: p50 4.49 ms, over 25 ms 0%, 115.6 mJ/job, 247.9 mJ/period
+  pinned_r3.log: p50 4.46 ms, over 25 ms 0%, 115.1 mJ/job, 247.6 mJ/period
+  default_r1.log: p50 4.45 ms, over 25 ms 0%, 114.8 mJ/job, 219.3 mJ/period
+  default_r2.log: p50 4.45 ms, over 25 ms 0%, 115.4 mJ/job, 220.1 mJ/period
+  default_r3.log: p50 4.49 ms, over 25 ms 0%, 116.1 mJ/job, 220.7 mJ/period
+  dvfs_tx2_r1.log: p50 22.28 ms, over 25 ms 2%, 161.8 mJ/job, 174.6 mJ/period
+  dvfs_tx2_r2.log: p50 32.81 ms, over 25 ms 100%, 201.4 mJ/job, 201.4 mJ/period
+  dvfs_tx2_r3.log: p50 28.21 ms, over 25 ms 100%, 178.0 mJ/job, 178.0 mJ/period
+  dvfs_xsys5v_r1.log: p50 46.97 ms, over 25 ms 100%, 287.1 mJ/job, 287.1 mJ/period
+  dvfs_xsys5v_r2.log: p50 22.90 ms, over 25 ms 8%, 169.7 mJ/job, 179.9 mJ/period
+  dvfs_xsys5v_r3.log: p50 43.79 ms, over 25 ms 100%, 273.1 mJ/job, 273.1 mJ/period
+  dvfs_xsum4_r1.log: p50 28.89 ms, over 25 ms 97%, 178.7 mJ/job, 178.9 mJ/period
+  dvfs_xsum4_r2.log: p50 22.55 ms, over 25 ms 9%, 149.7 mJ/job, 162.2 mJ/period
+  dvfs_xsum4_r3.log: p50 18.98 ms, over 25 ms 0%, 146.8 mJ/job, 176.5 mJ/period

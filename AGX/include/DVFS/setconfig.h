@@ -77,23 +77,29 @@ using namespace std;
 //	fclose(f_max);
 //	return 0;
 //}
-int setClusterFreq(uint64_t freq){
-	FILE* f_freq = fopen(CLUSTER_FREQ,"w");
-	FILE* f_max = fopen(CLUSTER_MAX, "w");
-	FILE* f_min = fopen(CLUSTER_MIN, "w");
-	if(f_freq == NULL || f_max ==NULL || f_min ==NULL){
-		fprintf(stderr, "File open failure\n");
+// Each value is written and closed on its own, in an order that works whether the clock
+// goes up or down: the kernel rejects min > max, so max, min, max again, then the target.
+// (Writing through buffered FILE*s closed in freq/min/max order made every increase fail.)
+static int write_sysfs(const char* path, const char* value){
+	FILE* f = fopen(path, "w");
+	if(f == NULL){
+		fprintf(stderr, "File open failure: %s\n", path);
 		return -1;
 	}
+	fputs(value, f);
+	return fclose(f) == 0 ? 0 : -1;
+}
+static int set_clock(const char* max_path, const char* min_path, const char* cur_path, uint64_t value){
 	char buff[128];
-	sprintf(buff, "%" PRIu64, freq);
-	fputs(buff, f_freq);
-	fputs(buff, f_min);
-	fputs(buff, f_max);
-	fclose(f_freq);
-	fclose(f_min);
-	fclose(f_max);
-	return 0;
+	sprintf(buff, "%" PRIu64, value);
+	write_sysfs(max_path, buff);          // fails when lowering below the current min; retried below
+	int rc = write_sysfs(min_path, buff);
+	rc |= write_sysfs(max_path, buff);
+	if(cur_path) rc |= write_sysfs(cur_path, buff);
+	return rc;
+}
+int setClusterFreq(uint64_t freq){
+	return set_clock(CLUSTER_MAX, CLUSTER_MIN, CLUSTER_FREQ, freq);
 }
 int setCoresOnline(int mask[]){
 	int idx[]={0,1,2,3,4,5,6,7};
@@ -200,51 +206,16 @@ int setCoresOnline(int mask[]){
 //	return 0;
 //}
 int setGpuFreq(uint64_t gFreq){
-	FILE* f_freq = fopen(GPU_FREQ,"w");
-	FILE* f_max = fopen(GPU_MAX, "w");
-	FILE* f_min = fopen(GPU_MIN, "w");
-	FILE* f_idle = fopen(GPU_ONLINE, "w");
-	if(f_freq == NULL || f_max ==NULL || f_idle==NULL||f_min ==NULL){
-		fprintf(stderr,  "File open failure\n");
-		return -1;
-	}
 	if(gFreq == 0){
-		fputs("1", f_idle);
-		fputs("140250000", f_freq);
-		fputs("140250000", f_max);
-		fputs("140250000", f_min);
-		fclose(f_idle);
-		fclose(f_freq);
-		fclose(f_max);
-		fclose(f_min);
-		return 0;	
+		int rc = write_sysfs(GPU_ONLINE, "1");
+		return rc | set_clock(GPU_MAX, GPU_MIN, GPU_FREQ, 140250000);
 	}
-	char buff[128];
-	sprintf(buff, "%" PRIu64, gFreq);
-	fputs("0", f_idle);
-	fputs(buff, f_freq);
-	fputs(buff, f_min);
-	fputs(buff, f_max);
-	fclose(f_freq);
-	fclose(f_min);
-	fclose(f_max);
-	return 0;
+	int rc = write_sysfs(GPU_ONLINE, "0");
+	return rc | set_clock(GPU_MAX, GPU_MIN, GPU_FREQ, gFreq);
 }
 int setEmcFreq(uint64_t emcFreq){
-	FILE* f_freq = fopen(EMC_FREQ,"w");
-	FILE* f_max = fopen(EMC_MAX, "w");
-	FILE* f_min = fopen(EMC_MIN, "w");
-	if(f_freq == NULL || f_max ==NULL || f_min ==NULL){
-		fprintf(stderr, "File open failure\n");
-		return -1;
-	}
-	char buff[128];
-	sprintf(buff, "%" PRIu64, emcFreq);
-	fputs(buff, f_freq);
-	fputs(buff, f_min);
-	fputs(buff, f_max);
-	fclose(f_freq);
-	fclose(f_min);
-	fclose(f_max);
-	return 0;
+	// all-AGX.config stores the EMC clock in MHz (2133) but bpmp's emc/rate takes Hz;
+	// writing 2133 pinned EMC to its 204 MHz floor.
+	if(emcFreq > 0 && emcFreq < 1000000) emcFreq *= 1000000;
+	return set_clock(EMC_MAX, EMC_MIN, EMC_FREQ, emcFreq);
 }

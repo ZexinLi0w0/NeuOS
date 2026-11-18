@@ -40,14 +40,17 @@ class Net {
 	  //int large_freq;
 	  int mem_freq;
   };
-  float _slack;
-  float _peroid; // in ms
+  float _slack = 0;
+  // in ms; set by setup_DVFS(). Left uninitialized in DVFS-off mode it fed garbage into the
+  // slack and so into the cohort priority, which switched conv layers to the low-rank twin at random.
+  float _peroid = 0;
   vector<float> _Uncertainty; // Uncertainty values for each layer
   map<int,config> configurations; // System configurations (just the numbers) <ID, config>
   vector<float> deadlines; // Reference deadlines
   int current_configuration[250]; 
   int prev_configuration[250];
   bool isWarmup = true;
+  bool is_config_on = true;
   map<int,hist_ent> history[250];
   map<string,int> rev_history[250];
 
@@ -285,6 +288,7 @@ public:
  
   /*DVFS Setup */
   void setup_DVFS(float period, const string conf_path, const string Uncertainty_path);
+  void shutdown_config();
   void warmup();
   //int setConfig(config &con);
   static int orderof(config c);

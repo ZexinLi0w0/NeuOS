@@ -1,0 +1,1 @@
+cpu 2265600-2265600 gov schedutil; gpu 1377000000-1377000000 gov nvhost_podgov; emc 2133000000 locked 1; online 0-7

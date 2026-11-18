@@ -1,0 +1,11 @@
+Storing system configuration in /mnt/ssd/neuos/out/l4t_dfs_before_on.conf
+Terminated
+classify rc=143
+Restoring system configuration from /mnt/ssd/neuos/out/l4t_dfs_before_on.conf
+1,2c1,2
+< GPU MinFreq=1377000000 MaxFreq=1377000000 CurrentFreq=1377000000
+< EMC MinFreq=204000000 MaxFreq=2133000000 CurrentFreq=2133000000 FreqOverride=1
+---
+> GPU MinFreq=675750000 MaxFreq=675750000 CurrentFreq=675750000
+> EMC MinFreq=204000000 MaxFreq=2133000000 CurrentFreq=204000000 FreqOverride=1
+modes restored
