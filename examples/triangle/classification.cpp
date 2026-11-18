@@ -513,7 +513,8 @@ int main(int argc, char** argv) {
 	float slack = atof(argv[8]); // useless
 	string config_file = argv[9];
 	string Uncertainty_file = argv[10];
-	int config_mode = atoi(argv[11]); // 0:config off, 1:config on
+	// argv[11] is the lowrank prototxt; the README documents the flag as the 13th argument
+	int config_mode = argc > 13 ? atoi(argv[13]) : 0; // 0:config off, 1:config on
 
 	std::cout << "---------- Prediction for "<< file << " ----------" << std::endl;
 

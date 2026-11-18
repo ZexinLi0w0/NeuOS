@@ -83,6 +83,9 @@ int setClusterFreq(uint64_t freq){
 	FILE* f_min = fopen(CLUSTER_MIN, "w");
 	if(f_freq == NULL || f_max ==NULL || f_min ==NULL){
 		fprintf(stderr, "File open failure\n");
+		if(f_freq) fclose(f_freq);
+		if(f_max) fclose(f_max);
+		if(f_min) fclose(f_min);
 		return -1;
 	}
 	char buff[128];
@@ -206,6 +209,10 @@ int setGpuFreq(uint64_t gFreq){
 	FILE* f_idle = fopen(GPU_ONLINE, "w");
 	if(f_freq == NULL || f_max ==NULL || f_idle==NULL||f_min ==NULL){
 		fprintf(stderr,  "File open failure\n");
+		if(f_freq) fclose(f_freq);
+		if(f_max) fclose(f_max);
+		if(f_min) fclose(f_min);
+		if(f_idle) fclose(f_idle);
 		return -1;
 	}
 	if(gFreq == 0){
@@ -225,17 +232,24 @@ int setGpuFreq(uint64_t gFreq){
 	fputs(buff, f_freq);
 	fputs(buff, f_min);
 	fputs(buff, f_max);
+	fclose(f_idle); // was leaked: one fd per GPU frequency change
 	fclose(f_freq);
 	fclose(f_min);
 	fclose(f_max);
 	return 0;
 }
 int setEmcFreq(uint64_t emcFreq){
+	// all-AGX.config stores the EMC clock in MHz (2133) but bpmp's emc/rate takes Hz;
+	// writing 2133 pinned EMC to its 204 MHz floor.
+	if(emcFreq > 0 && emcFreq < 1000000) emcFreq *= 1000000;
 	FILE* f_freq = fopen(EMC_FREQ,"w");
 	FILE* f_max = fopen(EMC_MAX, "w");
 	FILE* f_min = fopen(EMC_MIN, "w");
 	if(f_freq == NULL || f_max ==NULL || f_min ==NULL){
 		fprintf(stderr, "File open failure\n");
+		if(f_freq) fclose(f_freq);
+		if(f_max) fclose(f_max);
+		if(f_min) fclose(f_min);
 		return -1;
 	}
 	char buff[128];

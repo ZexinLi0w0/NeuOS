@@ -48,6 +48,7 @@ class Net {
   int current_configuration[250]; 
   int prev_configuration[250];
   bool isWarmup = true;
+  bool is_config_on = true;
   map<int,hist_ent> history[250];
   map<string,int> rev_history[250];
 
@@ -285,6 +286,7 @@ public:
  
   /*DVFS Setup */
   void setup_DVFS(float period, const string conf_path, const string Uncertainty_path);
+  void shutdown_config();
   void warmup();
   //int setConfig(config &con);
   static int orderof(config c);

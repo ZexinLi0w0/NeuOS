@@ -1,0 +1,13 @@
+NV Power Mode: MAXN
+0
+NVPM ERROR: Error opening /sys/kernel/nvpmodel_emc_cap/emc_iso_cap: 13
+NVPM ERROR: failed to read PARAM EMC: ARG MAX_FREQ: PATH /sys/kernel/nvpmodel_emc_cap/emc_iso_cap
+/sys/devices/system/cpu/cpufreq/policy0/scaling_governor schedutil
+/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq 2265600
+/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq 2265600
+/sys/devices/17000000.gv11b/devfreq/17000000.gv11b/governor nvhost_podgov
+/sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq 1377000000
+/sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq 1377000000
+/sys/devices/17000000.gv11b/devfreq/17000000.gv11b/cur_freq 1377000000
+/sys/devices/system/cpu/online 0-7
+2133000000

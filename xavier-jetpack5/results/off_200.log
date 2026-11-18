@@ -1,0 +1,1988 @@
+---------- Prediction for /mnt/ssd/neuos/src/examples/images/cat.jpg ----------
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I20261117 21:09:21.297968 1066292 net.cpp:78] Initializing net from parameters: 
+name: "CaffeNet"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 10
+      dim: 3
+      dim: 227
+      dim: 227
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 96
+    kernel_size: 11
+    stride: 4
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  convolution_param {
+    num_output: 256
+    pad: 2
+    kernel_size: 5
+    group: 2
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "conv5"
+  type: "Convolution"
+  bottom: "conv4"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
+}
+I20261117 21:09:21.299381 1066292 layer_factory.hpp:77] Creating layer data
+I20261117 21:09:21.299520 1066292 net.cpp:111] Creating Layer data
+I20261117 21:09:21.299549 1066292 net.cpp:407] data -> data
+I20261117 21:09:21.317633 1066292 net.cpp:149] Setting up data
+I20261117 21:09:21.317770 1066292 net.cpp:156] Top shape: 10 3 227 227 (1545870)
+I20261117 21:09:21.317826 1066292 net.cpp:164] Memory required for data: 6183480
+I20261117 21:09:21.317855 1066292 layer_factory.hpp:77] Creating layer conv1
+I20261117 21:09:21.317909 1066292 net.cpp:111] Creating Layer conv1
+I20261117 21:09:21.317935 1066292 net.cpp:433] conv1 <- data
+I20261117 21:09:21.317966 1066292 net.cpp:407] conv1 -> conv1
+I20261117 21:09:22.105446 1066292 net.cpp:149] Setting up conv1
+I20261117 21:09:22.105551 1066292 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261117 21:09:22.105584 1066292 net.cpp:164] Memory required for data: 17799480
+I20261117 21:09:22.105691 1066292 layer_factory.hpp:77] Creating layer relu1
+I20261117 21:09:22.105779 1066292 net.cpp:111] Creating Layer relu1
+I20261117 21:09:22.105801 1066292 net.cpp:433] relu1 <- conv1
+I20261117 21:09:22.105824 1066292 net.cpp:394] relu1 -> conv1 (in-place)
+I20261117 21:09:22.107640 1066292 net.cpp:149] Setting up relu1
+I20261117 21:09:22.107688 1066292 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261117 21:09:22.107715 1066292 net.cpp:164] Memory required for data: 29415480
+I20261117 21:09:22.107734 1066292 layer_factory.hpp:77] Creating layer pool1
+I20261117 21:09:22.107759 1066292 net.cpp:111] Creating Layer pool1
+I20261117 21:09:22.107777 1066292 net.cpp:433] pool1 <- conv1
+I20261117 21:09:22.107800 1066292 net.cpp:407] pool1 -> pool1
+I20261117 21:09:22.107882 1066292 net.cpp:149] Setting up pool1
+I20261117 21:09:22.107904 1066292 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261117 21:09:22.107925 1066292 net.cpp:164] Memory required for data: 32214840
+I20261117 21:09:22.107942 1066292 layer_factory.hpp:77] Creating layer norm1
+I20261117 21:09:22.107969 1066292 net.cpp:111] Creating Layer norm1
+I20261117 21:09:22.107987 1066292 net.cpp:433] norm1 <- pool1
+I20261117 21:09:22.108007 1066292 net.cpp:407] norm1 -> norm1
+I20261117 21:09:22.109383 1066292 net.cpp:149] Setting up norm1
+I20261117 21:09:22.109416 1066292 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261117 21:09:22.109439 1066292 net.cpp:164] Memory required for data: 35014200
+I20261117 21:09:22.109457 1066292 layer_factory.hpp:77] Creating layer conv2
+I20261117 21:09:22.109484 1066292 net.cpp:111] Creating Layer conv2
+I20261117 21:09:22.109503 1066292 net.cpp:433] conv2 <- norm1
+I20261117 21:09:22.109524 1066292 net.cpp:407] conv2 -> conv2
+I20261117 21:09:22.127640 1066292 net.cpp:149] Setting up conv2
+I20261117 21:09:22.127729 1066292 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261117 21:09:22.127761 1066292 net.cpp:164] Memory required for data: 42479160
+I20261117 21:09:22.127797 1066292 layer_factory.hpp:77] Creating layer relu2
+I20261117 21:09:22.127827 1066292 net.cpp:111] Creating Layer relu2
+I20261117 21:09:22.127848 1066292 net.cpp:433] relu2 <- conv2
+I20261117 21:09:22.127871 1066292 net.cpp:394] relu2 -> conv2 (in-place)
+I20261117 21:09:22.129586 1066292 net.cpp:149] Setting up relu2
+I20261117 21:09:22.129621 1066292 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261117 21:09:22.129645 1066292 net.cpp:164] Memory required for data: 49944120
+I20261117 21:09:22.129664 1066292 layer_factory.hpp:77] Creating layer pool2
+I20261117 21:09:22.129688 1066292 net.cpp:111] Creating Layer pool2
+I20261117 21:09:22.129705 1066292 net.cpp:433] pool2 <- conv2
+I20261117 21:09:22.129727 1066292 net.cpp:407] pool2 -> pool2
+I20261117 21:09:22.129824 1066292 net.cpp:149] Setting up pool2
+I20261117 21:09:22.129846 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.129868 1066292 net.cpp:164] Memory required for data: 51674680
+I20261117 21:09:22.129885 1066292 layer_factory.hpp:77] Creating layer norm2
+I20261117 21:09:22.129910 1066292 net.cpp:111] Creating Layer norm2
+I20261117 21:09:22.129927 1066292 net.cpp:433] norm2 <- pool2
+I20261117 21:09:22.129948 1066292 net.cpp:407] norm2 -> norm2
+I20261117 21:09:22.131456 1066292 net.cpp:149] Setting up norm2
+I20261117 21:09:22.131492 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.131517 1066292 net.cpp:164] Memory required for data: 53405240
+I20261117 21:09:22.131536 1066292 layer_factory.hpp:77] Creating layer conv3
+I20261117 21:09:22.131561 1066292 net.cpp:111] Creating Layer conv3
+I20261117 21:09:22.131584 1066292 net.cpp:433] conv3 <- norm2
+I20261117 21:09:22.131608 1066292 net.cpp:407] conv3 -> conv3
+I20261117 21:09:22.152978 1066292 net.cpp:149] Setting up conv3
+I20261117 21:09:22.153059 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.153092 1066292 net.cpp:164] Memory required for data: 56001080
+I20261117 21:09:22.153128 1066292 layer_factory.hpp:77] Creating layer relu3
+I20261117 21:09:22.153156 1066292 net.cpp:111] Creating Layer relu3
+I20261117 21:09:22.153209 1066292 net.cpp:433] relu3 <- conv3
+I20261117 21:09:22.153234 1066292 net.cpp:394] relu3 -> conv3 (in-place)
+I20261117 21:09:22.154646 1066292 net.cpp:149] Setting up relu3
+I20261117 21:09:22.154686 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.154712 1066292 net.cpp:164] Memory required for data: 58596920
+I20261117 21:09:22.154731 1066292 layer_factory.hpp:77] Creating layer conv4
+I20261117 21:09:22.154757 1066292 net.cpp:111] Creating Layer conv4
+I20261117 21:09:22.154776 1066292 net.cpp:433] conv4 <- conv3
+I20261117 21:09:22.154798 1066292 net.cpp:407] conv4 -> conv4
+I20261117 21:09:22.179793 1066292 net.cpp:149] Setting up conv4
+I20261117 21:09:22.179879 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.179912 1066292 net.cpp:164] Memory required for data: 61192760
+I20261117 21:09:22.179942 1066292 layer_factory.hpp:77] Creating layer relu4
+I20261117 21:09:22.179971 1066292 net.cpp:111] Creating Layer relu4
+I20261117 21:09:22.179992 1066292 net.cpp:433] relu4 <- conv4
+I20261117 21:09:22.180016 1066292 net.cpp:394] relu4 -> conv4 (in-place)
+I20261117 21:09:22.181424 1066292 net.cpp:149] Setting up relu4
+I20261117 21:09:22.181456 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.181480 1066292 net.cpp:164] Memory required for data: 63788600
+I20261117 21:09:22.181499 1066292 layer_factory.hpp:77] Creating layer conv5
+I20261117 21:09:22.181525 1066292 net.cpp:111] Creating Layer conv5
+I20261117 21:09:22.181545 1066292 net.cpp:433] conv5 <- conv4
+I20261117 21:09:22.181566 1066292 net.cpp:407] conv5 -> conv5
+I20261117 21:09:22.200587 1066292 net.cpp:149] Setting up conv5
+I20261117 21:09:22.200671 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.200704 1066292 net.cpp:164] Memory required for data: 65519160
+I20261117 21:09:22.200739 1066292 layer_factory.hpp:77] Creating layer relu5
+I20261117 21:09:22.200769 1066292 net.cpp:111] Creating Layer relu5
+I20261117 21:09:22.200790 1066292 net.cpp:433] relu5 <- conv5
+I20261117 21:09:22.200814 1066292 net.cpp:394] relu5 -> conv5 (in-place)
+I20261117 21:09:22.203329 1066292 net.cpp:149] Setting up relu5
+I20261117 21:09:22.203382 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.203410 1066292 net.cpp:164] Memory required for data: 67249720
+I20261117 21:09:22.203430 1066292 layer_factory.hpp:77] Creating layer pool5
+I20261117 21:09:22.203457 1066292 net.cpp:111] Creating Layer pool5
+I20261117 21:09:22.203492 1066292 net.cpp:433] pool5 <- conv5
+I20261117 21:09:22.203518 1066292 net.cpp:407] pool5 -> pool5
+I20261117 21:09:22.203609 1066292 net.cpp:149] Setting up pool5
+I20261117 21:09:22.203634 1066292 net.cpp:156] Top shape: 10 256 6 6 (92160)
+I20261117 21:09:22.203655 1066292 net.cpp:164] Memory required for data: 67618360
+I20261117 21:09:22.203671 1066292 layer_factory.hpp:77] Creating layer fc6
+I20261117 21:09:22.203701 1066292 net.cpp:111] Creating Layer fc6
+I20261117 21:09:22.203718 1066292 net.cpp:433] fc6 <- pool5
+I20261117 21:09:22.203738 1066292 net.cpp:407] fc6 -> fc6
+I20261117 21:09:22.410286 1066292 net.cpp:149] Setting up fc6
+I20261117 21:09:22.410377 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.410403 1066292 net.cpp:164] Memory required for data: 67782200
+I20261117 21:09:22.410432 1066292 layer_factory.hpp:77] Creating layer relu6
+I20261117 21:09:22.410471 1066292 net.cpp:111] Creating Layer relu6
+I20261117 21:09:22.410495 1066292 net.cpp:433] relu6 <- fc6
+I20261117 21:09:22.410521 1066292 net.cpp:394] relu6 -> fc6 (in-place)
+I20261117 21:09:22.412305 1066292 net.cpp:149] Setting up relu6
+I20261117 21:09:22.412341 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.412364 1066292 net.cpp:164] Memory required for data: 67946040
+I20261117 21:09:22.412381 1066292 layer_factory.hpp:77] Creating layer drop6
+I20261117 21:09:22.412475 1066292 net.cpp:111] Creating Layer drop6
+I20261117 21:09:22.412496 1066292 net.cpp:433] drop6 <- fc6
+I20261117 21:09:22.412518 1066292 net.cpp:394] drop6 -> fc6 (in-place)
+I20261117 21:09:22.412616 1066292 net.cpp:149] Setting up drop6
+I20261117 21:09:22.412637 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.412657 1066292 net.cpp:164] Memory required for data: 68109880
+I20261117 21:09:22.412674 1066292 layer_factory.hpp:77] Creating layer fc7
+I20261117 21:09:22.412696 1066292 net.cpp:111] Creating Layer fc7
+I20261117 21:09:22.412714 1066292 net.cpp:433] fc7 <- fc6
+I20261117 21:09:22.412734 1066292 net.cpp:407] fc7 -> fc7
+I20261117 21:09:22.504544 1066292 net.cpp:149] Setting up fc7
+I20261117 21:09:22.504638 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.504671 1066292 net.cpp:164] Memory required for data: 68273720
+I20261117 21:09:22.504703 1066292 layer_factory.hpp:77] Creating layer relu7
+I20261117 21:09:22.504747 1066292 net.cpp:111] Creating Layer relu7
+I20261117 21:09:22.504773 1066292 net.cpp:433] relu7 <- fc7
+I20261117 21:09:22.504799 1066292 net.cpp:394] relu7 -> fc7 (in-place)
+I20261117 21:09:22.506732 1066292 net.cpp:149] Setting up relu7
+I20261117 21:09:22.506767 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.506789 1066292 net.cpp:164] Memory required for data: 68437560
+I20261117 21:09:22.506808 1066292 layer_factory.hpp:77] Creating layer drop7
+I20261117 21:09:22.506832 1066292 net.cpp:111] Creating Layer drop7
+I20261117 21:09:22.506851 1066292 net.cpp:433] drop7 <- fc7
+I20261117 21:09:22.506873 1066292 net.cpp:394] drop7 -> fc7 (in-place)
+I20261117 21:09:22.506946 1066292 net.cpp:149] Setting up drop7
+I20261117 21:09:22.506968 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.506987 1066292 net.cpp:164] Memory required for data: 68601400
+I20261117 21:09:22.507004 1066292 layer_factory.hpp:77] Creating layer fc8
+I20261117 21:09:22.507026 1066292 net.cpp:111] Creating Layer fc8
+I20261117 21:09:22.507045 1066292 net.cpp:433] fc8 <- fc7
+I20261117 21:09:22.507066 1066292 net.cpp:407] fc8 -> fc8
+I20261117 21:09:22.529829 1066292 net.cpp:149] Setting up fc8
+I20261117 21:09:22.529908 1066292 net.cpp:156] Top shape: 10 1000 (10000)
+I20261117 21:09:22.529938 1066292 net.cpp:164] Memory required for data: 68641400
+I20261117 21:09:22.529968 1066292 layer_factory.hpp:77] Creating layer prob
+I20261117 21:09:22.530010 1066292 net.cpp:111] Creating Layer prob
+I20261117 21:09:22.530035 1066292 net.cpp:433] prob <- fc8
+I20261117 21:09:22.530102 1066292 net.cpp:407] prob -> prob
+I20261117 21:09:22.532001 1066292 net.cpp:149] Setting up prob
+I20261117 21:09:22.532032 1066292 net.cpp:156] Top shape: 10 1000 (10000)
+I20261117 21:09:22.532054 1066292 net.cpp:164] Memory required for data: 68681400
+I20261117 21:09:22.532073 1066292 net.cpp:227] prob does not need backward computation.
+I20261117 21:09:22.532094 1066292 net.cpp:227] fc8 does not need backward computation.
+I20261117 21:09:22.532115 1066292 net.cpp:227] drop7 does not need backward computation.
+I20261117 21:09:22.532133 1066292 net.cpp:227] relu7 does not need backward computation.
+I20261117 21:09:22.532150 1066292 net.cpp:227] fc7 does not need backward computation.
+I20261117 21:09:22.532169 1066292 net.cpp:227] drop6 does not need backward computation.
+I20261117 21:09:22.532186 1066292 net.cpp:227] relu6 does not need backward computation.
+I20261117 21:09:22.532203 1066292 net.cpp:227] fc6 does not need backward computation.
+I20261117 21:09:22.532222 1066292 net.cpp:227] pool5 does not need backward computation.
+I20261117 21:09:22.532239 1066292 net.cpp:227] relu5 does not need backward computation.
+I20261117 21:09:22.532256 1066292 net.cpp:227] conv5 does not need backward computation.
+I20261117 21:09:22.532274 1066292 net.cpp:227] relu4 does not need backward computation.
+I20261117 21:09:22.532292 1066292 net.cpp:227] conv4 does not need backward computation.
+I20261117 21:09:22.532310 1066292 net.cpp:227] relu3 does not need backward computation.
+I20261117 21:09:22.532327 1066292 net.cpp:227] conv3 does not need backward computation.
+I20261117 21:09:22.532346 1066292 net.cpp:227] norm2 does not need backward computation.
+I20261117 21:09:22.532394 1066292 net.cpp:227] pool2 does not need backward computation.
+I20261117 21:09:22.532414 1066292 net.cpp:227] relu2 does not need backward computation.
+I20261117 21:09:22.532433 1066292 net.cpp:227] conv2 does not need backward computation.
+I20261117 21:09:22.532449 1066292 net.cpp:227] norm1 does not need backward computation.
+I20261117 21:09:22.532469 1066292 net.cpp:227] pool1 does not need backward computation.
+I20261117 21:09:22.532486 1066292 net.cpp:227] relu1 does not need backward computation.
+I20261117 21:09:22.532507 1066292 net.cpp:227] conv1 does not need backward computation.
+I20261117 21:09:22.532527 1066292 net.cpp:227] data does not need backward computation.
+I20261117 21:09:22.532543 1066292 net.cpp:269] This network produces output prob
+I20261117 21:09:22.532601 1066292 net.cpp:282] Network initialization done.
+I20261117 21:09:22.533946 1066292 net.cpp:78] Initializing net from parameters: 
+name: "CaffeNet"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 10
+      dim: 3
+      dim: 227
+      dim: 227
+    }
+  }
+}
+layer {
+  name: "conv1_v"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_v"
+  convolution_param {
+    num_output: 8
+    pad_h: 0
+    pad_w: 0
+    kernel_h: 11
+    kernel_w: 1
+    stride_h: 4
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv1_h"
+  type: "Convolution"
+  bottom: "conv1_v"
+  top: "conv1"
+  convolution_param {
+    num_output: 96
+    pad_h: 0
+    pad_w: 0
+    kernel_h: 1
+    kernel_w: 11
+    stride_h: 1
+    stride_w: 4
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv2_v"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2_v"
+  convolution_param {
+    num_output: 40
+    group: 2
+    pad_h: 2
+    pad_w: 0
+    kernel_h: 5
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv2_h"
+  type: "Convolution"
+  bottom: "conv2_v"
+  top: "conv2"
+  convolution_param {
+    num_output: 256
+    group: 2
+    pad_h: 0
+    pad_w: 2
+    kernel_h: 1
+    kernel_w: 5
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv3_v"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3_v"
+  convolution_param {
+    num_output: 60
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv3_h"
+  type: "Convolution"
+  bottom: "conv3_v"
+  top: "conv3"
+  convolution_param {
+    num_output: 384
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4_v"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4_v"
+  convolution_param {
+    num_output: 100
+    group: 2
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv4_h"
+  type: "Convolution"
+  bottom: "conv4_v"
+  top: "conv4"
+  convolution_param {
+    num_output: 384
+    group: 2
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "conv5_v"
+  type: "Convolution"
+  bottom: "conv4"
+  top: "conv5_v"
+  convolution_param {
+    num_output: 200
+    group: 2
+    pad_h: 1
+    pad_w: 0
+    kernel_h: 3
+    kernel_w: 1
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "conv5_h"
+  type: "Convolution"
+  bottom: "conv5_v"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    group: 2
+    pad_h: 0
+    pad_w: 1
+    kernel_h: 1
+    kernel_w: 3
+    stride_h: 1
+    stride_w: 1
+  }
+}
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
+}
+I20261117 21:09:22.534631 1066292 layer_factory.hpp:77] Creating layer data
+I20261117 21:09:22.534662 1066292 net.cpp:111] Creating Layer data
+I20261117 21:09:22.534683 1066292 net.cpp:407] data -> data
+I20261117 21:09:22.534739 1066292 net.cpp:149] Setting up data
+I20261117 21:09:22.534763 1066292 net.cpp:156] Top shape: 10 3 227 227 (1545870)
+I20261117 21:09:22.534806 1066292 net.cpp:164] Memory required for data: 6183480
+I20261117 21:09:22.534825 1066292 layer_factory.hpp:77] Creating layer conv1_v
+I20261117 21:09:22.534861 1066292 net.cpp:111] Creating Layer conv1_v
+I20261117 21:09:22.534880 1066292 net.cpp:433] conv1_v <- data
+I20261117 21:09:22.534901 1066292 net.cpp:407] conv1_v -> conv1_v
+I20261117 21:09:22.542608 1066292 net.cpp:149] Setting up conv1_v
+I20261117 21:09:22.542682 1066292 net.cpp:156] Top shape: 10 8 55 227 (998800)
+I20261117 21:09:22.542712 1066292 net.cpp:164] Memory required for data: 10178680
+I20261117 21:09:22.542745 1066292 layer_factory.hpp:77] Creating layer conv1_h
+I20261117 21:09:22.542776 1066292 net.cpp:111] Creating Layer conv1_h
+I20261117 21:09:22.542796 1066292 net.cpp:433] conv1_h <- conv1_v
+I20261117 21:09:22.542820 1066292 net.cpp:407] conv1_h -> conv1
+I20261117 21:09:22.550856 1066292 net.cpp:149] Setting up conv1_h
+I20261117 21:09:22.550926 1066292 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261117 21:09:22.550957 1066292 net.cpp:164] Memory required for data: 21794680
+I20261117 21:09:22.550988 1066292 layer_factory.hpp:77] Creating layer relu1
+I20261117 21:09:22.551015 1066292 net.cpp:111] Creating Layer relu1
+I20261117 21:09:22.551033 1066292 net.cpp:433] relu1 <- conv1
+I20261117 21:09:22.551056 1066292 net.cpp:394] relu1 -> conv1 (in-place)
+I20261117 21:09:22.552259 1066292 net.cpp:149] Setting up relu1
+I20261117 21:09:22.552289 1066292 net.cpp:156] Top shape: 10 96 55 55 (2904000)
+I20261117 21:09:22.552312 1066292 net.cpp:164] Memory required for data: 33410680
+I20261117 21:09:22.552331 1066292 layer_factory.hpp:77] Creating layer pool1
+I20261117 21:09:22.552356 1066292 net.cpp:111] Creating Layer pool1
+I20261117 21:09:22.552373 1066292 net.cpp:433] pool1 <- conv1
+I20261117 21:09:22.552394 1066292 net.cpp:407] pool1 -> pool1
+I20261117 21:09:22.552479 1066292 net.cpp:149] Setting up pool1
+I20261117 21:09:22.552501 1066292 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261117 21:09:22.552523 1066292 net.cpp:164] Memory required for data: 36210040
+I20261117 21:09:22.552541 1066292 layer_factory.hpp:77] Creating layer norm1
+I20261117 21:09:22.552563 1066292 net.cpp:111] Creating Layer norm1
+I20261117 21:09:22.552580 1066292 net.cpp:433] norm1 <- pool1
+I20261117 21:09:22.552600 1066292 net.cpp:407] norm1 -> norm1
+I20261117 21:09:22.554037 1066292 net.cpp:149] Setting up norm1
+I20261117 21:09:22.554134 1066292 net.cpp:156] Top shape: 10 96 27 27 (699840)
+I20261117 21:09:22.554191 1066292 net.cpp:164] Memory required for data: 39009400
+I20261117 21:09:22.554211 1066292 layer_factory.hpp:77] Creating layer conv2_v
+I20261117 21:09:22.554246 1066292 net.cpp:111] Creating Layer conv2_v
+I20261117 21:09:22.554266 1066292 net.cpp:433] conv2_v <- norm1
+I20261117 21:09:22.554286 1066292 net.cpp:407] conv2_v -> conv2_v
+I20261117 21:09:22.569069 1066292 net.cpp:149] Setting up conv2_v
+I20261117 21:09:22.569146 1066292 net.cpp:156] Top shape: 10 40 27 27 (291600)
+I20261117 21:09:22.569178 1066292 net.cpp:164] Memory required for data: 40175800
+I20261117 21:09:22.569212 1066292 layer_factory.hpp:77] Creating layer conv2_h
+I20261117 21:09:22.569243 1066292 net.cpp:111] Creating Layer conv2_h
+I20261117 21:09:22.569264 1066292 net.cpp:433] conv2_h <- conv2_v
+I20261117 21:09:22.569288 1066292 net.cpp:407] conv2_h -> conv2
+I20261117 21:09:22.583515 1066292 net.cpp:149] Setting up conv2_h
+I20261117 21:09:22.583595 1066292 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261117 21:09:22.583626 1066292 net.cpp:164] Memory required for data: 47640760
+I20261117 21:09:22.583654 1066292 layer_factory.hpp:77] Creating layer relu2
+I20261117 21:09:22.583684 1066292 net.cpp:111] Creating Layer relu2
+I20261117 21:09:22.583704 1066292 net.cpp:433] relu2 <- conv2
+I20261117 21:09:22.583729 1066292 net.cpp:394] relu2 -> conv2 (in-place)
+I20261117 21:09:22.585103 1066292 net.cpp:149] Setting up relu2
+I20261117 21:09:22.585136 1066292 net.cpp:156] Top shape: 10 256 27 27 (1866240)
+I20261117 21:09:22.585161 1066292 net.cpp:164] Memory required for data: 55105720
+I20261117 21:09:22.585180 1066292 layer_factory.hpp:77] Creating layer pool2
+I20261117 21:09:22.585203 1066292 net.cpp:111] Creating Layer pool2
+I20261117 21:09:22.585222 1066292 net.cpp:433] pool2 <- conv2
+I20261117 21:09:22.585243 1066292 net.cpp:407] pool2 -> pool2
+I20261117 21:09:22.585314 1066292 net.cpp:149] Setting up pool2
+I20261117 21:09:22.585335 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.585356 1066292 net.cpp:164] Memory required for data: 56836280
+I20261117 21:09:22.585373 1066292 layer_factory.hpp:77] Creating layer norm2
+I20261117 21:09:22.585407 1066292 net.cpp:111] Creating Layer norm2
+I20261117 21:09:22.585426 1066292 net.cpp:433] norm2 <- pool2
+I20261117 21:09:22.585451 1066292 net.cpp:407] norm2 -> norm2
+I20261117 21:09:22.586804 1066292 net.cpp:149] Setting up norm2
+I20261117 21:09:22.586839 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.586863 1066292 net.cpp:164] Memory required for data: 58566840
+I20261117 21:09:22.586881 1066292 layer_factory.hpp:77] Creating layer conv3_v
+I20261117 21:09:22.586913 1066292 net.cpp:111] Creating Layer conv3_v
+I20261117 21:09:22.586933 1066292 net.cpp:433] conv3_v <- norm2
+I20261117 21:09:22.586953 1066292 net.cpp:407] conv3_v -> conv3_v
+I20261117 21:09:22.594416 1066292 net.cpp:149] Setting up conv3_v
+I20261117 21:09:22.594485 1066292 net.cpp:156] Top shape: 10 60 13 13 (101400)
+I20261117 21:09:22.594516 1066292 net.cpp:164] Memory required for data: 58972440
+I20261117 21:09:22.594550 1066292 layer_factory.hpp:77] Creating layer conv3_h
+I20261117 21:09:22.594578 1066292 net.cpp:111] Creating Layer conv3_h
+I20261117 21:09:22.594597 1066292 net.cpp:433] conv3_h <- conv3_v
+I20261117 21:09:22.594622 1066292 net.cpp:407] conv3_h -> conv3
+I20261117 21:09:22.603605 1066292 net.cpp:149] Setting up conv3_h
+I20261117 21:09:22.603675 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.603704 1066292 net.cpp:164] Memory required for data: 61568280
+I20261117 21:09:22.603731 1066292 layer_factory.hpp:77] Creating layer relu3
+I20261117 21:09:22.603757 1066292 net.cpp:111] Creating Layer relu3
+I20261117 21:09:22.603776 1066292 net.cpp:433] relu3 <- conv3
+I20261117 21:09:22.603798 1066292 net.cpp:394] relu3 -> conv3 (in-place)
+I20261117 21:09:22.604974 1066292 net.cpp:149] Setting up relu3
+I20261117 21:09:22.605005 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.605028 1066292 net.cpp:164] Memory required for data: 64164120
+I20261117 21:09:22.605077 1066292 layer_factory.hpp:77] Creating layer conv4_v
+I20261117 21:09:22.605103 1066292 net.cpp:111] Creating Layer conv4_v
+I20261117 21:09:22.605120 1066292 net.cpp:433] conv4_v <- conv3
+I20261117 21:09:22.605142 1066292 net.cpp:407] conv4_v -> conv4_v
+I20261117 21:09:22.617573 1066292 net.cpp:149] Setting up conv4_v
+I20261117 21:09:22.617652 1066292 net.cpp:156] Top shape: 10 100 13 13 (169000)
+I20261117 21:09:22.617683 1066292 net.cpp:164] Memory required for data: 64840120
+I20261117 21:09:22.617712 1066292 layer_factory.hpp:77] Creating layer conv4_h
+I20261117 21:09:22.617738 1066292 net.cpp:111] Creating Layer conv4_h
+I20261117 21:09:22.617759 1066292 net.cpp:433] conv4_h <- conv4_v
+I20261117 21:09:22.617784 1066292 net.cpp:407] conv4_h -> conv4
+I20261117 21:09:22.631402 1066292 net.cpp:149] Setting up conv4_h
+I20261117 21:09:22.631488 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.631521 1066292 net.cpp:164] Memory required for data: 67435960
+I20261117 21:09:22.631549 1066292 layer_factory.hpp:77] Creating layer relu4
+I20261117 21:09:22.631582 1066292 net.cpp:111] Creating Layer relu4
+I20261117 21:09:22.631603 1066292 net.cpp:433] relu4 <- conv4
+I20261117 21:09:22.631628 1066292 net.cpp:394] relu4 -> conv4 (in-place)
+I20261117 21:09:22.634359 1066292 net.cpp:149] Setting up relu4
+I20261117 21:09:22.634413 1066292 net.cpp:156] Top shape: 10 384 13 13 (648960)
+I20261117 21:09:22.634441 1066292 net.cpp:164] Memory required for data: 70031800
+I20261117 21:09:22.634460 1066292 layer_factory.hpp:77] Creating layer conv5_v
+I20261117 21:09:22.634497 1066292 net.cpp:111] Creating Layer conv5_v
+I20261117 21:09:22.634518 1066292 net.cpp:433] conv5_v <- conv4
+I20261117 21:09:22.634543 1066292 net.cpp:407] conv5_v -> conv5_v
+I20261117 21:09:22.645955 1066292 net.cpp:149] Setting up conv5_v
+I20261117 21:09:22.646025 1066292 net.cpp:156] Top shape: 10 200 13 13 (338000)
+I20261117 21:09:22.646116 1066292 net.cpp:164] Memory required for data: 71383800
+I20261117 21:09:22.646150 1066292 layer_factory.hpp:77] Creating layer conv5_h
+I20261117 21:09:22.646180 1066292 net.cpp:111] Creating Layer conv5_h
+I20261117 21:09:22.646200 1066292 net.cpp:433] conv5_h <- conv5_v
+I20261117 21:09:22.646224 1066292 net.cpp:407] conv5_h -> conv5
+I20261117 21:09:22.660247 1066292 net.cpp:149] Setting up conv5_h
+I20261117 21:09:22.660323 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.660355 1066292 net.cpp:164] Memory required for data: 73114360
+I20261117 21:09:22.660382 1066292 layer_factory.hpp:77] Creating layer relu5
+I20261117 21:09:22.660410 1066292 net.cpp:111] Creating Layer relu5
+I20261117 21:09:22.660431 1066292 net.cpp:433] relu5 <- conv5
+I20261117 21:09:22.660454 1066292 net.cpp:394] relu5 -> conv5 (in-place)
+I20261117 21:09:22.661729 1066292 net.cpp:149] Setting up relu5
+I20261117 21:09:22.661763 1066292 net.cpp:156] Top shape: 10 256 13 13 (432640)
+I20261117 21:09:22.661787 1066292 net.cpp:164] Memory required for data: 74844920
+I20261117 21:09:22.661806 1066292 layer_factory.hpp:77] Creating layer pool5
+I20261117 21:09:22.661828 1066292 net.cpp:111] Creating Layer pool5
+I20261117 21:09:22.661847 1066292 net.cpp:433] pool5 <- conv5
+I20261117 21:09:22.661870 1066292 net.cpp:407] pool5 -> pool5
+I20261117 21:09:22.661943 1066292 net.cpp:149] Setting up pool5
+I20261117 21:09:22.661965 1066292 net.cpp:156] Top shape: 10 256 6 6 (92160)
+I20261117 21:09:22.661986 1066292 net.cpp:164] Memory required for data: 75213560
+I20261117 21:09:22.662003 1066292 layer_factory.hpp:77] Creating layer fc6
+I20261117 21:09:22.662025 1066292 net.cpp:111] Creating Layer fc6
+I20261117 21:09:22.662042 1066292 net.cpp:433] fc6 <- pool5
+I20261117 21:09:22.662135 1066292 net.cpp:407] fc6 -> fc6
+I20261117 21:09:22.867660 1066292 net.cpp:149] Setting up fc6
+I20261117 21:09:22.867753 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.867779 1066292 net.cpp:164] Memory required for data: 75377400
+I20261117 21:09:22.867808 1066292 layer_factory.hpp:77] Creating layer relu6
+I20261117 21:09:22.867874 1066292 net.cpp:111] Creating Layer relu6
+I20261117 21:09:22.867897 1066292 net.cpp:433] relu6 <- fc6
+I20261117 21:09:22.867921 1066292 net.cpp:394] relu6 -> fc6 (in-place)
+I20261117 21:09:22.869712 1066292 net.cpp:149] Setting up relu6
+I20261117 21:09:22.869746 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.869768 1066292 net.cpp:164] Memory required for data: 75541240
+I20261117 21:09:22.869786 1066292 layer_factory.hpp:77] Creating layer drop6
+I20261117 21:09:22.869818 1066292 net.cpp:111] Creating Layer drop6
+I20261117 21:09:22.869838 1066292 net.cpp:433] drop6 <- fc6
+I20261117 21:09:22.869859 1066292 net.cpp:394] drop6 -> fc6 (in-place)
+I20261117 21:09:22.869907 1066292 net.cpp:149] Setting up drop6
+I20261117 21:09:22.869928 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.869947 1066292 net.cpp:164] Memory required for data: 75705080
+I20261117 21:09:22.869964 1066292 layer_factory.hpp:77] Creating layer fc7
+I20261117 21:09:22.869985 1066292 net.cpp:111] Creating Layer fc7
+I20261117 21:09:22.870003 1066292 net.cpp:433] fc7 <- fc6
+I20261117 21:09:22.870023 1066292 net.cpp:407] fc7 -> fc7
+I20261117 21:09:22.960901 1066292 net.cpp:149] Setting up fc7
+I20261117 21:09:22.960989 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.961021 1066292 net.cpp:164] Memory required for data: 75868920
+I20261117 21:09:22.961054 1066292 layer_factory.hpp:77] Creating layer relu7
+I20261117 21:09:22.961084 1066292 net.cpp:111] Creating Layer relu7
+I20261117 21:09:22.961107 1066292 net.cpp:433] relu7 <- fc7
+I20261117 21:09:22.961133 1066292 net.cpp:394] relu7 -> fc7 (in-place)
+I20261117 21:09:22.963008 1066292 net.cpp:149] Setting up relu7
+I20261117 21:09:22.963044 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.963066 1066292 net.cpp:164] Memory required for data: 76032760
+I20261117 21:09:22.963085 1066292 layer_factory.hpp:77] Creating layer drop7
+I20261117 21:09:22.963109 1066292 net.cpp:111] Creating Layer drop7
+I20261117 21:09:22.963127 1066292 net.cpp:433] drop7 <- fc7
+I20261117 21:09:22.963148 1066292 net.cpp:394] drop7 -> fc7 (in-place)
+I20261117 21:09:22.963222 1066292 net.cpp:149] Setting up drop7
+I20261117 21:09:22.963243 1066292 net.cpp:156] Top shape: 10 4096 (40960)
+I20261117 21:09:22.963263 1066292 net.cpp:164] Memory required for data: 76196600
+I20261117 21:09:22.963279 1066292 layer_factory.hpp:77] Creating layer fc8
+I20261117 21:09:22.963300 1066292 net.cpp:111] Creating Layer fc8
+I20261117 21:09:22.963318 1066292 net.cpp:433] fc8 <- fc7
+I20261117 21:09:22.963338 1066292 net.cpp:407] fc8 -> fc8
+I20261117 21:09:22.985904 1066292 net.cpp:149] Setting up fc8
+I20261117 21:09:22.985996 1066292 net.cpp:156] Top shape: 10 1000 (10000)
+I20261117 21:09:22.986027 1066292 net.cpp:164] Memory required for data: 76236600
+I20261117 21:09:22.986089 1066292 layer_factory.hpp:77] Creating layer prob
+I20261117 21:09:22.986140 1066292 net.cpp:111] Creating Layer prob
+I20261117 21:09:22.986164 1066292 net.cpp:433] prob <- fc8
+I20261117 21:09:22.986191 1066292 net.cpp:407] prob -> prob
+I20261117 21:09:22.989578 1066292 net.cpp:149] Setting up prob
+I20261117 21:09:22.989619 1066292 net.cpp:156] Top shape: 10 1000 (10000)
+I20261117 21:09:22.989645 1066292 net.cpp:164] Memory required for data: 76276600
+I20261117 21:09:22.989665 1066292 net.cpp:227] prob does not need backward computation.
+I20261117 21:09:22.989686 1066292 net.cpp:227] fc8 does not need backward computation.
+I20261117 21:09:22.989707 1066292 net.cpp:227] drop7 does not need backward computation.
+I20261117 21:09:22.989725 1066292 net.cpp:227] relu7 does not need backward computation.
+I20261117 21:09:22.989742 1066292 net.cpp:227] fc7 does not need backward computation.
+I20261117 21:09:22.989763 1066292 net.cpp:227] drop6 does not need backward computation.
+I20261117 21:09:22.989781 1066292 net.cpp:227] relu6 does not need backward computation.
+I20261117 21:09:22.989799 1066292 net.cpp:227] fc6 does not need backward computation.
+I20261117 21:09:22.989816 1066292 net.cpp:227] pool5 does not need backward computation.
+I20261117 21:09:22.989868 1066292 net.cpp:227] relu5 does not need backward computation.
+I20261117 21:09:22.989888 1066292 net.cpp:227] conv5_h does not need backward computation.
+I20261117 21:09:22.989907 1066292 net.cpp:227] conv5_v does not need backward computation.
+I20261117 21:09:22.989924 1066292 net.cpp:227] relu4 does not need backward computation.
+I20261117 21:09:22.989943 1066292 net.cpp:227] conv4_h does not need backward computation.
+I20261117 21:09:22.989960 1066292 net.cpp:227] conv4_v does not need backward computation.
+I20261117 21:09:22.989979 1066292 net.cpp:227] relu3 does not need backward computation.
+I20261117 21:09:22.989996 1066292 net.cpp:227] conv3_h does not need backward computation.
+I20261117 21:09:22.990015 1066292 net.cpp:227] conv3_v does not need backward computation.
+I20261117 21:09:22.990033 1066292 net.cpp:227] norm2 does not need backward computation.
+I20261117 21:09:22.990108 1066292 net.cpp:227] pool2 does not need backward computation.
+I20261117 21:09:22.990130 1066292 net.cpp:227] relu2 does not need backward computation.
+I20261117 21:09:22.990149 1066292 net.cpp:227] conv2_h does not need backward computation.
+I20261117 21:09:22.990167 1066292 net.cpp:227] conv2_v does not need backward computation.
+I20261117 21:09:22.990185 1066292 net.cpp:227] norm1 does not need backward computation.
+I20261117 21:09:22.990204 1066292 net.cpp:227] pool1 does not need backward computation.
+I20261117 21:09:22.990223 1066292 net.cpp:227] relu1 does not need backward computation.
+I20261117 21:09:22.990240 1066292 net.cpp:227] conv1_h does not need backward computation.
+I20261117 21:09:22.990258 1066292 net.cpp:227] conv1_v does not need backward computation.
+I20261117 21:09:22.990276 1066292 net.cpp:227] data does not need backward computation.
+I20261117 21:09:22.990293 1066292 net.cpp:269] This network produces output prob
+I20261117 21:09:22.990370 1066292 net.cpp:282] Network initialization done.
+I20261117 21:09:23.329879 1066292 upgrade_proto.cpp:44] Attempting to upgrade input file specified using deprecated transformation parameters: /mnt/ssd/neuos/src/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I20261117 21:09:23.329978 1066292 upgrade_proto.cpp:47] Successfully upgraded file specified using deprecated data transformation parameters.
+W20261117 21:09:23.330008 1066292 upgrade_proto.cpp:49] Note that future Caffe releases will only support transform_param messages for transformation fields.
+I20261117 21:09:23.330029 1066292 upgrade_proto.cpp:53] Attempting to upgrade input file specified using deprecated V1LayerParameter: /mnt/ssd/neuos/src/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I20261117 21:09:23.454705 1066292 upgrade_proto.cpp:61] Successfully upgraded file specified using deprecated V1LayerParameter
+I20261117 21:09:23.482381 1066292 net.cpp:1357] Ignoring source layer loss
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Using lowrank instead.
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-4.03271e+06,-4.10586e+06,-4.20237e+06,-4.35016e+06,-4.49203e+06,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+_peroid: -1.03717e+37
+++++ xup_exec_us/xup_energy_mj: 57519 187.809
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-4.10586e+06,-4.20237e+06,-4.35016e+06,-4.49203e+06,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5991 20.2303
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-4.20237e+06,-4.35016e+06,-4.49203e+06,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5516 19.3935
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-inf,-4.35016e+06,-4.49203e+06,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5413 20.1377
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-inf,-inf,-4.49203e+06,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5305 19.9174
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-inf,-inf,-inf,-4.63155e+06,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5151 20.4363
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -4.77216e+06,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5225 20.8851
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-4.92071e+06,-5.06391e+06,0,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5125 20.3592
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-5.06391e+06,0,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5003 20.4391
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,0,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,20.5,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4866 38.5878
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4838 19.9777
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4898 21.0011
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5215 22.1856
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4824 20.2773
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4819 20.2258
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4743 20.217
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4742 20.5244
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4768 20.4421
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4736 20.601
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4760 20.6253
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4789 20.6209
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4710 20.6988
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4740 20.6705
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4729 20.6808
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4668 20.8671
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4942 21.8091
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4685 20.6543
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4660 20.768
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4686 20.8134
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4640 20.6941
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4663 20.9017
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5036 22.1482
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4826 20.6334
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4639 20.7138
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4635 20.6498
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4621 19.7388
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4626 20.7484
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4593 19.7129
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4922 21.8961
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4614 20.6643
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4628 19.7898
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4614 19.8303
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4586 19.688
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4690 20.596
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4706 20.503
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4853 21.7823
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4719 20.4871
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4708 20.2889
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4591 19.7994
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4611 19.8142
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4601 19.795
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4646 20.7536
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4753 20.7569
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4598 19.8805
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4570 19.7078
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4559 19.8579
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4545 19.9231
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4570 19.8803
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4786 20.886
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4698 20.9141
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4645 20.8799
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4593 19.9087
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4571 19.8494
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4579 19.8517
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4579 19.9256
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4579 19.7875
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4893 21.9917
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4581 19.8737
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4551 19.6714
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4556 19.8328
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4548 19.8229
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4581 19.8435
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4555 19.9082
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 5042 21.9261
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4555 19.7898
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4570 19.7317
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4528 19.7698
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4565 19.8568
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4706 20.7778
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4572 19.7545
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4546 19.8284
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4697 20.8552
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4541 19.9118
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4521 19.8199
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4538 19.8714
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4511 19.963
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4528 19.9568
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4511 19.8656
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 20.014
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 19.9402
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 19.945
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4543 20.0164
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4658 21.0261
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4517 19.7989
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4511 19.9995
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4513 19.8897
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4556 19.8161
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4515 20.0101
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4495 19.9412
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4521 19.8308
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4528 20.0462
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4521 19.9557
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4500 19.999
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4483 19.8996
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4488 19.9539
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4627 20.8907
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4529 20.0524
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4490 19.9534
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4486 19.9166
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4503 20.0056
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4495 19.9557
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4485 19.8536
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4491 20.0544
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4656 20.9497
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4648 20.9373
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4482 20.0836
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4493 20.0004
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4501 19.9675
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4493 20.0946
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4656 21.037
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4795 20.949
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4483 19.819
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4474 20.0218
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4491 19.9073
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4484 19.9002
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4485 19.8714
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4478 19.9132
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4487 19.9601
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4766 20.9527
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4469 19.8644
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4481 19.8634
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4456 19.87
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4459 19.8932
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4497 19.9011
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4741 20.9535
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4491 20.0356
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4475 19.981
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4498 19.947
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4649 20.9434
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4592 20.7683
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4487 19.8622
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4772 21.0333
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4504 19.9802
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4494 19.8439
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4599 20.7715
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4473 20.0448
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4462 19.8904
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4632 20.9994
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4512 19.9384
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4488 19.8909
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4473 19.965
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4466 19.9497
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4468 19.9171
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.9416
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4929 22.0576
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4506 19.8846
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4469 19.895
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4451 19.9738
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4495 19.9047
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4475 19.8905
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4444 19.936
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4465 19.8891
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4757 21.0073
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4457 19.8565
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4446 20.0011
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4621 21.0057
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4458 19.9915
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4486 19.9657
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4860 22.0134
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4477 19.9856
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4471 20.0071
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4524 20.0457
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4469 19.9423
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4467 20.1312
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 19.9988
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4785 21.0062
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4471 20.0841
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4602 20.0383
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4451 19.9816
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4455 20.0021
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4444 19.9619
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4452 20.0138
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4451 20.0772
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4696 21.0948
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4489 20.027
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4547 19.658
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4517 20.0531
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 20.0135
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4466 20.1298
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4454 19.9455
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 3
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4545 19.7454
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 4
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4438 20.0185
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 5
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4479 18.9684
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 6
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4447 20.1342
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 7
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4427 20.0298
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 8
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4435 19.9961
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 9
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4532 19.7017
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 0
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4440 20.0561
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 1
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4468 20.1607
+energymon-odroid: INA3221 via hwmon (L4T R35+)
+Concorrency= 2
+Progress Cohort={ -inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,-inf,Accuracy Cohort={ 23,23,23,23,23,23,23,23,23,23,}
+}
+++++ xup_exec_us/xup_energy_mj: 4442 20.0173

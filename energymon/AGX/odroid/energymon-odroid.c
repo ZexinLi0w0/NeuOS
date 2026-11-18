@@ -35,6 +35,7 @@ int energymon_get_default(energymon* em) {
 //#define INA231_DEFAULT_UPDATE_INTERVAL_US 263808
 
 #define INA3221_DIR "/sys/bus/i2c/drivers/ina3221x"
+#define INA3221_HWMON_DRV "/sys/bus/i2c/drivers/ina3221"
 #define INA3221_IN_POWER INA3221_DIR"/1-0041/iio_device/in_power2_input"
 #define INA3221_GPU_POWER INA3221_DIR"/1-0040/iio_device/in_power0_input"
 #define INA3221_CPU_POWER INA3221_DIR"/1-0040/iio_device/in_power1_input"
@@ -56,8 +57,58 @@ typedef struct energymon_odroid {
   // sensor file descriptors
   unsigned int count;
   int fds[4];
+  // hwmon (L4T R35+): voltage and current file per rail; -1 when unused
+  int vfds[4];
+  int ifds[4];
+  int use_hwmon;
 } energymon_odroid;
 
+
+
+/* hwmon rails: {i2c device, channel} for SYS5V, GPU, CPU, VDDRQ */
+static const char* HWMON_DEV[4] = {"1-0041", "1-0040", "1-0040", "1-0041"};
+static const int HWMON_CH[4] = {3, 1, 2, 2};
+
+static int open_hwmon(const char* dev, const char* kind, int ch) {
+  char dir[256], path[384];
+  snprintf(dir, sizeof(dir), INA3221_HWMON_DRV "/%s/hwmon", dev);
+  DIR* d = opendir(dir);
+  if (d == NULL) return -1;
+  struct dirent* e;
+  int fd = -1;
+  while ((e = readdir(d)) != NULL) {
+    if (strncmp(e->d_name, "hwmon", 5) == 0) {
+      snprintf(path, sizeof(path), "%s/%s/%s%d_input", dir, e->d_name, kind, ch);
+      fd = open(path, O_RDONLY);
+      break;
+    }
+  }
+  closedir(d);
+  return fd;
+}
+
+static int read_rail_mw(energymon_odroid* st, int k, double* mw) {
+  char buf[16];
+  ssize_t n;
+  if (!st->use_hwmon) {
+    n = pread(st->fds[k], buf, sizeof(buf) - 1, 0);
+    if (n <= 0) return -1;
+    buf[n] = 0;
+    *mw = strtod(buf, NULL);
+    return 0;
+  }
+  double mv, ma;
+  n = pread(st->vfds[k], buf, sizeof(buf) - 1, 0);
+  if (n <= 0) return -1;
+  buf[n] = 0;
+  mv = strtod(buf, NULL);
+  n = pread(st->ifds[k], buf, sizeof(buf) - 1, 0);
+  if (n <= 0) return -1;
+  buf[n] = 0;
+  ma = strtod(buf, NULL);
+  *mw = mv * ma / 1000.0;
+  return 0;
+}
 
 static inline long get_update_interval(char** sensors, unsigned int num) {
   unsigned long ret = INA3221_DEFAULT_UPDATE_INTERVAL_US;
@@ -89,6 +140,10 @@ int energymon_finish_odroid(energymon* em) {
       err_save = err_save ? err_save : errno;
     }
   }
+  for (i = 0; i < 4; i++) {
+    if (state->vfds[i] > 0) close(state->vfds[i]);
+    if (state->ifds[i] > 0) close(state->ifds[i]);
+  }
   free(em->state);
   em->state = NULL;
   errno = err_save;
@@ -112,13 +167,17 @@ static inline char** get_sensor_directories(unsigned int* count) {
   errno = 0;
   DIR* sensors_dir = opendir(INA3221_DIR);
   if (sensors_dir == NULL) {
+    sensors_dir = opendir(INA3221_HWMON_DRV);
+  }
+  if (sensors_dir == NULL) {
+    *count = 0;
     return NULL;
   }
   directories = calloc(*count, sizeof(char*));
   directories[0]  = "0-0041";
   directories[1]  = "0-0040";
   if (closedir(sensors_dir)) {
-    perror(INA3221_DIR);
+    perror("closedir");
   }
   return directories;
 }
@@ -141,23 +200,11 @@ static void* odroid_poll_sensors(void* args) {
   energymon_sleep_us(state->read_delay_us, &state->poll_sensors);
   while (state->poll_sensors) {
     // read individual sensors
-      if (pread(state->fds[0], cdata, sizeof(cdata), 0) > 0) {
-		  sum_w = strtod(cdata, NULL);
-      }
-
-	  if (pread(state->fds[1], cdata, sizeof(cdata), 0) > 0) {
-		  gpu_w = strtod(cdata, NULL);
-      }
-	
-	  if (pread(state->fds[2], cdata, sizeof(cdata), 0) > 0) {
-		  cpu_w = strtod(cdata, NULL);
-      }
-	
-	  if (pread(state->fds[3], cdata, sizeof(cdata), 0) > 0) {
-		  ddr_w = strtod(cdata, NULL);
-      }
-
-
+    errno = 0;
+    if (read_rail_mw(state, 0, &sum_w) || read_rail_mw(state, 1, &gpu_w) ||
+        read_rail_mw(state, 2, &cpu_w) || read_rail_mw(state, 3, &ddr_w)) {
+      if (!errno) errno = EIO;
+    }
 
     err_save = errno;
     exec_us = energymon_gettime_us(&ts);
@@ -210,10 +257,24 @@ int energymon_init_odroid(energymon* em) {
   state->count = count;
 
   em->state = state;
-  state->fds[0]=open(INA3221_IN_POWER, O_RDONLY);
-  state->fds[1]=open(INA3221_GPU_POWER, O_RDONLY);
-  state->fds[2]=open(INA3221_CPU_POWER, O_RDONLY);
-  state->fds[3]=open(INA3221_DDR_POWER, O_RDONLY);
+  for (i = 0; i < 4; i++) {
+    state->vfds[i] = open_hwmon(HWMON_DEV[i], "in", HWMON_CH[i]);
+    state->ifds[i] = open_hwmon(HWMON_DEV[i], "curr", HWMON_CH[i]);
+  }
+  state->use_hwmon = 1;
+  for (i = 0; i < 4; i++) {
+    if (state->vfds[i] < 0 || state->ifds[i] < 0) state->use_hwmon = 0;
+  }
+  if (!state->use_hwmon) {
+    state->fds[0]=open(INA3221_IN_POWER, O_RDONLY);
+    state->fds[1]=open(INA3221_GPU_POWER, O_RDONLY);
+    state->fds[2]=open(INA3221_CPU_POWER, O_RDONLY);
+    state->fds[3]=open(INA3221_DDR_POWER, O_RDONLY);
+  }
+  if (state->use_hwmon || state->fds[0] < 0) {
+    fprintf(stderr, "energymon-odroid: %s\n", state->use_hwmon ?
+            "INA3221 via hwmon (L4T R35+)" : "no readable INA3221 rails (run as root?)");
+  }
 
   // get the delay time between reads
   state->read_delay_us = get_update_interval(sensor_dirs, state->count);

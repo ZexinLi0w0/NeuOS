@@ -36,6 +36,14 @@
 //#define MIN_ENG
 
 using namespace std;
+
+// SysV shm key files (README step 7). Default /home/nvidia as in the original;
+// set NEUOS_SHM_DIR to use another directory.
+static std::string neuos_shm_path(const char* name) {
+  const char* dir = getenv("NEUOS_SHM_DIR");
+  return std::string(dir ? dir : "/home/nvidia") + "/" + name;
+}
+
 namespace caffe {
 
 	template <typename Dtype>
@@ -673,11 +681,19 @@ namespace caffe {
 	//}
 
 	template <typename Dtype>
+		void Net<Dtype>::shutdown_config()
+		{
+			is_config_on=false;
+		}
+
+	template <typename Dtype>
 		void Net<Dtype>::warmup()
 		{
 			//for(int i=0;i<24;i++){
 			//	deadlines.push_back(i*1.0);
 			//}
+			if(!is_config_on)
+				return;
 			srand (time(NULL));
 			int conf = rand()%configurations.size();
 			cout << "*********************Configuration size: " << configurations.size() << endl;
@@ -742,9 +758,9 @@ namespace caffe {
 			float priority = 1;
 			uint64_t total_running_time=0;
 			// ftok to generate unique key
-			key = ftok("/home/nvidia/datafile", 65);
-			key2 = ftok("/home/nvidia/concurrfile", 65);
-			key3 = ftok("/home/nvidia/approxfile", 65);
+			key = ftok(neuos_shm_path("datafile").c_str(), 65);
+			key2 = ftok(neuos_shm_path("concurrfile").c_str(), 65);
+			key3 = ftok(neuos_shm_path("approxfile").c_str(), 65);
 
 
 			/* Progress */
@@ -886,6 +902,7 @@ namespace caffe {
 						start_total = em.fread(&em, start_nj);
 						energymon_gettime_us(&ts);
 						//cout<< "Slack:" <<_slack <<" Deadline:" <<deadlines[i-1] << " History:[" <<  history[i-1][0].speedup << " " << rev_history[i-1][0]  << " " <<  history[i][0].speedup << " " << rev_history[i][0] << "]"<< endl;
+						if(is_config_on)
 						current_configuration[i] = schedule(priority,_slack, deadlines[i],deadlines[i-1], (float)exec_us/iteration + sched_us, _Uncertainty[i],current_configuration[i-1],current_configuration[i], history[i-1], rev_history[i-1], history[i], rev_history[i]);
 						//cout << "Done scheduling." << endl;
 
@@ -899,6 +916,7 @@ namespace caffe {
 
 
 
+						if(is_config_on) {
 						if(current_configuration[i] >= configurations.size()){
 							current_configuration[i] = configurations.size()-1;
 						}
@@ -947,6 +965,7 @@ namespace caffe {
 
 						if(cur.mem_freq!=last.mem_freq)
 							setEmcFreq(cur.mem_freq);
+						} // is_config_on
 
 						//cout <<"############## Configuration:" << current_configuration[i] << " Uncertainty:" << _Uncertainty[i] << endl;
 					}
